@@ -1,0 +1,58 @@
+.Mainpage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 4rem;
+  color: white;
+}
+
+.logo {
+  font-size: 4rem;
+  font-weight: bold;
+  width: 20%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 9rem;
+  padding: 0; /* Ensure no padding on the nav-links */
+  width: 80%;
+}
+
+.nav-links li {
+  font-size: 2rem;
+  cursor: pointer;
+  margin: 0;
+  white-space: nowrap;
+  list-style: none;
+  position: left; /* Enable positioning for dropdown */
+}
+
+.dropdown {
+  display: none;
+  position: left;
+  list-style: none;
+  top: 100%; /* Align the dropdown below the li element */
+  left: 0; /* Align the dropdown with the left edge of the li element */
+  padding: 0; /* Remove padding */
+  margin: 0; /* Remove margin */
+  border-radius: 0.25rem; /* Rounded corners */
+  font-size: 10px;
+  text-align: left;
+}
+
+.nav-item:hover .dropdown {
+  display: block;
+}
+.ul {
+  font-size: 10px;
+}
+.li {
+  font-size: 10px;
+}
+a:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
