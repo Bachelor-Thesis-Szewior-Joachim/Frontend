@@ -4,6 +4,11 @@
   align-items: center;
   padding: 1rem 4rem;
   color: white;
+  position: relative;
+  z-index: 1000;
+  /* background-color: #1b1b2f; Dark purple background */
+  border-bottom: 4px solid #302b63;
+  border-radius: 0 0 8px 8px;
 }
 
 .logo {
@@ -12,13 +17,27 @@
   width: 20%;
   text-align: left;
   cursor: pointer;
+  color: #ffffff; /* White logo text */
+}
+
+.nav-icon {
+  margin-right: 8px;
+  vertical-align: middle;
+  transition: transform 0.3s ease, color 0.3s ease;
+  transform: rotate(-90deg);
+  color: #ffffff; /* White arrow icon */
+}
+
+.nav-item:hover .nav-icon {
+  transform: rotate(0deg);
+  color: #8e44ad; /* Lighter purple on hover */
 }
 
 .nav-links {
   list-style: none;
   display: flex;
-  gap: 9rem;
-  padding: 0; /* Ensure no padding on the nav-links */
+  gap: 6rem;
+  padding: 0;
   width: 80%;
 }
 
@@ -28,31 +47,62 @@
   margin: 0;
   white-space: nowrap;
   list-style: none;
-  position: left; /* Enable positioning for dropdown */
+  position: relative;
+  color: #ffffff; /* White text for navigation items */
+}
+
+.nav-links li:hover {
+  color: #8e44ad; /* Lighter purple on hover */
 }
 
 .dropdown {
   display: none;
-  position: left;
+  position: absolute;
+  top: 100%;
+  left: 0;
   list-style: none;
-  top: 100%; /* Align the dropdown below the li element */
-  left: 0; /* Align the dropdown with the left edge of the li element */
-  padding: 0; /* Remove padding */
-  margin: 0; /* Remove margin */
-  border-radius: 0.25rem; /* Rounded corners */
-  font-size: 10px;
-  text-align: left;
+  padding: 0.5rem 0;
+  margin: 0;
+  background-color: #302b63; /* Dark purple background for dropdown */
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .nav-item:hover .dropdown {
   display: block;
+  opacity: 1;
+  transform: translateY(0);
 }
-.ul {
-  font-size: 10px;
+
+#list-elem {
+  font-size: 1.6rem;
+  padding: 12px 20px;
+  margin: 0;
+  color: white;
+  background-color: transparent;
+  white-space: nowrap;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
-.li {
-  font-size: 10px;
+
+#list-elem:hover {
+  background-color: #8e44ad; /* Light purple on hover */
+  color: #ffffff;
+  border-radius: 8px;
+  text-decoration: none;
 }
-a:hover {
-  text-decoration: underline; /* Add underline on hover */
+
+.dropdown::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid #302b63; /* Dark purple arrow pointing to dropdown */
 }

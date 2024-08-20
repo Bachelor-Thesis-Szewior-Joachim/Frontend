@@ -1,5 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import "./header.css";
 
 function Header() {
@@ -15,15 +17,25 @@ function Header() {
           <ul className="nav-links">
             <div>
               <li className="nav-item">
+                <FontAwesomeIcon icon={faChevronDown} className="nav-icon" />
                 Blockchain
                 <ul className="dropdown">
-                  <li onClick={() => navigate("/blockchain/accounts")}>
+                  <li
+                    id="list-elem"
+                    onClick={() => navigate("/blockchain/accounts")}
+                  >
                     Accounts
                   </li>
-                  <li onClick={() => navigate("/blockchain/blocks")}>
+                  <li
+                    id="list-elem"
+                    onClick={() => navigate("/blockchain/blocks")}
+                  >
                     View Blocks
                   </li>
-                  <li onClick={() => navigate("/blockchain/transactions")}>
+                  <li
+                    id="list-elem"
+                    onClick={() => navigate("/blockchain/transactions")}
+                  >
                     Transactions
                   </li>
                 </ul>
@@ -31,9 +43,13 @@ function Header() {
             </div>
             <div>
               <li className="nav-item">
+                <FontAwesomeIcon icon={faChevronDown} className="nav-icon" />
                 Tokens
                 <ul className="dropdown">
-                  <li onClick={() => navigate("/tokens/top-tokens")}>
+                  <li
+                    id="list-elem"
+                    onClick={() => navigate("/tokens/top-tokens")}
+                  >
                     Top tokens
                   </li>
                 </ul>
@@ -41,22 +57,46 @@ function Header() {
             </div>
             <div>
               <li className="nav-item">
+                <FontAwesomeIcon icon={faChevronDown} className="nav-icon" />
                 Resources
                 <ul className="dropdown">
-                  <li onClick={() => navigate("/resources/charts")}>Charts</li>
-                  <li onClick={() => navigate("/resources/stats")}>Stats</li>
-                  <li onClick={() => navigate("/resources/top-statistics")}>
+                  <li
+                    id="list-elem"
+                    onClick={() => navigate("/resources/charts")}
+                  >
+                    Charts
+                  </li>
+                  <li
+                    id="list-elem"
+                    onClick={() => navigate("/resources/stats")}
+                  >
+                    Stats
+                  </li>
+                  <li
+                    id="list-elem"
+                    onClick={() => navigate("/resources/top-statistics")}
+                  >
                     Top statistics
                   </li>
-                  <li onClick={() => navigate("/resources/leaderboard")}>
+                  <li
+                    id="list-elem"
+                    onClick={() => navigate("/resources/leaderboard")}
+                  >
                     Leaderboard
                   </li>
-                  <li onClick={() => navigate("/resources/news")}>News</li>
+                  <li
+                    id="list-elem"
+                    onClick={() => navigate("/resources/news")}
+                  >
+                    News
+                  </li>
                 </ul>
               </li>
             </div>
             <div>
-              <li onClick={() => navigate("/login")}>Login</li>
+              <li className="nav-item" onClick={() => navigate("/login")}>
+                Login
+              </li>
             </div>
           </ul>
         </nav>
