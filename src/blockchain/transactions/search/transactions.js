@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./transactions.css";
-import Header from "../../header";
+import Header from "../../../header";
 
 function Transactions() {
   const [transactionsPerPage, setTransactionsPerPage] = useState(20);

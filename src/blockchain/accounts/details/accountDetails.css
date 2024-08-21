@@ -1,0 +1,51 @@
+#table-preview {
+  flex: 0 0 4%; /* flex-grow: 0; flex-shrink: 0; flex-basis: 10%; */
+}
+#table-transaction-hash {
+  flex: 0 0 11%; /* Adjust percentage as needed */
+}
+#table-method {
+  flex: 0 0 6%; /* Adjust percentage as needed */
+}
+#table-block {
+  flex: 0 0 7%; /* Adjust percentage as needed */
+}
+#table-transaction-age {
+  flex: 0 0 10%; /* Adjust percentage as needed */
+}
+#table-from {
+  flex: 0 0 10%; /* Adjust percentage as needed */
+}
+#table-to {
+  flex: 0 0 17%; /* Adjust percentage as needed */
+}
+#table-amount {
+  flex: 0 0 17%; /* Adjust percentage as needed */
+}
+#table-transaction-fee {
+  flex: 0 0 9%; /* Adjust percentage as needed */
+}
+#account-address {
+  font-size: larger;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #444;
+}
+
+th {
+  font-weight: bold;
+  text-align: center;
+}
+
+.info-title {
+  font-size: 18px;
+  padding: 15px 10px;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}

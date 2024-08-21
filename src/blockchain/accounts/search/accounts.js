@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./accounts.css";
-import Header from "../../header";
+import Header from "../../../header";
 
 function Accounts() {
   const [searchTerm, setSearchTerm] = useState("");

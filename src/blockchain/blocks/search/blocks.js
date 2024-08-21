@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./blocks.css";
-import Header from "../../header";
+import Header from "../../../header";
 
 function Blocks() {
   const [blocksPerPage, setBlocksPerPage] = useState(20);
@@ -61,7 +61,7 @@ function Blocks() {
   return (
     <div>
       <Header />
-      <div className="block-info-container">
+      <div className="big-info-container">
         <div className="small-info-container">
           <div className="info-box">
             <div className="info-title">NETWORK UTILIZATION (24H)</div>
