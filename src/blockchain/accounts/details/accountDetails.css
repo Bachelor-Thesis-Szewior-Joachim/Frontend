@@ -29,6 +29,12 @@
   font-size: larger;
 }
 
+.clickable:hover {
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 th,
 td {
   padding: 10px;

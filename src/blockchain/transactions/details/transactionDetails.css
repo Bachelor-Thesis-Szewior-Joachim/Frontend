@@ -1,0 +1,165 @@
+.overview-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding: 15px 30px;
+  background: linear-gradient(
+    90deg,
+    #2c2f36,
+    #1f1f38
+  ); /* Gradient background */
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Stronger shadow for more depth */
+  color: #ffffff;
+  font-size: 20px;
+}
+
+.overview-icon {
+  font-size: 24px;
+  margin-right: 10px;
+  color: #5b8cfe; /* Match the theme with a touch of color */
+}
+
+.overview-text {
+  margin-right: 10px;
+  font-weight: 600; /* Slightly bolder than normal */
+  color: #e0e0e0; /* Softer white for contrast */
+}
+
+.transaction-hash {
+  font-family: "Courier New", Courier, monospace;
+  background-color: #33334d;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.group-details {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px 20px;
+  padding: 20px;
+  background-color: #2c2f36; /* Dark background color */
+  border: 1px solid #444; /* Darker border to fit the theme */
+  border-radius: 8px;
+  color: #ffffff; /* White text color for readability */
+}
+
+#list-ERC-20 {
+  display: flex;
+}
+
+.group-detail {
+  display: contents; /* Allows label and value to span the grid */
+}
+
+.label {
+  font-weight: bold;
+  color: #cccccc; /* Light gray for labels */
+}
+
+.value {
+  color: #ffffff; /* White for values */
+}
+
+.outer-box {
+  padding-left: 200px;
+  padding-right: 200px;
+  padding-top: 20px;
+  padding-bottom: 80px;
+}
+
+.middle-box {
+  background-color: #1f1f38; /* Darker outer box background */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+.inner-box {
+  padding: 20px;
+  background-color: #33334d; /* Dark inner box background */
+  border-radius: 8px;
+}
+
+.small-table-body {
+  display: flex;
+  flex-direction: column;
+  max-height: 200px; /* Set a max height to make the table scrollable */
+  overflow-y: auto; /* Enable vertical scrolling */
+  padding-right: 10px; /* Space for scrollbar */
+}
+
+#table-id {
+  margin-right: 20px;
+  color: #ffffff;
+  flex: 0 0 5%; /* Adjust width as needed */
+}
+
+.transfers {
+  display: flex;
+  flex-direction: row; /* Make the transfers section a row */
+  align-items: center;
+  width: 100%;
+}
+
+.transfer-details {
+  display: flex;
+  flex-direction: row; /* Make transfer details align horizontally */
+  flex-wrap: wrap; /* Wrap the rows if there are too many */
+  flex: 1; /* Take up available space */
+}
+
+.transfer-row {
+  margin-right: 20px; /* Space between transfer rows */
+  padding: 5px 0;
+}
+
+.transfer-header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-left: auto; /* Push buttons to the far right */
+}
+
+.transfer-button {
+  background-color: #007bff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin-left: 10px;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.transfer-button.active {
+  background-color: #5b8cfe;
+}
+
+.transfer-from,
+.transfer-to,
+.transfer-token,
+.transfer-value {
+  font-weight: bold;
+}
+
+.transfer-from,
+.transfer-to {
+  color: #5b8cfe;
+  cursor: pointer;
+}
+
+.transfer-from:hover,
+.transfer-to:hover {
+  text-decoration: underline;
+}
+
+.transfer-token {
+  color: #28a745;
+}
+
+.transfer-value {
+  color: #6c757d;
+}

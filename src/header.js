@@ -52,6 +52,53 @@ function Header() {
                   >
                     Top tokens
                   </li>
+                  <li
+                    id="list-elem"
+                    onClick={() =>
+                      navigate("/resources/general-nft-statistics")
+                    }
+                  >
+                    General NFT statistics
+                  </li>
+                </ul>
+              </li>
+            </div>
+            <div>
+              <li className="nav-item">
+                <FontAwesomeIcon icon={faChevronDown} className="nav-icon" />
+                Cryptocurrency
+                <ul className="dropdown">
+                  <li
+                    id="list-elem"
+                    onClick={() => navigate("/resources/ranking")}
+                  >
+                    Ranking
+                  </li>
+                  <li
+                    id="list-elem"
+                    onClick={() => navigate("/resources/categories")}
+                  >
+                    Categories
+                  </li>
+                  <li
+                    id="list-elem"
+                    onClick={() => navigate("/resources/global-market")}
+                  >
+                    Global market
+                  </li>
+                  <li
+                    id="list-elem"
+                    onClick={() => navigate("/resources/historical-data")}
+                  >
+                    Historical data
+                  </li>
+
+                  <li
+                    id="list-elem"
+                    onClick={() => navigate("/resources/gainers-and-losers")}
+                  >
+                    Gainers & Losers
+                  </li>
                 </ul>
               </li>
             </div>
@@ -68,21 +115,15 @@ function Header() {
                   </li>
                   <li
                     id="list-elem"
-                    onClick={() => navigate("/resources/stats")}
-                  >
-                    Stats
-                  </li>
-                  <li
-                    id="list-elem"
                     onClick={() => navigate("/resources/top-statistics")}
                   >
                     Top statistics
                   </li>
                   <li
                     id="list-elem"
-                    onClick={() => navigate("/resources/leaderboard")}
+                    onClick={() => navigate("/resources/directory")}
                   >
-                    Leaderboard
+                    Directory
                   </li>
                   <li
                     id="list-elem"

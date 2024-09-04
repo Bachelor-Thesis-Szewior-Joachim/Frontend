@@ -1,0 +1,60 @@
+#rondo-reveal .value {
+  display: block;
+  width: 150%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#rondo-reveal {
+  word-break: break-all;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.accordion-item {
+  margin-bottom: 10px;
+}
+
+.accordion-button {
+  width: 15%;
+  margin-right: 0.2%;
+  outline: none;
+  cursor: pointer;
+  font-size: x-large;
+  text-align: center;
+  padding: 10px 20px;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+}
+
+.accordion-content {
+  padding: 15px;
+  color: #333;
+}
+
+#slot-info,
+#blob-info {
+  display: none;
+}
+
+.group-details {
+  margin-bottom: 10px;
+  display: block;
+}
+
+.group-detail {
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding-left: 30px;
+  font-size: larger;
+  display: flex;
+}
+
+.label {
+  width: 50%;
+}
+
+.value {
+  width: 150%;
+}

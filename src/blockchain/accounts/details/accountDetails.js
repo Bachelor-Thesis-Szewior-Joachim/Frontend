@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import "./accountDetails.css";
 import Header from "../../../header";
+import { useNavigate } from "react-router-dom";
 
 function AccountDetails() {
   const [transactionsPerPage, setTransactionsPerPage] = useState(20);
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = 822778;
+  const navigate = useNavigate();
 
   const transactions = [
     {
@@ -52,6 +54,14 @@ function AccountDetails() {
     }
   }
 
+  const handleTransactionHash = (address) => {
+    navigate(`/blockchain/transactions/${address}`);
+  };
+
+  const handleAccountAddress = (address) => {
+    navigate(`/blockchain/accounts/${address}`);
+  };
+
   return (
     <div>
       <Header />
@@ -88,7 +98,9 @@ function AccountDetails() {
           </div>
 
           <div className="info-box">
-            <div className="info-title">Network transactions</div>
+            <div className="info-title">
+              Network transactions in the last day
+            </div>
             <div className="info-value">20572016</div>
           </div>
           <div className="info-box">
@@ -169,13 +181,34 @@ function AccountDetails() {
               <div key={index} className="table-row">
                 <div id="table-preview">icon</div>
                 <div id="table-transaction-hash">
-                  {transaction.transactionHash}
+                  <span
+                    className="clickable"
+                    onClick={() =>
+                      handleTransactionHash(transaction.transactionHash)
+                    }
+                  >
+                    {transaction.transactionHash}
+                  </span>
                 </div>
                 <div id="table-method">{transaction.method}</div>
                 <div id="table-block">{transaction.block}</div>
                 <div id="table-transaction-age">{transaction.age}</div>
-                <div id="table-from">{transaction.from}</div>
-                <div id="table-to">{transaction.to}</div>
+                <div id="table-from">
+                  <span
+                    className="clickable"
+                    onClick={() => handleAccountAddress(transaction.from)}
+                  >
+                    {transaction.from}
+                  </span>
+                </div>
+                <div id="table-to">
+                  <span
+                    className="clickable"
+                    onClick={() => handleAccountAddress(transaction.to)}
+                  >
+                    {transaction.to}
+                  </span>
+                </div>
                 <div id="table-amount">{transaction.amount}</div>
                 <div id="table-transaction-fee">{transaction.txnFee}</div>
               </div>

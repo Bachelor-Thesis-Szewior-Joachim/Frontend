@@ -12,8 +12,11 @@ import Leaderboard from "./resources/leaderboard/leaderboard";
 import News from "./resources/news/news";
 import Stats from "./resources/stats/stats";
 import TopStats from "./resources/topStats/topStats";
-import TopTokens from "./tokens/topTokens";
+import TopTokens from "./tokens/search/topTokens";
 import AccountDetails from "./blockchain/accounts/details/accountDetails";
+import TransactionDetails from "./blockchain/transactions/details/transactionDetails";
+import BlockDetails from "./blockchain/blocks/details/blockDetails";
+import TopTokenDetails from "./tokens/details/topTokenDetails";
 
 const App = () => {
   return (
@@ -21,9 +24,17 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Mainpage />} />
         <Route path="/blockchain/accounts" element={<Accounts />} />
-        <Route path="/blockchain/address" element={<AccountDetails />} />
+        <Route
+          path="/blockchain/accounts/:address"
+          element={<AccountDetails />}
+        />
         <Route path="/blockchain/blocks" element={<Blocks />} />
+        <Route path="/blockchain/blocks/:address" element={<BlockDetails />} />
         <Route path="/blockchain/transactions" element={<Transactions />} />
+        <Route
+          path="/blockchain/transactions/:transactionHash"
+          element={<TransactionDetails />}
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/resources/charts" element={<Charts />} />
@@ -32,6 +43,7 @@ const App = () => {
         <Route path="/resources/stats" element={<Stats />} />
         <Route path="/resources/top-statistics" element={<TopStats />} />
         <Route path="/tokens/top-tokens" element={<TopTokens />} />
+        <Route path="/token/details/:name" element={<TopTokenDetails />} />
       </Routes>
     </Router>
   );

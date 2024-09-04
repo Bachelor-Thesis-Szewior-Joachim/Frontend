@@ -1,0 +1,84 @@
+#table-preview {
+  flex: 0 0 4%; /* flex-grow: 0; flex-shrink: 0; flex-basis: 10%; */
+}
+#table-token-name {
+  flex: 0 0 11%; /* Adjust percentage as needed */
+}
+#table-price {
+  flex: 0 0 6%; /* Adjust percentage as needed */
+}
+#table-change {
+  flex: 0 0 7%; /* Adjust percentage as needed */
+}
+#table-volume {
+  flex: 0 0 11%; /* Adjust percentage as needed */
+}
+#table-circulating-market-cap {
+  flex: 0 0 15%; /* Adjust percentage as needed */
+}
+#table-onchain-market-cap {
+  flex: 0 0 15%; /* Adjust percentage as needed */
+}
+#table-holders {
+  flex: 0 0 10%; /* Adjust percentage as needed */
+}
+#custom-padding {
+  padding-left: 10%;
+  padding-right: 10%;
+}
+.token-table {
+  width: 80%; /* Adjust width to a smaller value if needed */
+  margin: 0 auto; /* Center the table horizontally */
+  border-collapse: collapse;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  background-color: #282c34;
+  padding: 10px;
+  font-weight: bold;
+  color: #ffffff;
+  border-bottom: 1px solid #ffffff;
+}
+
+.table-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.table-row div {
+  padding: 10px;
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Hide any overflowing text */
+  text-overflow: ellipsis; /* Add "..." for overflowed text */
+}
+
+#table-preview,
+#table-price,
+#table-change,
+#table-holders {
+  flex: 0 0 9%; /* Set a smaller fixed width for these columns */
+}
+
+#table-token-name {
+  flex: 0 0 15%; /* Allocate more space for the token name */
+}
+
+#table-volume,
+#table-circulating-market-cap,
+#table-onchain-market-cap {
+  flex: 0 0 15%; /* Adjust depending on how much space you need */
+}
+
+.clickable {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+#table-block:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

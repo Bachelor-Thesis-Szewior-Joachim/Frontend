@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import "./blocks.css";
 import Header from "../../../header";
+import { useNavigate } from "react-router-dom";
 
 function Blocks() {
   const [blocksPerPage, setBlocksPerPage] = useState(20);
   const [currentPage, setCurrentPage] = useState(1);
+  const [blockchainToShow, setBlockchainToShow] = useState("Solana");
+
   const totalPages = 822778; // Example total pages
+
+  const navigate = useNavigate();
 
   const blocks = [
     {
@@ -58,6 +63,10 @@ function Blocks() {
     }
   }
 
+  const handleBlockNumber = (address) => {
+    navigate(`/blockchain/blocks/${address}`);
+  };
+
   return (
     <div>
       <Header />
@@ -75,6 +84,18 @@ function Blocks() {
             <div className="info-title">PRODUCED BY MEV BUILDERS (24H)</div>
             <div className="info-value">91.5%</div>
           </div>
+        </div>
+
+        <div className="blockchain-selector">
+          <label>Choose Blockchain:</label>
+          <select
+            value={blockchainToShow}
+            onChange={(e) => setBlockchainToShow(e.target.value)}
+          >
+            <option value="Solana">Solana</option>
+            <option value="Ethereum">Ethereum</option>
+            <option value="Bitcoin">Bitcoin</option>
+          </select>
         </div>
 
         <div className="list-of-blocks-header">
@@ -133,7 +154,14 @@ function Blocks() {
           <div className="table-body">
             {blocks.map((block, index) => (
               <div key={index} className="table-row">
-                <div id="table-block-number">{block.blockNumber}</div>
+                <div id="table-block-number">
+                  <span
+                    id="block-number"
+                    onClick={() => handleBlockNumber(block.blockNumber)}
+                  >
+                    {block.blockNumber}
+                  </span>
+                </div>
                 <div id="table-slot">{block.slot}</div>
                 <div id="table-age">{block.age}</div>
                 <div id="table-txt">{block.txt}</div>

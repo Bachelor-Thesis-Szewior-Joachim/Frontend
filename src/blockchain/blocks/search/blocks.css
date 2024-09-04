@@ -233,3 +233,8 @@
 #table-burnt-fees {
   flex: 0 0 9%; /* Adjust percentage as needed */
 }
+
+#block-number:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

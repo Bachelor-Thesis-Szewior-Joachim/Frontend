@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import "./accounts.css";
 import Header from "../../../header";
+import { useNavigate } from "react-router-dom";
 
 function Accounts() {
   const [searchTerm, setSearchTerm] = useState("");
   const [rowsToShow, setRowsToShow] = useState(20);
   const [blockchainToShow, setBlockchainToShow] = useState("Solana");
+  const navigate = useNavigate();
 
   const accounts = [
     // Example data - replace with actual account data
@@ -33,6 +35,10 @@ function Accounts() {
       account.address.includes(searchTerm) ||
       account.nameTag.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleAccountAddress = (address) => {
+    navigate(`/blockchain/accounts/${address}`);
+  };
 
   return (
     <div>
@@ -82,7 +88,14 @@ function Accounts() {
             {filteredAccounts.slice(0, rowsToShow).map((account) => (
               <div className="table-row" key={account.id}>
                 <div id="table-id">{account.id}</div>
-                <div id="table-address">{account.address}</div>
+                <div id="table-address">
+                  <span
+                    className="clickable"
+                    onClick={() => handleAccountAddress(account.address)}
+                  >
+                    {account.address}
+                  </span>
+                </div>
                 <div id="table-name-tag">{account.nameTag}</div>
                 <div id="table-balance">{account.balance}</div>
                 <div id="table-percentage">{account.percentage}</div>

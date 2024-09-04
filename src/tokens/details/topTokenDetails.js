@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import "./transactions.css";
-import Header from "../../../header";
+import { React, useState } from "react";
+import "./topTokenDetails.css";
+import Header from "../../header";
 import { useNavigate } from "react-router-dom";
 
-function Transactions() {
+function TopTokenDetails() {
   const [transactionsPerPage, setTransactionsPerPage] = useState(20);
   const [currentPage, setCurrentPage] = useState(1);
   const [blockchainToShow, setBlockchainToShow] = useState("Solana");
@@ -52,6 +52,10 @@ function Transactions() {
     navigate(`/blockchain/accounts/${address}`);
   };
 
+  const handleBlockAddress = (address) => {
+    navigate(`/blockchain/blocks/:${address}`);
+  };
+
   function goToPreviousPage() {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
@@ -70,16 +74,39 @@ function Transactions() {
       <div className="big-info-container">
         <div className="small-info-container">
           <div className="info-box">
-            <div className="info-title">Transactions(24H)</div>
-            <div className="info-value">1,042,000</div>
+            <div className="info-title">Max Total Supply</div>
+            <div className="info-value">53,981,730,120.39639 USDT</div>
+
+            <div className="info-title">Holders</div>
+            <div className="info-value">
+              5,988,040 <span className="info-change">(+0.110%)</span>
+            </div>
+
+            <div className="info-title">Total Transfers</div>
+            <div className="info-value">251,230,948</div>
           </div>
+
           <div className="info-box">
-            <div className="info-title">Network transactions</div>
-            <div className="info-value">20572016</div>
+            <div className="info-title">Price</div>
+            <div className="info-value">$1.00 @ 0.000408 ETH (+0.05%)</div>
+
+            <div className="info-title">Onchain Market Cap</div>
+            <div className="info-value">$53,972,175,354.17</div>
+
+            <div className="info-title">Circulating Supply Market Cap</div>
+            <div className="info-value">$118,120,289,054.00</div>
           </div>
+
           <div className="info-box">
-            <div className="info-title">AVG. Transactions fee (24H)</div>
-            <div className="info-value">1.12USD</div>
+            <div className="info-title">Token Contract (With 6 Decimals)</div>
+            <div className="info-value">
+              <a href="#">0xdac17f958d2ee523a2206206994597c13d831ec7</a>
+            </div>
+            <img
+              src="your-ad-image-url.png"
+              alt="Advertisement"
+              className="ad-image"
+            />
           </div>
         </div>
 
@@ -164,7 +191,12 @@ function Transactions() {
                   </span>
                 </div>
                 <div id="table-method">{transaction.method}</div>
-                <div id="table-block">{transaction.block}</div>
+                <div
+                  id="table-block"
+                  onClick={() => handleBlockAddress(transaction.block)}
+                >
+                  {transaction.block}
+                </div>
                 <div id="table-transaction-age">{transaction.age}</div>
                 <div id="table-from">
                   <span
@@ -193,4 +225,4 @@ function Transactions() {
   );
 }
 
-export default Transactions;
+export default TopTokenDetails;
