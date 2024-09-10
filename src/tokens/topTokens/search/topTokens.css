@@ -1,25 +1,34 @@
 #table-preview {
+  text-align: left;
   flex: 0 0 4%; /* flex-grow: 0; flex-shrink: 0; flex-basis: 10%; */
 }
 #table-token-name {
+  text-align: center;
+
   flex: 0 0 11%; /* Adjust percentage as needed */
 }
 #table-price {
+  text-align: center;
   flex: 0 0 6%; /* Adjust percentage as needed */
 }
 #table-change {
+  text-align: center;
   flex: 0 0 7%; /* Adjust percentage as needed */
 }
 #table-volume {
+  text-align: center;
   flex: 0 0 11%; /* Adjust percentage as needed */
 }
 #table-circulating-market-cap {
+  text-align: center;
   flex: 0 0 15%; /* Adjust percentage as needed */
 }
 #table-onchain-market-cap {
+  text-align: center;
   flex: 0 0 15%; /* Adjust percentage as needed */
 }
 #table-holders {
+  text-align: right;
   flex: 0 0 10%; /* Adjust percentage as needed */
 }
 #custom-padding {

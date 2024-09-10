@@ -1,6 +1,6 @@
 import { React, useState } from "react";
 import "./topTokenDetails.css";
-import Header from "../../header";
+import Header from "../../../header";
 import { useNavigate } from "react-router-dom";
 
 function TopTokenDetails() {

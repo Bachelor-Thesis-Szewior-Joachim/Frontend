@@ -12,11 +12,13 @@ import Leaderboard from "./resources/leaderboard/leaderboard";
 import News from "./resources/news/news";
 import Stats from "./resources/stats/stats";
 import TopStats from "./resources/topStats/topStats";
-import TopTokens from "./tokens/search/topTokens";
+import TopTokens from "./tokens/topTokens/search/topTokens";
 import AccountDetails from "./blockchain/accounts/details/accountDetails";
 import TransactionDetails from "./blockchain/transactions/details/transactionDetails";
 import BlockDetails from "./blockchain/blocks/details/blockDetails";
-import TopTokenDetails from "./tokens/details/topTokenDetails";
+import TopTokenDetails from "./tokens/topTokens/details/topTokenDetails";
+import NftStatistics from "./tokens/nftStatistics/search/nftStatistics";
+import NftStatisticsDetails from "./tokens/nftStatistics/details/nftStatisticsDetails";
 
 const App = () => {
   return (
@@ -44,6 +46,14 @@ const App = () => {
         <Route path="/resources/top-statistics" element={<TopStats />} />
         <Route path="/tokens/top-tokens" element={<TopTokens />} />
         <Route path="/token/details/:name" element={<TopTokenDetails />} />
+        <Route
+          path="/resources/general-nft-statistics"
+          element={<NftStatistics />}
+        />
+        <Route
+          path="/tokens/nftStatistics/:name"
+          element={<NftStatisticsDetails />}
+        />
       </Routes>
     </Router>
   );

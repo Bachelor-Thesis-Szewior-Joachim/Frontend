@@ -1,0 +1,180 @@
+body {
+  color: #fff;
+  font-family: "Arial", sans-serif;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.left-column {
+  width: 33%;
+  padding: 20px;
+  position: fixed;
+  height: 100%; /* Make sure left column takes full height */
+  color: #fff;
+  border-right: 1px solid #333; /* Subtle border */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Adding shadow for a subtle pop */
+  border-radius: 8px; /* Soft corners for the container */
+}
+
+.profile {
+  text-align: center; /* Center align the profile section */
+  margin-bottom: 20px;
+}
+
+.profile img {
+  width: 100px; /* Adjust the profile image size */
+  height: 100px;
+  border-radius: 50%; /* Circular profile image */
+  margin-bottom: 15px;
+}
+
+h2 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.right-column {
+  width: 67%;
+  margin-left: 33%; /* Ensure it appears next to the fixed left column */
+  padding-left: 2%;
+  height: 100vh;
+  overflow-y: auto; /* Allow scrolling in the right column */
+}
+
+.nav {
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  padding-top: 1%;
+}
+
+.nav button {
+  background-color: #2c2f36; /* Dark background */
+  color: #ffffff; /* Text color */
+  border: 1px solid #444; /* Border color */
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  appearance: none; /* Remove default browser styles */
+  outline: none;
+}
+nav button:focus {
+  border-color: #5b8cfe; /* Blue outline on focus */
+  box-shadow: 0 0 10px rgba(91, 140, 254, 0.5); /* Blue glow */
+}
+.nav button:hover {
+  background-color: #3a3f47; /* Darker on hover */
+  border-color: #888; /* Lighter border on hover */
+}
+
+/* Stats Boxes */
+.stats {
+  margin-top: 20px;
+}
+
+.stats p {
+  font-size: 16px;
+  margin: 10px 0;
+  color: #ddd;
+}
+
+.stats p span {
+  font-weight: bold;
+  color: #fff; /* Highlight important values */
+}
+
+.stats p:first-of-type {
+  margin-top: 15px; /* Add some space at the top */
+}
+
+.badge {
+  background-image: linear-gradient(
+    45deg,
+    #ff6bcb,
+    #75288a
+  ); /* Gradient background for the badge */
+  padding: 5px 15px;
+  color: #fff;
+  border-radius: 20px;
+  font-size: 14px;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+/* Content Area */
+.content {
+  padding: 20px;
+  background-color: #240036; /* Matches the website's tone */
+  color: #ffffff;
+}
+
+/* Table Styles */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th,
+.table td {
+  padding: 15px;
+  border: 1px solid #75288a; /* Light border for cells */
+  text-align: left;
+}
+
+.table th {
+  background-color: #3f0242; /* Slightly darker background for headers */
+  color: #fff;
+}
+
+.table td {
+  background-color: #240036; /* Dark background for cells */
+  color: #ddd;
+}
+
+.table tr:hover td {
+  background-color: #75288a; /* Hover effect on table rows */
+}
+
+/* Grid for Items */
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+}
+
+.item-card {
+  background-color: #3f0242;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.item-card:hover {
+  background-color: #75288a;
+}
+
+/* Activity List */
+.activity-list {
+  margin-top: 20px;
+}
+
+.activity-item {
+  padding: 10px;
+  border-bottom: 1px solid #75288a;
+  transition: background-color 0.3s ease;
+}
+
+.activity-item:hover {
+  background-color: #75288a;
+}
