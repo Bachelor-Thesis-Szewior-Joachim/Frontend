@@ -1,27 +1,36 @@
-#table-preview {
-  flex: 0 0 4%; /* flex-grow: 0; flex-shrink: 0; flex-basis: 10%; */
+#table-transaction-preview {
+  width: 4%;
+  text-align: left;
 }
-#table-transaction-hash {
-  flex: 0 0 11%; /* Adjust percentage as needed */
+#table-transaction-transaction-hash {
+  width: 11%;
+  text-align: center;
 }
-#table-method {
-  flex: 0 0 6%; /* Adjust percentage as needed */
+#table-transaction-method {
+  width: 6%;
+  text-align: center;
 }
-#table-block {
-  flex: 0 0 7%; /* Adjust percentage as needed */
+#table-transaction-block {
+  width: 7%;
+  text-align: center;
 }
-#table-transaction-age {
-  flex: 0 0 10%; /* Adjust percentage as needed */
+#table-transaction-transaction-age {
+  width: 10%;
+  text-align: center;
 }
-#table-from {
-  flex: 0 0 10%; /* Adjust percentage as needed */
+#table-transaction-from {
+  width: 15%;
+  text-align: center;
 }
-#table-to {
-  flex: 0 0 17%; /* Adjust percentage as needed */
+#table-transaction-to {
+  width: 15%;
+  text-align: center;
 }
-#table-amount {
-  flex: 0 0 17%; /* Adjust percentage as needed */
+#table-transaction-amount {
+  width: 17%;
+  text-align: center;
 }
-#table-transaction-fee {
-  flex: 0 0 9%; /* Adjust percentage as needed */
+#table-transaction-transaction-fee {
+  text-align: right;
+  width: 9%;
 }

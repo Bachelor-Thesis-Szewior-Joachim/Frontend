@@ -162,40 +162,34 @@ function NftStatistics() {
 
         <div className="table">
           <div className="table-header">
-            <div className="table-nft-number">#</div>
-            <div className="table-name">Name</div>
-            <div className="table-chain">Chain</div>
-            <div className="table-volume">Volume(24h)</div>
-            <div className="table-estimated-market-cap">Est. Market Cap</div>
-            <div className="table-floor-price">Floor price</div>
-            <div className="table-avg-price">Avg. Price(24h)</div>
-            <div className="table-sales">Sales(24h)</div>
-            <div className="table-assets">Assets</div>
-            <div className="table-owners">Owners</div>
-            <div className="table-owners-percent">Owners(%)</div>
+            <div id="table-nft-nft-number">#</div>
+            <div id="table-nft-name">Name</div>
+            <div id="table-nft-chain">Chain</div>
+            <div id="table-nft-volume">Volume(24h)</div>
+            <div id="table-nft-estimated-market-cap">Est. Market Cap</div>
+            <div id="table-nft-floor-price">Floor price</div>
+            <div id="table-nft-avg-price">Avg. Price(24h)</div>
+            <div id="table-nft-sales">Sales(24h)</div>
+            <div id="table-nft-assets">Assets</div>
+            <div id="table-nft-owners">Owners</div>
+            <div id="table-nft-owners-percent">Owners(%)</div>
           </div>
           <div className="table-body">
             {nfts.map((nft, index) => (
               <div key={index} className="table-row">
-                <div className="table-nft-number">{index}</div>
-                <div
-                  id="table-row-name"
-                  className="table-name"
-                  onClick={() => handleNFT(nft.name)}
-                >
-                  {nft.name}
+                <div id="table-nft-nft-number">{index}</div>
+                <div id="table-nft-name" onClick={() => handleNFT(nft.name)}>
+                  <span>{nft.name}</span>
                 </div>
-                <div className="table-chain">{nft.chain}</div>
-                <div className="table-volume">{nft.volume_24h}</div>
-                <div className="table-estimated-market-cap">
-                  {nft.market_cap}
-                </div>
-                <div className="table-floor-price">{nft.floor_price}</div>
-                <div className="table-avg-price">{nft.avg_price_24h}</div>
-                <div className="table-sales">{nft.sales_24h}</div>
-                <div className="table-assets">{nft.assets}</div>
-                <div className="table-owners">{nft.owners}</div>
-                <div className="table-owners">{nft.owners_percent}</div>
+                <div id="table-nft-chain">{nft.chain}</div>
+                <div id="table-nft-volume">{nft.volume_24h}</div>
+                <div id="table-nft-estimated-market-cap">{nft.market_cap}</div>
+                <div id="table-nft-floor-price">{nft.floor_price}</div>
+                <div id="table-nft-avg-price">{nft.avg_price_24h}</div>
+                <div id="table-nft-sales">{nft.sales_24h}</div>
+                <div id="table-nft-assets">{nft.assets}</div>
+                <div id="table-nft-owners">{nft.owners}</div>
+                <div id="table-nft-owners-percent">{nft.owners_percent}</div>
               </div>
             ))}
           </div>

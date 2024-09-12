@@ -1,29 +1,38 @@
-#table-preview {
-  flex: 0 0 4%; /* flex-grow: 0; flex-shrink: 0; flex-basis: 10%; */
+#table-account-details-preview {
+  width: 4%;
+  text-align: left;
 }
-#table-transaction-hash {
-  flex: 0 0 11%; /* Adjust percentage as needed */
+#table-account-details-transaction-hash {
+  width: 13%; /* Adjust percentage as needed */
+  text-align: center;
 }
-#table-method {
-  flex: 0 0 6%; /* Adjust percentage as needed */
+#table-account-details-method {
+  width: 6%; /* Adjust percentage as needed */
+  text-align: center;
 }
-#table-block {
-  flex: 0 0 7%; /* Adjust percentage as needed */
+#table-account-details-block {
+  width: 7%; /* Adjust percentage as needed */
+  text-align: center;
 }
-#table-transaction-age {
-  flex: 0 0 10%; /* Adjust percentage as needed */
+#table-account-details-transaction-age {
+  width: 10%; /* Adjust percentage as needed */
+  text-align: center;
 }
-#table-from {
-  flex: 0 0 10%; /* Adjust percentage as needed */
+#table-account-details-from {
+  width: 10%; /* Adjust percentage as needed */
+  text-align: center;
 }
-#table-to {
-  flex: 0 0 17%; /* Adjust percentage as needed */
+#table-account-details-to {
+  width: 17%; /* Adjust percentage as needed */
+  text-align: center;
 }
-#table-amount {
-  flex: 0 0 17%; /* Adjust percentage as needed */
+#table-account-details-amount {
+  width: 13%; /* Adjust percentage as needed */
+  text-align: center;
 }
-#table-transaction-fee {
-  flex: 0 0 9%; /* Adjust percentage as needed */
+#table-account-details-transaction-fee {
+  width: 9%; /* Adjust percentage as needed */
+  text-align: center;
 }
 #account-address {
   font-size: larger;

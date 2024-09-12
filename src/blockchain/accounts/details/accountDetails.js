@@ -166,21 +166,28 @@ function AccountDetails() {
 
         <div className="table">
           <div className="table-header">
-            <div id="table-preview">Preview</div>
-            <div id="table-transaction-hash">Transaction hash</div>
-            <div id="table-method">Method</div>
-            <div id="table-block">Block</div>
-            <div id="table-transaction-age">Transaction age</div>
-            <div id="table-from">From</div>
-            <div id="table-to">To</div>
-            <div id="table-amount">Amount</div>
-            <div id="table-transaction-fee">Transaction Fee</div>
+            <div id="table-account-details-preview">Preview</div>
+            <div id="table-account-details-transaction-hash">
+              Transaction Hash
+            </div>
+            <div id="table-account-details-method">Method</div>
+            <div id="table-account-details-block">Block</div>
+            <div id="table-account-details-transaction-age">
+              Transaction Age
+            </div>
+            <div id="table-account-details-from">From</div>
+            <div id="table-account-details-to">To</div>
+            <div id="table-account-details-amount">Amount</div>
+            <div id="table-account-details-transaction-fee">
+              Transaction Fee
+            </div>
           </div>
+
           <div className="table-body">
             {transactions.map((transaction, index) => (
               <div key={index} className="table-row">
-                <div id="table-preview">icon</div>
-                <div id="table-transaction-hash">
+                <div id="table-account-details-preview">icon</div>
+                <div id="table-account-details-transaction-hash">
                   <span
                     className="clickable"
                     onClick={() =>
@@ -190,10 +197,14 @@ function AccountDetails() {
                     {transaction.transactionHash}
                   </span>
                 </div>
-                <div id="table-method">{transaction.method}</div>
-                <div id="table-block">{transaction.block}</div>
-                <div id="table-transaction-age">{transaction.age}</div>
-                <div id="table-from">
+                <div id="table-account-details-method">
+                  {transaction.method}
+                </div>
+                <div id="table-account-details-block">{transaction.block}</div>
+                <div id="table-account-details-transaction-age">
+                  {transaction.age}
+                </div>
+                <div id="table-account-details-from">
                   <span
                     className="clickable"
                     onClick={() => handleAccountAddress(transaction.from)}
@@ -201,7 +212,7 @@ function AccountDetails() {
                     {transaction.from}
                   </span>
                 </div>
-                <div id="table-to">
+                <div id="table-account-details-to">
                   <span
                     className="clickable"
                     onClick={() => handleAccountAddress(transaction.to)}
@@ -209,8 +220,12 @@ function AccountDetails() {
                     {transaction.to}
                   </span>
                 </div>
-                <div id="table-amount">{transaction.amount}</div>
-                <div id="table-transaction-fee">{transaction.txnFee}</div>
+                <div id="table-account-details-amount">
+                  {transaction.amount}
+                </div>
+                <div id="table-account-details-transaction-fee">
+                  {transaction.txnFee}
+                </div>
               </div>
             ))}
           </div>

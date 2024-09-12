@@ -82,20 +82,20 @@ function Header() {
                   </li>
                   <li
                     id="list-elem"
-                    onClick={() => navigate("/resources/global-market")}
+                    onClick={() => navigate("/cryptocurrency/globalMarket")}
                   >
                     Global market
                   </li>
                   <li
                     id="list-elem"
-                    onClick={() => navigate("/resources/historical-data")}
+                    onClick={() => navigate("/cryptocurrency/historicalData")}
                   >
                     Historical data
                   </li>
 
                   <li
                     id="list-elem"
-                    onClick={() => navigate("/resources/gainers-and-losers")}
+                    onClick={() => navigate("/cryptocurrency/gainersAndLosers")}
                   >
                     Gainers & Losers
                   </li>

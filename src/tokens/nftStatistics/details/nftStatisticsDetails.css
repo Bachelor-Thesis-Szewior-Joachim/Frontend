@@ -11,32 +11,158 @@ body {
 
 .left-column {
   width: 33%;
-  padding: 20px;
+  padding: 10px;
   position: fixed;
   height: 100%; /* Make sure left column takes full height */
   color: #fff;
   border-right: 1px solid #333; /* Subtle border */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Adding shadow for a subtle pop */
   border-radius: 8px; /* Soft corners for the container */
+  background-color: #1b0033;
 }
 
 .profile {
-  text-align: center; /* Center align the profile section */
-  margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 40px;
 }
 
 .profile img {
-  width: 100px; /* Adjust the profile image size */
-  height: 100px;
-  border-radius: 50%; /* Circular profile image */
-  margin-bottom: 15px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-bottom: 20px;
 }
 
 h2 {
   font-size: 28px;
-  font-weight: bold;
   margin-bottom: 10px;
+}
+
+.badge {
+  background-color: #ff6bcb;
+  padding: 5px 20px;
   color: #fff;
+  border-radius: 20px;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.stats {
+  margin-top: 30px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.stat-item span {
+  color: #ddd;
+}
+
+/* Price Summary */
+.price-summary {
+  background-color: #2a003f;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.price-summary h4 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.price-summary p {
+  font-size: 16px;
+  color: #ddd;
+}
+
+.price-summary span {
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Contracts */
+.contracts {
+  margin-bottom: 30px;
+}
+
+.contracts h4 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.contracts p {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  color: #ddd;
+}
+
+.copy-btn {
+  background: none;
+  border: none;
+  color: #58d130;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.copy-btn:hover {
+  color: #34a223;
+}
+
+/* Official Links */
+.official-links {
+  margin-bottom: 30px;
+}
+
+.official-links h4 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.official-links span {
+  font-size: 16px;
+  color: #ddd;
+}
+
+/* Market List */
+.market-list {
+  margin-bottom: 30px;
+}
+
+.market-list h4 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.market-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.market-list li {
+  font-size: 16px;
+  color: #ddd;
+  margin-bottom: 8px;
+}
+
+/* About */
+.about {
+  margin-bottom: 30px;
+}
+
+.about h4 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.about span {
+  font-size: 16px;
+  color: #ddd;
 }
 
 .right-column {
@@ -74,40 +200,6 @@ nav button:focus {
 .nav button:hover {
   background-color: #3a3f47; /* Darker on hover */
   border-color: #888; /* Lighter border on hover */
-}
-
-/* Stats Boxes */
-.stats {
-  margin-top: 20px;
-}
-
-.stats p {
-  font-size: 16px;
-  margin: 10px 0;
-  color: #ddd;
-}
-
-.stats p span {
-  font-weight: bold;
-  color: #fff; /* Highlight important values */
-}
-
-.stats p:first-of-type {
-  margin-top: 15px; /* Add some space at the top */
-}
-
-.badge {
-  background-image: linear-gradient(
-    45deg,
-    #ff6bcb,
-    #75288a
-  ); /* Gradient background for the badge */
-  padding: 5px 15px;
-  color: #fff;
-  border-radius: 20px;
-  font-size: 14px;
-  display: inline-block;
-  margin-bottom: 20px;
 }
 
 /* Content Area */

@@ -166,21 +166,22 @@ function TopTokenDetails() {
 
         <div className="table">
           <div className="table-header">
-            <div id="table-preview">Preview</div>
-            <div id="table-transaction-hash">Transaction hash</div>
-            <div id="table-method">Method</div>
-            <div id="table-block">Block</div>
-            <div id="table-transaction-age">Transaction age</div>
-            <div id="table-from">From</div>
-            <div id="table-to">To</div>
-            <div id="table-amount">Amount</div>
-            <div id="table-transaction-fee">Transaction Fee</div>
+            <div id="table-transaction-preview">Preview</div>
+            <div id="table-transaction-transaction-hash">Transaction Hash</div>
+            <div id="table-transaction-method">Method</div>
+            <div id="table-transaction-block">Block</div>
+            <div id="table-transaction-transaction-age">Transaction Age</div>
+            <div id="table-transaction-from">From</div>
+            <div id="table-transaction-to">To</div>
+            <div id="table-transaction-amount">Amount</div>
+            <div id="table-transaction-transaction-fee">Transaction Fee</div>
           </div>
+
           <div className="table-body">
             {transactions.map((transaction, index) => (
               <div key={index} className="table-row">
-                <div id="table-preview">icon</div>
-                <div id="table-transaction-hash">
+                <div id="table-transaction-preview">icon</div>
+                <div id="table-transaction-transaction-hash">
                   <span
                     className="clickable"
                     onClick={() =>
@@ -190,15 +191,12 @@ function TopTokenDetails() {
                     {transaction.transactionHash}
                   </span>
                 </div>
-                <div id="table-method">{transaction.method}</div>
-                <div
-                  id="table-block"
-                  onClick={() => handleBlockAddress(transaction.block)}
-                >
-                  {transaction.block}
+                <div id="table-transaction-method">{transaction.method}</div>
+                <div id="table-transaction-block">{transaction.block}</div>
+                <div id="table-transaction-transaction-age">
+                  {transaction.age}
                 </div>
-                <div id="table-transaction-age">{transaction.age}</div>
-                <div id="table-from">
+                <div id="table-transaction-from">
                   <span
                     className="clickable"
                     onClick={() => handleAccountAddress(transaction.from)}
@@ -206,7 +204,7 @@ function TopTokenDetails() {
                     {transaction.from}
                   </span>
                 </div>
-                <div id="table-to">
+                <div id="table-transaction-to">
                   <span
                     className="clickable"
                     onClick={() => handleAccountAddress(transaction.to)}
@@ -214,8 +212,10 @@ function TopTokenDetails() {
                     {transaction.to}
                   </span>
                 </div>
-                <div id="table-amount">{transaction.amount}</div>
-                <div id="table-transaction-fee">{transaction.txnFee}</div>
+                <div id="table-transaction-amount">{transaction.amount}</div>
+                <div id="table-transaction-transaction-fee">
+                  {transaction.txnFee}
+                </div>
               </div>
             ))}
           </div>

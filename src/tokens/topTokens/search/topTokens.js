@@ -160,20 +160,22 @@ function TopTokens() {
 
         <div className="table">
           <div className="table-header">
-            <div id="table-preview">Preview</div>
-            <div id="table-token-name">Token name</div>
-            <div id="table-price">Price</div>
-            <div id="table-change">Change</div>
-            <div id="table-volume">Volume</div>
-            <div id="table-circulating-market-cap">Circulating Market Cap</div>
-            <div id="table-onchain-market-cap">Onchain Market Cap</div>
-            <div id="table-holders">Holder</div>
+            <div id="table-token-preview">Preview</div>
+            <div id="table-token-token-name">Token name</div>
+            <div id="table-token-price">Price</div>
+            <div id="table-token-change">Change</div>
+            <div id="table-token-volume">Volume</div>
+            <div id="table-token-circulating-market-cap">
+              Circulating Market Cap
+            </div>
+            <div id="table-token-onchain-market-cap">Onchain Market Cap</div>
+            <div id="table-token-holders">Holder</div>
           </div>
           <div className="table-body">
             {tokens.map((token, index) => (
               <div key={index} className="table-row">
-                <div id="table-preview">icon</div>
-                <div id="table-token-name">
+                <div id="table-token-preview">icon</div>
+                <div id="table-token-token-name">
                   <span
                     className="clickable"
                     onClick={() => handleTokenName(token.name)}
@@ -181,16 +183,16 @@ function TopTokens() {
                     {token.name}
                   </span>
                 </div>
-                <div id="table-price">{token.price}</div>
-                <div id="table-change">{token.change}</div>
-                <div id="table-volume">{token.volume}</div>
-                <div id="table-circulating-market-cap">
+                <div id="table-token-price">{token.price}</div>
+                <div id="table-token-change">{token.change}</div>
+                <div id="table-token-volume">{token.volume}</div>
+                <div id="table-token-circulating-market-cap">
                   {token.circulatingMarketCap}
                 </div>
-                <div id="table-onchain-market-cap">
+                <div id="table-token-onchain-market-cap">
                   {token.onchainMarketCap}
                 </div>
-                <div id="table-holders">{token.holders}</div>
+                <div id="table-token-holders">{token.holders}</div>
               </div>
             ))}
           </div>

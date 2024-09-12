@@ -33,58 +33,71 @@ const NFTStatisticsDetails = () => {
             <h2>Based Zaza</h2>
             <span className="badge">Base</span>
           </div>
+
           <div className="stats">
-            <p>
+            <div className="stat-item">
               Items: <span>5,000</span>
-            </p>
-            <p>
+            </div>
+            <div className="stat-item">
               Total Owners: <span>895</span>
-            </p>
-            <p>
+            </div>
+            <div className="stat-item">
               Total Volume: <span>1,725.08 ETH</span>
-            </p>
-            <p>
+            </div>
+            <div className="stat-item">
               Royalty: <span>--</span>
-            </p>
-            <p>
+            </div>
+            <div className="stat-item">
               Floor Price: <span>0.00006 ETH</span>
-            </p>
-            <p>
+            </div>
+            <div className="stat-item">
               24h Sales: <span>1,121</span>
+            </div>
+          </div>
+
+          <div className="price-summary">
+            <h4>Price Summary</h4>
+            <p>
+              The current Based Zaza floor price is <span>0.00006 ETH</span>.
+              1541 sales were made from the Based Zaza NFT collection in the
+              past 24 hours, with a total trading volume of{" "}
+              <span>714.90 ETH</span>.
             </p>
           </div>
-          <div>
-            <p>Price summary</p>
-            <span>
-              The current Based Zaza floor price is 0.00006 ETH. 1541 sales were
-              made from the Based Zaza NFT collection in the past 24 hours, with
-              a total trading volume of 714.90 ETH.
-            </span>
-            <p>Contracts</p>
-            <span>
-              Base:0x7fc9...8ba5ef{" "}
+
+          <div className="contracts">
+            <h4>Contracts</h4>
+            <p>
+              Base: 0x7fc9...8ba5ef{" "}
               <button
                 className="copy-btn"
                 onClick={() => navigator.clipboard.writeText("0x7fc9...8ba5ef")}
               >
                 📋
               </button>
-            </span>
-            <p>
-              Offical links: <span>none</span>
-            </p>
-            <p>Market list:</p>
-            <ul>
-              <li>Element</li>
-              <li>Open Sea</li>
-              <li>Magic Eden</li>
-            </ul>
-            <p>
-              About Based Zaza NFTs <span>none</span>
             </p>
           </div>
+
+          <div className="official-links">
+            <h4>Official Links</h4>
+            <span>none</span>
+          </div>
+
+          <div className="market-list">
+            <h4>Market List</h4>
+            <ul>
+              <li>Element</li>
+              <li>OpenSea</li>
+              <li>Magic Eden</li>
+            </ul>
+          </div>
+
+          <div className="about">
+            <h4>About Based Zaza NFTs</h4>
+            <span>none</span>
+          </div>
         </div>
-        <div></div>
+
         <div className="right-column">
           <nav className="nav">
             <button

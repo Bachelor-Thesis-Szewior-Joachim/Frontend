@@ -77,18 +77,18 @@ function Accounts() {
 
         <div className="table">
           <div className="table-header">
-            <div id="table-id">ID</div>
-            <div id="table-address">Address</div>
-            <div id="table-name-tag">Name Tag</div>
-            <div id="table-balance">Balance</div>
-            <div id="table-percentage">Percentage</div>
-            <div id="table-total-count">Txt Amount</div>
+            <div id="table-account-id">ID</div>
+            <div id="table-account-address">Address</div>
+            <div id="table-account-name-tag">Name Tag</div>
+            <div id="table-account-balance">Balance</div>
+            <div id="table-account-percentage">Percentage</div>
+            <div id="table-account-total-count">Txt Amount</div>
           </div>
           <div className="table-body">
             {filteredAccounts.slice(0, rowsToShow).map((account) => (
               <div className="table-row" key={account.id}>
-                <div id="table-id">{account.id}</div>
-                <div id="table-address">
+                <div id="table-account-id">{account.id}</div>
+                <div id="table-account-address">
                   <span
                     className="clickable"
                     onClick={() => handleAccountAddress(account.address)}
@@ -96,10 +96,10 @@ function Accounts() {
                     {account.address}
                   </span>
                 </div>
-                <div id="table-name-tag">{account.nameTag}</div>
-                <div id="table-balance">{account.balance}</div>
-                <div id="table-percentage">{account.percentage}</div>
-                <div id="table-total-count">{account.totalCount}</div>
+                <div id="table-account-name-tag">{account.nameTag}</div>
+                <div id="table-account-balance">{account.balance}</div>
+                <div id="table-account-percentage">{account.percentage}</div>
+                <div id="table-account-total-count">{account.totalCount}</div>
               </div>
             ))}
           </div>

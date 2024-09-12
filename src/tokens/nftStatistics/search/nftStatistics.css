@@ -203,53 +203,53 @@
   background-color: rgba(255, 255, 255, 0.1); /* Transparent White */
 }
 
-.table-nft-number {
+#table-nft-nft-number {
   text-align: left;
-  flex: 0 0 2%; /* flex-grow: 0; flex-shrink: 0; flex-basis: 10%; */
+  width: 2%;
 }
-.table-name {
+#table-nft-name {
   text-align: center;
 
-  flex: 0 0 8%; /* Adjust percentage as needed */
+  width: 8%;
 }
-.table-chain {
+#table-nft-chain {
   text-align: center;
-  flex: 0 0 6%; /* Adjust percentage as needed */
+  width: 6%;
 }
-.table-volume {
+#table-nft-volume {
   text-align: center;
-  flex: 0 0 11%; /* Adjust percentage as needed */
+  width: 11%;
 }
-.table-estimated-market-cap {
+#table-nft-estimated-market-cap {
   text-align: center;
-  flex: 0 0 13%; /* Adjust percentage as needed */
+  width: 13%;
 }
-.table-floor-price {
+#table-nft-floor-price {
   text-align: center;
-  flex: 0 0 10%; /* Adjust percentage as needed */
+  width: 10%;
 }
-.table-avg-price {
+#table-nft-avg-price {
   text-align: center;
-  flex: 0 0 10%; /* Adjust percentage as needed */
+  width: 10%;
 }
-.table-sales {
+#table-nft-sales {
   text-align: center;
-  flex: 0 0 7%; /* Adjust percentage as needed */
+  width: 7%;
 }
-.table-assets {
+#table-nft-assets {
   text-align: center;
-  flex: 0 0 7%; /* Adjust percentage as needed */
+  width: 7%;
 }
-.table-owners {
+#table-nft-owners {
   text-align: center;
-  flex: 0 0 8%; /* Adjust percentage as needed */
+  width: 8%;
 }
-.table-owners-percent {
+#table-nft-owners-percent {
   text-align: right;
-  flex: 0 0 9%; /* Adjust percentage as needed */
+  width: 9%;
 }
 
-#table-row-name:hover {
+#table-nft-name:hover span {
   text-decoration: underline;
   cursor: pointer;
 }

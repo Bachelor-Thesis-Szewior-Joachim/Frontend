@@ -1,0 +1,22 @@
+.news-container {
+  padding: 20px;
+  background-color: #1c1c2b;
+}
+
+.news-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.news-list li {
+  margin-bottom: 15px;
+}
+
+.news-list h3 {
+  color: #ffffff;
+}
+
+.news-list p {
+  margin: 5px 0;
+  color: #cfcfcf;
+}

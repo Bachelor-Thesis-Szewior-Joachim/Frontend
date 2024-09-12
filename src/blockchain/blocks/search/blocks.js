@@ -67,6 +67,10 @@ function Blocks() {
     navigate(`/blockchain/blocks/${address}`);
   };
 
+  const handleFeeRecipient = (name) => {
+    navigate(`/blockchain/accounts/${name}`);
+  };
+
   return (
     <div>
       <Header />
@@ -140,21 +144,21 @@ function Blocks() {
 
         <div className="table">
           <div className="table-header">
-            <div id="table-block-number">Block</div>
-            <div id="table-slot">Slot</div>
-            <div id="table-age">Age</div>
-            <div id="table-txt">Txn</div>
-            <div id="table-fee-recipient">Fee Recipient</div>
-            <div id="table-total-gas-used">Gas Used</div>
-            <div id="table-total-gas-limit">Gas Limit</div>
-            <div id="table-base-fee">Base Fee</div>
-            <div id="table-reward">Reward</div>
-            <div id="table-burnt-fees">Burnt Fees (ETH)</div>
+            <div id="table-blocks-block-number">Block</div>
+            <div id="table-blocks-slot">Slot</div>
+            <div id="table-blocks-age">Age</div>
+            <div id="table-blocks-txt">Txn</div>
+            <div id="table-blocks-fee-recipient">Fee Recipient</div>
+            <div id="table-blocks-total-gas-used">Gas Used</div>
+            <div id="table-blocks-total-gas-limit">Gas Limit</div>
+            <div id="table-blocks-base-fee">Base Fee</div>
+            <div id="table-blocks-reward">Reward</div>
+            <div id="table-blocks-burnt-fees">Burnt Fees (ETH)</div>
           </div>
           <div className="table-body">
             {blocks.map((block, index) => (
               <div key={index} className="table-row">
-                <div id="table-block-number">
+                <div id="table-blocks-block-number">
                   <span
                     id="block-number"
                     onClick={() => handleBlockNumber(block.blockNumber)}
@@ -162,15 +166,22 @@ function Blocks() {
                     {block.blockNumber}
                   </span>
                 </div>
-                <div id="table-slot">{block.slot}</div>
-                <div id="table-age">{block.age}</div>
-                <div id="table-txt">{block.txt}</div>
-                <div id="table-fee-recipient">{block.feeRecipient}</div>
-                <div id="table-total-gas-used">{block.gasUsed}</div>
-                <div id="table-total-gas-limit">{block.gasLimit}</div>
-                <div id="table-base-fee">{block.baseFee}</div>
-                <div id="table-reward">{block.reward}</div>
-                <div id="table-burnt-fee">{block.burntFees}</div>
+                <div id="table-blocks-slot">{block.slot}</div>
+                <div id="table-blocks-age">{block.age}</div>
+                <div id="table-blocks-txt">{block.txt}</div>
+                <div id="table-blocks-fee-recipient">
+                  <span
+                    id="block-fee-recipient"
+                    onClick={() => handleFeeRecipient(block.feeRecipient)}
+                  >
+                    {block.feeRecipient}
+                  </span>
+                </div>
+                <div id="table-blocks-total-gas-used">{block.gasUsed}</div>
+                <div id="table-blocks-total-gas-limit">{block.gasLimit}</div>
+                <div id="table-blocks-base-fee">{block.baseFee}</div>
+                <div id="table-blocks-reward">{block.reward}</div>
+                <div id="table-blocks-burnt-fee">{block.burntFees}</div>
               </div>
             ))}
           </div>

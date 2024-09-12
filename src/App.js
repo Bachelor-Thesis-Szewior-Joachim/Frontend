@@ -19,6 +19,13 @@ import BlockDetails from "./blockchain/blocks/details/blockDetails";
 import TopTokenDetails from "./tokens/topTokens/details/topTokenDetails";
 import NftStatistics from "./tokens/nftStatistics/search/nftStatistics";
 import NftStatisticsDetails from "./tokens/nftStatistics/details/nftStatisticsDetails";
+import Ranking from "./cryptocurrency/ranking/search/ranking";
+import CryptocurrencyDetails from "./cryptocurrency/ranking/details/cryptocurrencyDetails";
+import Categories from "./cryptocurrency/categories/search/categories";
+import CategoryDetail from "./cryptocurrency/categories/detail/categoryDetail";
+import GlobalMarket from "./cryptocurrency/globalMarket/globalMarket";
+import GainersAndLosers from "./cryptocurrency/gainersAndLosers/gainersAndLosers";
+import HistoricalData from "./cryptocurrency/historicalData/search/historicalData";
 
 const App = () => {
   return (
@@ -54,6 +61,25 @@ const App = () => {
           path="/tokens/nftStatistics/:name"
           element={<NftStatisticsDetails />}
         />
+        <Route path="/resources/ranking" element={<Ranking />} />
+        <Route
+          path="/resources/ranking/:name"
+          element={<CryptocurrencyDetails />}
+        />
+        <Route path="/resources/categories" element={<Categories />} />
+        <Route
+          path="/resources/categories/:name"
+          element={<CategoryDetail />}
+        />
+        <Route
+          path="/cryptocurrency/gainersAndLosers"
+          element={<GainersAndLosers />}
+        />
+        <Route
+          path="/cryptocurrency/historicalData"
+          element={<HistoricalData />}
+        />
+        <Route path="/cryptocurrency/globalMarket" element={<GlobalMarket />} />
       </Routes>
     </Router>
   );
