@@ -26,6 +26,7 @@ import CategoryDetail from "./cryptocurrency/categories/detail/categoryDetail";
 import GlobalMarket from "./cryptocurrency/globalMarket/globalMarket";
 import GainersAndLosers from "./cryptocurrency/gainersAndLosers/gainersAndLosers";
 import HistoricalData from "./cryptocurrency/historicalData/search/historicalData";
+import SpecificDate from "./cryptocurrency/historicalData/details/specificDate";
 
 const App = () => {
   return (
@@ -80,6 +81,10 @@ const App = () => {
           element={<HistoricalData />}
         />
         <Route path="/cryptocurrency/globalMarket" element={<GlobalMarket />} />
+        <Route
+          path="/historicalData/:year/:month/:day"
+          element={<SpecificDate />}
+        />
       </Routes>
     </Router>
   );

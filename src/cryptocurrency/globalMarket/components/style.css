@@ -1,0 +1,54 @@
+/* Timeframe buttons container */
+.timeframe-buttons {
+  display: flex;
+  justify-content: flex-end; /* Align buttons to the right */
+  gap: 8px; /* Reduce space between the buttons */
+  margin-bottom: 10px; /* Space below the buttons */
+}
+
+.timeframe-buttons div {
+  text-align: left;
+  width: 80%;
+}
+/* Timeframe buttons */
+.timeframe-buttons button {
+  background-color: #240036; /* Dark background to match the page */
+  color: #ffffff; /* White text */
+  border: 2px solid #75288a; /* Light purple border to match theme */
+  border-radius: 5px; /* Rounded corners */
+  padding: 5px 12px; /* Smaller padding to make buttons smaller */
+  font-size: 14px; /* Smaller font size */
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Hover effect for buttons */
+.timeframe-buttons button:hover {
+  background-color: #75288a; /* Light purple on hover */
+  color: #ffffff; /* Keep text white */
+}
+
+/* Active button styling */
+.timeframe-buttons button.active {
+  background-color: #007bff; /* Active blue background */
+  color: #ffffff; /* White text */
+}
+
+/* Responsive button layout */
+@media (max-width: 768px) {
+  .timeframe-buttons {
+    justify-content: center; /* Center buttons on smaller screens */
+    gap: 6px; /* Reduce gap between buttons */
+  }
+
+  .timeframe-buttons button {
+    padding: 4px 8px; /* Adjust padding for smaller screens */
+    font-size: 12px; /* Adjust font size for smaller screens */
+  }
+}
+.chart-title {
+  font-size: 24px; /* Increase the font size */
+  font-weight: bold; /* Make it bold for emphasis */
+  color: #ffffff;
+}
