@@ -7,11 +7,8 @@ import Blocks from "./blockchain/blocks/search/blocks";
 import Transactions from "./blockchain/transactions/search/transactions";
 import Login from "./login/login";
 import SignUp from "./signup/signup";
-import Charts from "./resources/charts/charts";
-import Leaderboard from "./resources/leaderboard/leaderboard";
 import News from "./resources/news/news";
 import Stats from "./resources/stats/stats";
-import TopStats from "./resources/topStats/topStats";
 import TopTokens from "./tokens/topTokens/search/topTokens";
 import AccountDetails from "./blockchain/accounts/details/accountDetails";
 import TransactionDetails from "./blockchain/transactions/details/transactionDetails";
@@ -27,6 +24,16 @@ import GlobalMarket from "./cryptocurrency/globalMarket/globalMarket";
 import GainersAndLosers from "./cryptocurrency/gainersAndLosers/gainersAndLosers";
 import HistoricalData from "./cryptocurrency/historicalData/search/historicalData";
 import SpecificDate from "./cryptocurrency/historicalData/details/specificDate";
+import Converter from "./resources/converter/converter";
+import Directory from "./resources/directory/directory";
+import ExchangesList from "./resources/directory/exchanges/exchanges";
+import Wallet from "./resources/directory/wallet/wallet";
+import NewsAndForums from "./resources/directory/newsAndForums/newsAndForums";
+import BlockchainEvents from "./resources/directory/events/events";
+import Learning from "./resources/directory/learning/learning";
+import SmartContracts from "./resources/directory/smartContracts/smartContracts";
+import Mining from "./resources/directory/mining/mining";
+import Others from "./resources/directory/others/others";
 
 const App = () => {
   return (
@@ -47,11 +54,10 @@ const App = () => {
         />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/resources/charts" element={<Charts />} />
-        <Route path="/resources/leaderboard" element={<Leaderboard />} />
         <Route path="/resources/news" element={<News />} />
         <Route path="/resources/stats" element={<Stats />} />
-        <Route path="/resources/top-statistics" element={<TopStats />} />
+        <Route path="/resources/converter" element={<Converter />} />
+        <Route path="/resources/directory" element={<Directory />} />
         <Route path="/tokens/top-tokens" element={<TopTokens />} />
         <Route path="/token/details/:name" element={<TopTokenDetails />} />
         <Route
@@ -85,6 +91,38 @@ const App = () => {
           path="/historicalData/:year/:month/:day"
           element={<SpecificDate />}
         />
+        <Route
+          path="/resources/directory/exchange/:exchange"
+          element={<ExchangesList />}
+        />
+        <Route
+          path="/resources/directory/wallet/:wallet"
+          element={<Wallet />}
+        />
+        <Route
+          path="/resources/directory/newsAndForums/:type"
+          element={<NewsAndForums />}
+        ></Route>
+        <Route
+          path="/resources/directory/events/:type"
+          element={<BlockchainEvents />}
+        ></Route>
+        <Route
+          path="/resources/directory/learningResources/:type"
+          element={<Learning />}
+        ></Route>
+        <Route
+          path="/resources/directory/smartContracts/:type"
+          element={<SmartContracts />}
+        ></Route>
+        <Route
+          path="/resources/directory/mining/:type"
+          element={<Mining />}
+        ></Route>
+        <Route
+          path="/resources/directory/others/:type"
+          element={<Others />}
+        ></Route>
       </Routes>
     </Router>
   );

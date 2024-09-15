@@ -24,7 +24,7 @@ const CryptocurrencyDetails = () => {
       case "news":
         return <NewsComponent />;
       default:
-        return <ChartComponent />;
+        return <AboutComponent />;
     }
   };
 

@@ -1,0 +1,96 @@
+.learning-container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 30px;
+  color: #ffffff;
+}
+
+.learning-title {
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #ffcc00; /* Match title color to your design */
+}
+
+.learning-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.learning-item {
+  background-color: #240036; /* Dark background for each learning item */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.learning-name {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffcc00; /* Match learning name color to your design */
+}
+
+.learning-description {
+  width: 60%;
+  font-size: 16px;
+  color: #cfcfcf; /* Match description text color */
+}
+
+.learning-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.learning-button {
+  background-color: #75288a;
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.learning-button:hover {
+  background-color: #ffcc00;
+  color: #240036;
+}
+
+/* Container for buttons */
+.tab-buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  margin-top: 1%;
+}
+
+/* Basic button styling */
+.tab-btn {
+  padding: 12px 24px;
+  margin: 0 15px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+  border: none;
+  background-color: #240036; /* Matches the background theme */
+  color: #ffffff; /* White text */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Button hover state */
+.tab-btn:hover {
+  background-color: #75288a; /* Dark purple when hovering */
+  color: #ffcc00; /* Yellow text on hover */
+}
+
+/* Active tab button */
+.tab-btn.active {
+  background-color: #ffcc00; /* Highlight active button with yellow */
+  color: #000; /* Black text on active */
+}

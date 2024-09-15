@@ -87,7 +87,7 @@ function TopTokens() {
   ];
 
   const handleTokenName = (name) => {
-    navigate(`/token/details/${name}`);
+    navigate(`/resources/ranking/${name}`);
   };
 
   function goToPreviousPage() {

@@ -2,6 +2,7 @@ import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../../header.js";
 import "./categories.css";
+import { ProgressBar } from "./progressBar"; // Import the ProgressBar component
 
 const Categories = () => {
   const [categoriesPerPage, setCategoriesPerPage] = useState(20);
@@ -328,7 +329,12 @@ const Categories = () => {
                 <div id="table-categories-market-cap">{category.marketCap}</div>
                 <div id="table-categories-dominance">{category.dominance}</div>
                 <div id="table-categories-volume">{category.volume}</div>
-                <div id="table-categories-graph"></div>
+                <div id="table-categories-graph">
+                  <ProgressBar
+                    gainers={category.gainersLosersNumber.gainers}
+                    losers={category.gainersLosersNumber.losers}
+                  />
+                </div>
               </div>
             ))}
           </div>

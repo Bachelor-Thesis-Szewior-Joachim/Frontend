@@ -18,10 +18,7 @@ const ChartComponent = () => {
   return (
     <div className="chart-container">
       <h2>Bitcoin Price Chart (Bar)</h2>
-      <canvas
-        ref={canvasRef} // Attach the canvas DOM node to the ref
-        className="chart-canvas"
-      ></canvas>
+      <canvas ref={canvasRef} className="chart-canvas"></canvas>
     </div>
   );
 };

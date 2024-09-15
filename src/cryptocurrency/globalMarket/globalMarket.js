@@ -15,7 +15,7 @@ const GlobalMarket = () => {
   return (
     <div>
       <Header />
-      <div className="chart-container">
+      <div className="global-market-chart-container">
         <div className="chart-row">
           <div className="chart-item">
             <MarketCapChart />

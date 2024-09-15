@@ -171,7 +171,7 @@ const SpecificDate = () => {
   return (
     <div>
       <Header />
-      <div div className="snapshot-ranking-container">
+      <div className="snapshot-ranking-container">
         <div className="snapshot-container">
           <h2 className="snapshot-title">
             Historical Snapshot - 26 February 2023

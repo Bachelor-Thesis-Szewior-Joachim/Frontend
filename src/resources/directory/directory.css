@@ -1,0 +1,37 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Creates a 3x3 grid layout */
+  gap: 20px; /* Adjusts spacing between items */
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  background-color: #3b0a5b;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  color: #ffcc00; /* Text color */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.card-buttons {
+  margin-top: 10px;
+}
+
+.card-buttons button {
+  background-color: #75288a;
+  border: none;
+  padding: 10px 15px;
+  color: #ffffff;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  margin: 5px;
+}
+
+.card-buttons button:hover {
+  background-color: #ffcc00;
+  color: #000;
+}

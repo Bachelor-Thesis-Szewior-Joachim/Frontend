@@ -1,9 +1,6 @@
-.chart-container {
-  display: flex;
+.global-market-chart-container {
   height: 100%;
   margin: 20px; /* Add margin around the container */
-  padding: 0;
-  margin: 0;
   padding-top: 20px;
 }
 
@@ -12,7 +9,8 @@
   justify-content: space-between;
   height: 25%;
   width: 90%;
-  margin-bottom: 100px;
+  margin-top: 2%;
+  padding-left: 5%;
 }
 
 .chart-item {

@@ -109,15 +109,9 @@ function Header() {
                 <ul className="dropdown">
                   <li
                     id="list-elem"
-                    onClick={() => navigate("/resources/charts")}
+                    onClick={() => navigate("/resources/converter")}
                   >
-                    Charts
-                  </li>
-                  <li
-                    id="list-elem"
-                    onClick={() => navigate("/resources/top-statistics")}
-                  >
-                    Top statistics
+                    Converter
                   </li>
                   <li
                     id="list-elem"
