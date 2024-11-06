@@ -2,18 +2,19 @@
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
-  margin-top: 40px; /* Margin to the top remains the same */
-  width: 100%; /* Ensures the container uses the full available width */
+  margin-top: 40px;
+  width: 100%;
 }
 
 .search-bar {
-  width: 70%; /* Ensures the search bar uses the full width of the container */
+  width: 70%;
   padding: 10px;
   font-size: 14px;
   border-radius: 8px;
   border: 1px solid #ccc;
   margin-bottom: 20px;
-  margin-top: 20px; /* Add margin to the top of the search bar */
+  margin-top: 20px;
+  color: #1a1a1a;
 }
 
 .rows-selector {
