@@ -1,38 +1,52 @@
 import React from "react";
 
 function BitcoinTransaction({ transaction }) {
-    return (
-        <div>
-            <h3>Bitcoin Transaction Details</h3>
-            <p><strong>Block Number:</strong> {transaction.blockNumber}</p>
-            <p><strong>Block Hash:</strong> {transaction.blockHash}</p>
-            <p><strong>Timestamp:</strong> {new Date(transaction.timeStamp * 1000).toLocaleString()}</p>
-            <p><strong>Transaction Hash:</strong> {transaction.hash}</p>
-            <p><strong>Nonce:</strong> {transaction.nonce}</p>
-            <p><strong>Transaction Index:</strong> {transaction.transactionIndex}</p>
-            <p><strong>From:</strong> {transaction.from}</p>
-            <p><strong>To:</strong> {transaction.to || "N/A"}</p>
-            <p><strong>Value:</strong> {transaction.value}</p>
-            <p><strong>Gas:</strong> {transaction.gas}</p>
-            <p><strong>Gas Price:</strong> {transaction.gasPrice}</p>
-            <p><strong>Input:</strong> {transaction.input || "None"}</p>
-            <p><strong>Method ID:</strong> {transaction.methodId || "None"}</p>
-            <p><strong>Function Name:</strong> {transaction.functionName || "None"}</p>
-            <p><strong>Contract Address:</strong> {transaction.contractAddress || "N/A"}</p>
-            <p><strong>Cumulative Gas Used:</strong> {transaction.cumulativeGasUsed}</p>
-            <p><strong>Transaction Receipt Status:</strong> {transaction.txReceiptStatus === "1" ? "Success" : "Failed"}</p>
-            <p><strong>Gas Used:</strong> {transaction.gasUsed}</p>
-            <p><strong>Confirmations:</strong> {transaction.confirmations}</p>
-            <p><strong>Is Error:</strong> {transaction.isError === "1" ? "Yes" : "No"}</p>
-            <p><strong>Token Name:</strong> {transaction.tokenName || "N/A"}</p>
-            <p><strong>Token Symbol:</strong> {transaction.tokenSymbol || "N/A"}</p>
-            <p><strong>Token Decimal:</strong> {transaction.tokenDecimal || "N/A"}</p>
-            <p><strong>Token ID:</strong> {transaction.tokenId || "N/A"}</p>
-            <p><strong>Trace ID:</strong> {transaction.traceId || "N/A"}</p>
-            <p><strong>Type:</strong> {transaction.type || "N/A"}</p>
-            <p><strong>Error Code:</strong> {transaction.errorCode || "N/A"}</p>
-        </div>
-    );
+        return (
+            <div>
+                    <h3>Bitcoin Transaction Details</h3>
+                    <p><strong>Block Hash:</strong> {transaction.blockHash}</p>
+                    <p><strong>Block Height:</strong> {transaction.blockHeight}</p>
+                    <p><strong>Block Index:</strong> {transaction.blockIndex}</p>
+                    <p><strong>Transaction Hash:</strong> {transaction.hash}</p>
+                    <p><strong>Addresses:</strong> {transaction.addresses.join(", ")}</p>
+                    <p><strong>Total:</strong> {transaction.total}</p>
+                    <p><strong>Fees:</strong> {transaction.fees}</p>
+                    <p><strong>Size:</strong> {transaction.size}</p>
+                    <p><strong>Virtual Size (vsize):</strong> {transaction.vsize}</p>
+                    <p><strong>Preference:</strong> {transaction.preference}</p>
+                    <p><strong>Confirmed:</strong> {new Date(transaction.confirmed).toLocaleString()}</p>
+                    <p><strong>Received:</strong> {new Date(transaction.received).toLocaleString()}</p>
+                    <p><strong>Version:</strong> {transaction.ver}</p>
+                    <p><strong>Double Spend:</strong> {transaction.doubleSpend ? "Yes" : "No"}</p>
+                    <p><strong>Inputs Size (vinSz):</strong> {transaction.vinSz}</p>
+                    <p><strong>Outputs Size (voutSz):</strong> {transaction.voutSz}</p>
+                    <p><strong>Data Protocol:</strong> {transaction.dataProtocol || "Unknown"}</p>
+                    <p><strong>Confirmations:</strong> {transaction.confirmations}</p>
+                    <p><strong>Confidence:</strong> {transaction.confidence}</p>
+
+                    <h4>Inputs</h4>
+                    {transaction.inputsDto.map((input, index) => (
+                        <div key={index}>
+                                <p><strong>Output Index:</strong> {input.outputIndex}</p>
+                                <p><strong>Script Type:</strong> {input.scriptType}</p>
+                                <p><strong>Script:</strong> {input.script}</p>
+                                <p><strong>Sequence:</strong> {input.sequence}</p>
+                                <p><strong>Age:</strong> {input.age}</p>
+                        </div>
+                    ))}
+
+                    <h4>Outputs</h4>
+                    {transaction.outputsDto.map((output, index) => (
+                        <div key={index}>
+                                <p><strong>Value:</strong> {output.value}</p>
+                                <p><strong>Script:</strong> {output.script}</p>
+                                <p><strong>Addresses:</strong> {output.addresses ? output.addresses.join(", ") : "N/A"}</p>
+                                <p><strong>Script Type:</strong> {output.scriptType}</p>
+                                <p><strong>Data Hex:</strong> {output.dataHex || "N/A"}</p>
+                        </div>
+                    ))}
+            </div>
+        );
 }
 
 export default BitcoinTransaction;

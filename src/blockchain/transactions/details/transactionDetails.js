@@ -18,7 +18,7 @@ function TransactionDetails() {
         url = `http://localhost:8080/solana/transaction/${address}`;
         break;
       case "ethereum":
-        url = `http://localhost:8080/ethereum/transaction/normal/${address}`;
+        url = `http://localhost:8080/ethereum/transaction/${address}`;
         break;
       case "bitcoin":
         url = `http://localhost:8080/bitcoin/transaction/data/${address}`;
