@@ -10,7 +10,6 @@ function Accounts() {
 
   const handleSearch = async () => {
     if (!searchTerm) return;
-    console.log(`Blockchain: ${blockchainToShow}`)
     navigate(`/blockchain/accounts/${searchTerm}`, { state: { searchTerm, blockchainType: blockchainToShow } });
   };
 

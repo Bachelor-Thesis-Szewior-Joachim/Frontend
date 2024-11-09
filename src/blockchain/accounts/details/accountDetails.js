@@ -11,8 +11,11 @@ function AccountDetails() {
   const navigate = useNavigate();
   const { searchTerm, blockchainType } = location.state || {};
   const [accountData, setAccountData] = useState(null);
+  const [transactions, setTransactions] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  let smallLetter = blockchainType.toLowerCase();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,17 +26,23 @@ function AccountDetails() {
       }
 
       try {
-        const smallLetter = blockchainType.toLowerCase();
-        let response ="";
-        if (smallLetter === 'ethereum' || smallLetter === 'bitcoin' ) {
+        let response = "";
+        let transactionResponse = "";
+        if (smallLetter === 'ethereum') {
           response = await fetch(`http://localhost:8080/${smallLetter}/account/data/${searchTerm}`);
-        } else {
+        } else if(smallLetter === 'bitcoin') {
+          response = await fetch(`http://localhost:8080/${smallLetter}/account/data/${searchTerm}`);
+        } else if(smallLetter === 'solana') {
           response = await fetch(`http://localhost:8080/${smallLetter}/account/${searchTerm}`);
+          transactionResponse = await fetch(`http://localhost:8080/${smallLetter}/transaction/signaturesForAddress/${searchTerm}`);
+          const transactionData = await transactionResponse.json();
+          setTransactions(transactionData);
         }
         if (!response.ok) {
           throw new Error("Failed to retrieve account data");
         }
         const data = await response.json();
+        console.log(`Ethereum response: `, data);
         setAccountData(data);
       } catch (error) {
         console.error("Error fetching account data:", error);
@@ -58,41 +67,28 @@ function AccountDetails() {
     return <div>No account data available.</div>;
   }
 
-  const handleTransactionHash = (address) => {
-    navigate(`/blockchain/transactions/${address}`, { state: { address, blockchainType: blockchainType } });
-  };
-
-  const handleAccountAddress = (address) => {
-    navigate(`/blockchain/accounts/${address}`, { state: { address, blockchainType: blockchainType } });
-  };
-
   let DetailsComponent;
 
-  switch (blockchainType) {
-    case "Solana":
+  switch (smallLetter) {
+    case "solana":
       DetailsComponent = (
           <SolanaDetails
               data={accountData}
-              onNavigateToTransaction={handleTransactionHash}
-              onNavigateToAccount={handleAccountAddress}
+              transactions={transactions}
           />
       );
       break;
-    case "Ethereum":
+    case "ethereum":
       DetailsComponent = (
           <EthereumDetails
               data={accountData}
-              onNavigateToTransaction={handleTransactionHash}
-              onNavigateToAccount={handleAccountAddress}
           />
       );
       break;
-    case "Bitcoin":
+    case "bitcoin":
       DetailsComponent = (
           <BitcoinDetails
               data={accountData}
-              onNavigateToTransaction={handleTransactionHash}
-              onNavigateToAccount={handleAccountAddress}
           />
       );
       break;

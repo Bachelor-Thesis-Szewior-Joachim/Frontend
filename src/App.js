@@ -48,10 +48,7 @@ const App = () => {
         <Route path="/blockchain/blocks" element={<Blocks />} />
         <Route path="/blockchain/blocks/:address" element={<BlockDetails />} />
         <Route path="/blockchain/transactions" element={<Transactions />} />
-        <Route
-          path="/blockchain/transactions/:transactionHash"
-          element={<TransactionDetails />}
-        />
+        <Route path="/blockchain/transactions/:transactionHash" element={<TransactionDetails />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/resources/news" element={<News />} />
