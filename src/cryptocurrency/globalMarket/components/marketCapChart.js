@@ -4,143 +4,187 @@ import { Chart } from "chart.js";
 const MarketCapChart = () => {
   const chartRef = useRef(null);
   const chartInstance = useRef(null);
-  const [timeframe, setTimeframe] = useState("1d"); // Default to 1d
+  const [timeframe, setTimeframe] = useState("all");
+  const [marketCapData, setMarketCapData] = useState({
+    solana: [],
+    bitcoin: [],
+    ethereum: [],
+  });
 
-  // Example data for different timeframes
-  const dataSets = {
-    "1d": [200, 210, 220, 230, 240, 250],
-    "7d": [180, 200, 250, 300, 350, 400],
-    "1m": [100, 150, 200, 250, 300, 350],
-    "6m": [50, 100, 200, 400, 600, 800],
-    all: [200, 400, 1000, 1500, 2000, 2500],
+  // Helper function to fetch data for a cryptocurrency by cmcId
+  const fetchMarketCapData = async (cmcId) => {
+    try {
+      const response = await fetch(`http://localhost:8080/cryptocurrency/historicalData/${cmcId}`);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("Error fetching market cap data:", error);
+      return [];
+    }
+  };
+
+  // Helper function to filter data based on selected timeframe
+  const filterDataByTimeframe = (data) => {
+    const now = new Date();
+    let filteredData;
+    switch (timeframe) {
+      case "1d":
+        filteredData = data.slice(-24);
+        break;
+      case "7d":
+        filteredData = data.slice(-7);
+        break;
+      case "1m":
+        filteredData = data.slice(-30);
+        break;
+      case "6m":
+        filteredData = data.slice(-180);
+        break;
+      default:
+        filteredData = data; // 'all' timeframe
+    }
+    return {
+      dates: filteredData.map((entry) => new Date(entry.date).toLocaleDateString()),
+      marketCap: filteredData.map((entry) => parseFloat(entry.marketCap)),
+    };
   };
 
   useEffect(() => {
-    const ctx = chartRef.current.getContext("2d");
+    const loadChartData = async () => {
+      const solanaData = await fetchMarketCapData(5426);
+      const bitcoinData = await fetchMarketCapData(1);
+      const ethereumData = await fetchMarketCapData(1027);
 
-    // Destroy the existing chart if it exists
-    if (chartInstance.current) {
-      chartInstance.current.destroy();
-    }
+      // Filter data based on selected timeframe
+      const solanaFiltered = filterDataByTimeframe(solanaData);
+      const bitcoinFiltered = filterDataByTimeframe(bitcoinData);
+      const ethereumFiltered = filterDataByTimeframe(ethereumData);
 
-    // Create the chart
-    chartInstance.current = new Chart(ctx, {
-      type: "line",
-      data: {
-        labels: ["2014", "2016", "2018", "2020", "2022", "2024"], // X-axis labels
-        datasets: [
-          {
-            label: "Market Cap",
-            data: dataSets[timeframe], // Dynamic data based on timeframe
-            borderColor: "#00ccff", // Light blue line
-            borderWidth: 2,
-            pointBackgroundColor: "#ffffff", // White points
-            pointBorderColor: "#00ccff",
-            pointHoverRadius: 6,
-            pointRadius: 4,
-            tension: 0.3, // Curve smoothness
-            fill: false, // Disable filling under the line
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        layout: {
-          padding: {
-            top: 20, // Add some space at the top for the legend
-            right: 20,
-            bottom: 10,
-            left: 10,
-          },
-        },
-        scales: {
-          x: {
-            grid: {
-              color: "rgba(255, 255, 255, 0.2)", // Light grid color for the dark background
-            },
-            ticks: {
-              color: "#cfcfcf", // Light text color for X-axis
-            },
-          },
-          y: {
-            beginAtZero: false, // Prevent starting at zero
-            grid: {
-              color: "rgba(255, 255, 255, 0.2)", // Light grid color for Y-axis
-            },
-            ticks: {
-              color: "#cfcfcf", // Light text color for Y-axis
-            },
-          },
-        },
-        plugins: {
-          legend: {
-            labels: {
-              color: "#ffffff", // Legend color
-              boxWidth: 20,
-              padding: 15,
-            },
-            position: "top", // Keep legend at the top of the chart
-          },
-          tooltip: {
-            backgroundColor: "rgba(28, 28, 43, 0.8)", // Dark background for tooltips
-            titleColor: "#ffffff",
-            bodyColor: "#ffffff",
-            borderColor: "#555",
-            borderWidth: 1,
-          },
-        },
-      },
-    });
-
-    // Cleanup function to destroy chart when component unmounts
-    return () => {
+      // Update chart with the filtered data
+      const ctx = chartRef.current.getContext("2d");
       if (chartInstance.current) {
         chartInstance.current.destroy();
       }
+
+      chartInstance.current = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: solanaFiltered.dates, // Use dates from one of the filtered datasets
+          datasets: [
+            {
+              label: "Solana Market Cap",
+              data: solanaFiltered.marketCap,
+              borderColor: "#00ccff",
+              borderWidth: 2,
+              pointBackgroundColor: "#ffffff",
+              pointBorderColor: "#00ccff",
+              pointHoverRadius: 6,
+              pointRadius: 4,
+              tension: 0.3,
+              fill: false,
+            },
+            {
+              label: "Bitcoin Market Cap",
+              data: bitcoinFiltered.marketCap,
+              borderColor: "#f7931a",
+              borderWidth: 2,
+              pointBackgroundColor: "#ffffff",
+              pointBorderColor: "#f7931a",
+              pointHoverRadius: 6,
+              pointRadius: 4,
+              tension: 0.3,
+              fill: false,
+            },
+            {
+              label: "Ethereum Market Cap",
+              data: ethereumFiltered.marketCap,
+              borderColor: "#3c3c3d",
+              borderWidth: 2,
+              pointBackgroundColor: "#ffffff",
+              pointBorderColor: "#3c3c3d",
+              pointHoverRadius: 6,
+              pointRadius: 4,
+              tension: 0.3,
+              fill: false,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          layout: {
+            padding: { top: 20, right: 20, bottom: 10, left: 10 },
+          },
+          scales: {
+            x: {
+              grid: { color: "rgba(255, 255, 255, 0.2)" },
+              ticks: { color: "#cfcfcf" },
+            },
+            y: {
+              beginAtZero: false,
+              grid: { color: "rgba(255, 255, 255, 0.2)" },
+              ticks: { color: "#cfcfcf" },
+            },
+          },
+          plugins: {
+            legend: {
+              labels: { color: "#ffffff", boxWidth: 20, padding: 15 },
+              position: "top",
+            },
+            tooltip: {
+              backgroundColor: "rgba(28, 28, 43, 0.8)",
+              titleColor: "#ffffff",
+              bodyColor: "#ffffff",
+              borderColor: "#555",
+              borderWidth: 1,
+            },
+          },
+        },
+      });
     };
-  }, [timeframe]); // Re-run effect when timeframe changes
+
+    loadChartData();
+  }, [timeframe]); // Reload chart when timeframe changes
 
   return (
-    <div>
-      <div className="timeframe-buttons">
-        <div className="chart-title">Market Cap</div>
-
-        <button
-          className={timeframe === "1d" ? "active" : ""}
-          onClick={() => setTimeframe("1d")}
-        >
-          1d
-        </button>
-        <button
-          className={timeframe === "7d" ? "active" : ""}
-          onClick={() => setTimeframe("7d")}
-        >
-          7d
-        </button>
-        <button
-          className={timeframe === "1m" ? "active" : ""}
-          onClick={() => setTimeframe("1m")}
-        >
-          1m
-        </button>
-        <button
-          className={timeframe === "6m" ? "active" : ""}
-          onClick={() => setTimeframe("6m")}
-        >
-          6m
-        </button>
-        <button
-          className={timeframe === "all" ? "active" : ""}
-          onClick={() => setTimeframe("all")}
-        >
-          All
-        </button>
+      <div>
+        <div className="timeframe-buttons">
+          <div className="chart-title">Market Cap</div>
+          <button
+              className={timeframe === "1d" ? "active" : ""}
+              onClick={() => setTimeframe("1d")}
+          >
+            1d
+          </button>
+          <button
+              className={timeframe === "7d" ? "active" : ""}
+              onClick={() => setTimeframe("7d")}
+          >
+            7d
+          </button>
+          <button
+              className={timeframe === "1m" ? "active" : ""}
+              onClick={() => setTimeframe("1m")}
+          >
+            1m
+          </button>
+          <button
+              className={timeframe === "6m" ? "active" : ""}
+              onClick={() => setTimeframe("6m")}
+          >
+            6m
+          </button>
+          <button
+              className={timeframe === "all" ? "active" : ""}
+              onClick={() => setTimeframe("all")}
+          >
+            All
+          </button>
+        </div>
+        <div style={{ width: "100%" }}>
+          <canvas ref={chartRef} id="marketCapChart"></canvas>
+        </div>
       </div>
-      <div style={{ width: "100%" }}>
-        <canvas ref={chartRef} id="marketCapChart"></canvas>
-      </div>
-    </div>
   );
 };
 

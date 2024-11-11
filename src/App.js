@@ -9,17 +9,16 @@ import Login from "./login/login";
 import SignUp from "./signup/signup";
 import News from "./resources/news/news";
 import Stats from "./resources/stats/stats";
-import TopTokens from "./tokens/topTokens/search/topTokens";
+import Collection from "./tokens/collections/search/collection";
 import AccountDetails from "./blockchain/accounts/details/accountDetails";
 import TransactionDetails from "./blockchain/transactions/details/transactionDetails";
 import BlockDetails from "./blockchain/blocks/details/blockDetails";
-import TopTokenDetails from "./tokens/topTokens/details/topTokenDetails";
+import CollectionDetails from "./tokens/collections/details/collectionDetails";
 import NftStatistics from "./tokens/nftStatistics/search/nftStatistics";
 import NftStatisticsDetails from "./tokens/nftStatistics/details/nftStatisticsDetails";
 import Ranking from "./cryptocurrency/ranking/search/ranking";
 import CryptocurrencyDetails from "./cryptocurrency/ranking/details/cryptocurrencyDetails";
 import Categories from "./cryptocurrency/categories/search/categories";
-import CategoryDetail from "./cryptocurrency/categories/detail/categoryDetail";
 import GlobalMarket from "./cryptocurrency/globalMarket/globalMarket";
 import GainersAndLosers from "./cryptocurrency/gainersAndLosers/gainersAndLosers";
 import HistoricalData from "./cryptocurrency/historicalData/search/historicalData";
@@ -55,8 +54,8 @@ const App = () => {
         <Route path="/resources/stats" element={<Stats />} />
         <Route path="/resources/converter" element={<Converter />} />
         <Route path="/resources/directory" element={<Directory />} />
-        <Route path="/tokens/top-tokens" element={<TopTokens />} />
-        <Route path="/token/details/:name" element={<TopTokenDetails />} />
+        <Route path="/tokens/collection" element={<Collection />} />
+        <Route path="/token/collection/details/:name" element={<CollectionDetails />} />
         <Route
           path="/resources/general-nft-statistics"
           element={<NftStatistics />}
@@ -71,10 +70,6 @@ const App = () => {
           element={<CryptocurrencyDetails />}
         />
         <Route path="/resources/categories" element={<Categories />} />
-        <Route
-          path="/resources/categories/:name"
-          element={<CategoryDetail />}
-        />
         <Route
           path="/cryptocurrency/gainersAndLosers"
           element={<GainersAndLosers />}

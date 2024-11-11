@@ -2,24 +2,24 @@ import React, { useEffect, useRef } from "react";
 import { createChart, destroyChart } from "./script";
 import "./chartComponent.css";
 
-const ChartComponent = () => {
-  const canvasRef = useRef(null); // Reference for the canvas
+const ChartComponent = ({ historicalData }) => {
+  const canvasRef = useRef(null);
 
   useEffect(() => {
     if (canvasRef.current) {
-      createChart(canvasRef.current);
+      createChart(canvasRef.current, historicalData);
     }
 
     return () => {
       destroyChart();
     };
-  }, []);
+  }, [historicalData]);
 
   return (
-    <div className="chart-container">
-      <h2>Bitcoin Price Chart (Bar)</h2>
-      <canvas ref={canvasRef} className="chart-canvas"></canvas>
-    </div>
+      <div className="chart-container">
+        <h2>Price Chart</h2>
+        <canvas ref={canvasRef} className="chart-canvas"></canvas>
+      </div>
   );
 };
 

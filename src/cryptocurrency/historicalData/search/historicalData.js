@@ -18,11 +18,7 @@ const HistoricalData = () => {
     if (selectedDay > days) setSelectedDay(days); // Adjust if day exceeds the number of days
   }, [selectedMonth, selectedYear, selectedDay]);
 
-  // Array for years, months, and days
-  const years = Array.from(
-    { length: currentYear - 2013 + 1 },
-    (_, i) => 2013 + i
-  );
+  const years = [2023,2024];
   const months = [
     "January",
     "February",
@@ -39,9 +35,8 @@ const HistoricalData = () => {
   ];
   const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
 
-  // Handle button click
   const handleSubmit = () => {
-    navigate(`/historicalData/${selectedYear}/${selectedMonth}/${selectedDay}`);
+    navigate(`/historicalData/${selectedYear}/${selectedMonth}/${selectedDay}`, {state: {selectedYear, selectedMonth, selectedDay}});
   };
 
   return (
@@ -52,7 +47,7 @@ const HistoricalData = () => {
 
         <div className="date-grids-container">
           {/* Year selection */}
-          <div className="date-grid date-grid-years">
+          <div className="date-grid date-grid-years" >
             {years.map((year) => (
               <div
                 key={year}
@@ -60,6 +55,7 @@ const HistoricalData = () => {
                   selectedYear === year ? "selected" : ""
                 }`}
                 onClick={() => setSelectedYear(year)}
+                style={{height: '10%'}}
               >
                 {year}
               </div>

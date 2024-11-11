@@ -13,12 +13,11 @@ function SignUp() {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8080/api/signup", {
+      await axios.post("http://localhost:8080/client/register", {
         username,
-        password,
-        email,
+        password
       });
-      navigate("/login"); // Redirect to login page after successful sign-up
+      navigate("/");
     } catch (error) {
       console.error("Sign-up failed:", error);
     }

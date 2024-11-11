@@ -9,21 +9,42 @@ function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+  async function handleLogin(username, password) {
+    console.log("Logging in with username:", username);
     try {
-      const response = await axios.post("http://localhost:8080/api/login", {
-        username,
-        password,
-      });
+      const response = await axios.post(
+          'http://localhost:8080/client/login',
+          {},
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Basic ' + btoa(`${username}:${password}`)
+            }
+          }
+      );
 
-      // Assume JWT token is returned
-      localStorage.setItem("token", response.data.token);
-      navigate("/dashboard"); // Redirect after successful login
+      console.log("Full Response:", response);
+
+      if (response && response.data) {
+        const token = response.data;
+        localStorage.setItem('token', token);
+        console.log("Login successful, token:", token);
+        window.location.href = '/';
+      }
     } catch (error) {
+      if (error.response) {
+        console.log("Error Status:", error.response.status);
+        console.log("Error Data:", error.response.data);
+      } else {
+        console.log("Error Details:", error.message);
+      }
       console.error("Login failed:", error);
     }
-  };
+
+    // Confirm if the token was stored
+    console.log("Stored Token:", localStorage.getItem("token"));
+  }
+
 
   const handleSignUp = () => {
     navigate("/signup");

@@ -1,11 +1,23 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, {useEffect, useState} from "react";
+import {Link, useNavigate} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import "./header.css";
 
 function Header() {
   const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token"); // Assuming token is saved as "token" in localStorage
+    setIsLoggedIn(!!token);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    navigate("/login"); // Redirect to login page after logout
+  };
 
   return (
     <header className="Mainpage-header">
@@ -48,9 +60,9 @@ function Header() {
                 <ul className="dropdown">
                   <li
                     id="list-elem"
-                    onClick={() => navigate("/tokens/top-tokens")}
+                    onClick={() => navigate("/tokens/collection")}
                   >
-                    Top tokens
+                    Collection
                   </li>
                   <li
                     id="list-elem"
@@ -129,9 +141,25 @@ function Header() {
               </li>
             </div>
             <div>
-              <li className="nav-item" onClick={() => navigate("/login")}>
-                Login
-              </li>
+              {isLoggedIn ? (
+                  <>
+                    <li onClick={ () => {navigate("/simulateTransaction")}}>
+                      Simulate Transaction
+                    </li>
+                    <li onClick={ () => {navigate("/predictPrices")}}>
+                      Predict Prices
+                    </li>
+                    <li>
+                      <button onClick={handleLogout} className="logout-button">
+                        Logout
+                      </button>
+                    </li>
+                  </>
+              ) : (
+                  <li onClick={ () => {navigate("/login")}}>
+                  Login
+                  </li>
+              )}
             </div>
           </ul>
         </nav>

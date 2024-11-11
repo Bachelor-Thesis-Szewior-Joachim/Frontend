@@ -6,136 +6,109 @@ function Converter() {
   const [amount, setAmount] = useState(1);
   const [fromCurrency, setFromCurrency] = useState("Bitcoin (BTC)");
   const [toCurrency, setToCurrency] = useState("USD");
-  const [conversionRate, setConversionRate] = useState(null);
+  const [conversionResult, setConversionResult] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const API_URL = "https://api.coingecko.com/api/v3/simple/price";
+  const API_URL = "http://localhost:8080/converter";
 
-  // Available crypto and fiat currencies for both sides
-  const currencyOptions = [
-    "Bitcoin (BTC)",
-    "Ethereum (ETH)",
-    "Tether (USDT)",
-    "BNB (BNB)",
-    "Solana (SOL)",
-    "USDC (USDC)",
-    "XRP (XRP)",
-    "Dogecoin (DOGE)",
-    "Toncoin (TON)",
-    "TRON (TRX)",
-    "USD",
-    "EUR",
-    "GBP",
-    "PLN",
-    "KRW",
-    "JPY",
-    "AUD",
-    "CAD",
-  ];
+  const currencyOptions = ["USD", "EUR", "GBP", "PLN", "KRW", "JPY", "AUD", "CAD"];
 
-  // Function to get the correct symbol for the API
-  const getCurrencySymbol = (currency) => {
-    if (currency.includes("(")) {
-      return currency.split("(")[1].replace(")", "").toLowerCase(); // Ex: 'Bitcoin (BTC)' -> 'btc'
-    }
-    return currency.toLowerCase(); // For fiat currencies like 'USD'
+  const cryptoCurrenciesMap = {
+    "Bitcoin (BTC)": { cmcId: 1, symbol: "BTC" },
+    "Ethereum (ETH)": { cmcId: 1027, symbol: "ETH" },
+    "Tether (USDT)": { cmcId: 825, symbol: "USDT" },
+    "BNB (BNB)": { cmcId: 1839, symbol: "BNB" },
+    "Solana (SOL)": { cmcId: 5426, symbol: "SOL" },
+    "USDC (USDC)": { cmcId: 3408, symbol: "USDC" },
+    "XRP (XRP)": { cmcId: 52, symbol: "XRP" },
+    "Dogecoin (DOGE)": { cmcId: 74, symbol: "DOGE" },
+    "Toncoin (TON)": { cmcId: 11419, symbol: "TON" },
+    "TRON (TRX)": { cmcId: 1958, symbol: "TRX" },
   };
 
-  // Function to fetch conversion rates from the API
   useEffect(() => {
-    const fetchConversionRate = async () => {
+    const fetchConversion = async () => {
       setLoading(true);
       try {
-        const fromSymbol = getCurrencySymbol(fromCurrency);
-        const toSymbol = getCurrencySymbol(toCurrency);
-
-        console.log(`Fetching conversion from ${fromSymbol} to ${toSymbol}`); // Debugging
+        const baseCurrencyId = cryptoCurrenciesMap[fromCurrency].cmcId;
 
         const response = await fetch(
-          `${API_URL}?ids=${fromSymbol}&vs_currencies=${toSymbol}`
+            `${API_URL}?baseCurrency=${baseCurrencyId}&targetCurrency=${toCurrency}&amount=${amount}`
         );
-        const data = await response.json();
+        const data = await response.text();
 
-        console.log("API response: ", data); // Check what the API returns
-
-        setConversionRate(data[fromSymbol]?.[toSymbol] || 1);
+        setConversionResult(data);
       } catch (error) {
-        console.error("Error fetching conversion rate:", error);
-        setConversionRate(1); // Fallback to 1 in case of error
+        console.error("Error fetching conversion:", error);
+        setConversionResult("Error");
       }
       setLoading(false);
     };
 
-    fetchConversionRate();
-  }, [fromCurrency, toCurrency]);
-
-  const handleConversion = () => {
-    if (!conversionRate) return "Loading...";
-    const convertedAmount = (amount * conversionRate).toFixed(2); // Calculate converted amount
-    return convertedAmount;
-  };
+    fetchConversion();
+  }, [fromCurrency, toCurrency, amount]);
 
   return (
-    <div>
-      <Header />
-      <div className="converter-container">
-        <h2>Cryptocurrency Converter Calculator</h2>
-        <div className="converter-box">
-          <div className="converter-input">
-            <input
-              type="number"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              min="0"
-            />
+      <div>
+        <Header />
+        <div className="converter-container">
+          <h2>Cryptocurrency Converter Calculator</h2>
+          <div className="converter-box">
+            <div className="converter-input">
+              <input
+                  type="number"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  min="0"
+              />
+            </div>
+
+            <div className="converter-select">
+              <select
+                  value={fromCurrency}
+                  onChange={(e) => setFromCurrency(e.target.value)}
+              >
+                {Object.keys(cryptoCurrenciesMap).map((crypto, index) => (
+                    <option key={index} value={crypto}>
+                      {crypto}
+                    </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="converter-arrow">⇆</div>
+
+            <div className="converter-select">
+              <select
+                  value={toCurrency}
+                  onChange={(e) => setToCurrency(e.target.value)}
+              >
+                {currencyOptions.map((currency, index) => (
+                    <option key={index} value={currency}>
+                      {currency}
+                    </option>
+                ))}
+              </select>
+            </div>
           </div>
 
-          <div className="converter-select">
-            <select
-              value={fromCurrency}
-              onChange={(e) => setFromCurrency(e.target.value)}
+          <div className="conversion-result">
+            {loading
+                ? "Loading..."
+                : `${amount} ${fromCurrency} = ${Number(conversionResult || 0).toFixed(2)} ${toCurrency}`}
+          </div>
+
+          <div className="converter-buttons">
+            <button
+                className="refresh-btn"
+                onClick={() => window.location.reload()}
             >
-              {currencyOptions.map((currency, index) => (
-                <option key={index} value={currency}>
-                  {currency}
-                </option>
-              ))}
-            </select>
+              Refresh
+            </button>
+            <button className="save-btn">Save This Conversion</button>
           </div>
-
-          <div className="converter-arrow">⇆</div>
-
-          <div className="converter-select">
-            <select
-              value={toCurrency}
-              onChange={(e) => setToCurrency(e.target.value)}
-            >
-              {currencyOptions.map((currency, index) => (
-                <option key={index} value={currency}>
-                  {currency}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-
-        <div className="conversion-result">
-          {loading
-            ? "Loading..."
-            : `${amount} ${fromCurrency} = ${handleConversion()} ${toCurrency}`}
-        </div>
-
-        <div className="converter-buttons">
-          <button
-            className="refresh-btn"
-            onClick={() => window.location.reload()}
-          >
-            Refresh
-          </button>
-          <button className="save-btn">Save This Conversion</button>
         </div>
       </div>
-    </div>
   );
 }
 

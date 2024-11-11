@@ -1,159 +1,279 @@
-import { React, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Header from "../../../header.js";
 import AboutComponent from "./about/aboutComponent.js";
 import ChartComponent from "./chart/chartComponent.js";
-import MarketsComponent from "./markets/marketsComponent.js";
-import NewsComponent from "./news/newsComponent.js";
-import NftsComponent from "./nfts/nftsComponent.js";
 import btcImage from "./btcImage.png";
+import EthereumTokenBalance from "./ethereum/ethereumTokenBalance";
+import EthereumErc20Transfers from "./ethereum/ethereumErc20Transfers";
+import EthereumErc721Transfers from "./ethereum/ethereumErc721Transfers";
 import "./cryptocurrencyDetails.css";
+import BitcoinDetailsComponent from "./bitcoin/bitcoinDetailsComponent";
+import EthereumMinedBlocks from "./ethereum/minedBlocks";
+import BlockProductionComponent from "./solana/blockProduction";
+import CommitmentComponent from "./solana/blockCommitment";
+import MinimumBalanceForRentExemptionComponent from "./solana/mimimumBalanceForRentExemption";
+import ClusterNodesComponent from "./solana/clusterNodes";
+import TokenAccountByOwnerComponent from "./solana/tokenAccountsByOwner";
+import TokenAccountBalanceComponent from "./solana/tokenAccountBalance";
+import TokenSupplyComponent from "./solana/tokenSupply";
+import TransactionSignatureComponent from "./solana/signatureStatuses";
+import SignaturesForAddressComponent from "./solana/signaturesForAddress";
 
 const CryptocurrencyDetails = () => {
   const [activeTab, setActiveTab] = useState("overview"); // State to track the active tab
+  const [cryptoData, setCryptoData] = useState(null);
+  const [bitcoinData, setBitcoinData] = useState(null);
+  const [currentEpoch, setCurrentEpoch] = useState(null);
+  const [genesisHash, setGenesisHash] = useState(null);
+  const [firstAvailableBlock, setFirstAvailableBlock] = useState(null);
+  const [minimumLedgerSlot, setMinimumLedgerSlot] = useState(null);
+
+
+  const location = useLocation();
+  const cmcId = location.state?.cmcId;
+
+  useEffect(() => {
+    fetch(`http://localhost:8080/cryptocurrency/${cmcId}`)
+        .then(response => response.json())
+        .then(data => setCryptoData(data))
+        .catch(error => console.error("Error fetching data:", error));
+
+    if (cmcId === 1) {
+      fetch("http://localhost:8080/bitcoin/stats")
+          .then(response => response.json())
+          .then(data => setBitcoinData(data))
+          .catch(error => console.error("Error fetching Bitcoin data:", error));
+    }
+    if (cmcId === 5426) {
+      fetch("http://localhost:8080/solana/network/currentEpoch")
+          .then(response => response.json())
+          .then(data => setCurrentEpoch(data))
+          .catch(error => console.error("Error fetching current epoch data:", error));
+
+      fetch("http://localhost:8080/solana/network/genesisHash")
+          .then(response => response.json())
+          .then(data => setGenesisHash(data))
+          .catch(error => console.error("Error fetching genesis hash data:", error));
+
+      fetch("http://localhost:8080/solana/network/firstAvailableBlock")
+          .then(response => response.json())
+          .then(data => setFirstAvailableBlock(data))
+          .catch(error => console.error("Error fetching first available block data:", error));
+
+      fetch("http://localhost:8080/solana/slot/minimum")
+          .then(response => response.json())
+          .then(data => setMinimumLedgerSlot(data))
+          .catch(error => console.error("Error fetching minimum ledger slot data:", error));
+    }
+  }, [cmcId]);
 
   const renderContent = () => {
+    if (!cryptoData) return <p>Loading...</p>;
     switch (activeTab) {
       case "about":
-        return <AboutComponent />;
+        return <AboutComponent name={cryptoData.name} />;
       case "chart":
-        return <ChartComponent />;
-      case "nfts":
-        return <NftsComponent />;
-      case "markets":
-        return <MarketsComponent />;
-      case "news":
-        return <NewsComponent />;
+        return <ChartComponent historicalData={cryptoData.historicalData} />;
+      case "bitcoin":
+        return <BitcoinDetailsComponent bitcoinData={bitcoinData} />;
+      case "tokenBalance":
+        return <EthereumTokenBalance />;
+      case "erc20Transfers":
+        return <EthereumErc20Transfers />;
+      case "erc721Transfers":
+        return <EthereumErc721Transfers />;
+      case "minedBlocks":
+        return <EthereumMinedBlocks />;
+      case "blockProduction":
+        return <BlockProductionComponent />;
+      case "blockCommitment":
+        return <CommitmentComponent />;
+      case "minimumBalanceForExemption":
+        return <MinimumBalanceForRentExemptionComponent />;
+      case "clusterNodes":
+        return <ClusterNodesComponent />;
+      case "tokenAccountsByOwner":
+        return <TokenAccountByOwnerComponent />;
+      case "tokenAccountBalance":
+        return <TokenAccountBalanceComponent />;
+      case "tokenSupply":
+        return <TokenSupplyComponent />;
+      case "signatureStatuses":
+        return <TransactionSignatureComponent />;
+      case "signaturesForAddress":
+        return <SignaturesForAddressComponent />;
       default:
-        return <AboutComponent />;
+        return <AboutComponent name={cryptoData.name} />;
     }
   };
 
+  if (!cryptoData) {
+    return <p>Loading...</p>;
+  }
+
   return (
-    <div>
-      <Header />
-      <div className="container">
-        {/* Left Column */}
-        <div className="left-column">
-          <div className="profile">
-            <img src={btcImage} alt="Profile" />
-            <h2>Based Zaza</h2>
-            <span className="badge">Base</span>
-          </div>
-
-          <div className="stats">
-            <h3 className="price">$58,130.49</h3>
-            <p className="change">
-              <span className="positive-change">+0.91% (1d)</span>
-            </p>
-
-            <div className="stat-section">
-              <div className="stat-item">
-                <span>Market Cap</span>
-                <span>$1.14T</span>
-              </div>
-
-              <div className="stat-item">
-                <span>Volume (24h)</span>
-                <span>$32.86B</span>
-              </div>
-
-              <div className="stat-item">
-                <span>Volume/Market Cap</span>
-                <span>2.96%</span>
-              </div>
-
-              <div className="stat-item">
-                <span>Circulating Supply</span>
-                <span>19.75M BTC</span>
-              </div>
-
-              <div className="stat-item">
-                <span>Total Supply</span>
-                <span>19.75M BTC</span>
-              </div>
-
-              <div className="stat-item">
-                <span>Max. Supply</span>
-                <span>21M BTC</span>
-              </div>
-
-              <div className="stat-item">
-                <span>Fully Diluted Market Cap</span>
-                <span>$1.22T</span>
-              </div>
+      <div>
+        <Header />
+        <div className="container">
+          {/* Left Column */}
+          <div className="left-column">
+            <div className="profile">
+              <img src={btcImage} alt="Profile" />
+              <h2>{cryptoData.name}</h2>
+              <span className="badge">{cryptoData.category}</span>
+              <span className="badge">{cryptoData.platformDto?.name}</span>
             </div>
 
-            <div className="links-section">
-              <h4>Official Links</h4>
-              <div className="official-links">
-                <a href="#" className="link-btn">
-                  Website
-                </a>
-                <a href="#" className="link-btn">
-                  Whitepaper
-                </a>
-                <a href="#" className="link-btn">
-                  GitHub
-                </a>
+            <div className="stats">
+              <h3 className="price">${cryptoData.price.toFixed(2)}</h3>
+              <p className="change">
+              <span className={`change ${cryptoData.percentChange24h >= 0 ? "positive-change" : "negative-change"}`}>
+                {cryptoData.percentChange24h.toFixed(2)}% (24h)
+              </span>
+              </p>
+
+              <div className="stat-section">
+                <div className="stat-item">
+                  <span>Market Cap</span>
+                  <span>${cryptoData.marketCap.toLocaleString()}</span>
+                </div>
+
+                <div className="stat-item">
+                  <span>Volume (24h)</span>
+                  <span>${cryptoData.volume24h.toLocaleString()}</span>
+                </div>
+
+                <div className="stat-item">
+                  <span>Circulating Supply</span>
+                  <span>{cryptoData.circulatingSupply} BTC</span>
+                </div>
+                {cmcId === 5426 && (<>
+
+                      <div className="stat-item">
+                        <span>Current Epoch</span>
+                        {currentEpoch ? (
+                            <div>
+                              <p>Absolute Slot: {currentEpoch.absoluteSlot}</p>
+                              <p>Block Height: {currentEpoch.blockHeight}</p>
+                              <p>Epoch: {currentEpoch.epoch}</p>
+                              <p>Slot Index: {currentEpoch.slotIndex}</p>
+                              <p>Slots in Epoch: {currentEpoch.slotsInEpoch}</p>
+                              <p>Transaction Count: {currentEpoch.transactionCount}</p>
+                            </div>
+                        ) : (
+                            "Loading..."
+                        )}
+                      </div>
+
+                      <div className="stat-item">
+                        <span>Genesis Hash</span>
+                        <span>{genesisHash || "Loading..."}</span>
+                      </div>
+
+                      <div className="stat-item">
+                        <span>First Available Block</span>
+                        <span>{firstAvailableBlock || "Loading..."}</span>
+                      </div>
+
+                      <div className="stat-item">
+                        <span>Minimum Ledger Slot</span>
+                        <span>{minimumLedgerSlot || "Loading..."}</span>
+                      </div>
+
+                    </>
+                )}
+
               </div>
-            </div>
 
-            <div className="socials">
-              <h4>Socials</h4>
-              <a href="#" className="social-link">
-                Reddit
-              </a>
-            </div>
-
-            <div className="network-info">
-              <h4>Network Information</h4>
-              <a href="#" className="network-btn">
-                Chain Explorers
-              </a>
-              <a href="#" className="network-btn">
-                Supported Wallets
-              </a>
+              <div className="network-info">
+                <h4>Network Information</h4>
+                <a href="#" className="network-btn">Chain Explorers</a>
+                <a href="#" className="network-btn">Supported Wallets</a>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="right-column">
-          <nav className="nav">
-            <button
-              className={activeTab === "about" ? "active-tab" : ""}
-              onClick={() => setActiveTab("about")}
-            >
-              About
-            </button>
-            <button
-              className={activeTab === "chart" ? "active-tab" : ""}
-              onClick={() => setActiveTab("chart")}
-            >
-              Chart
-            </button>
-            <button
-              className={activeTab === "nfts" ? "active-tab" : ""}
-              onClick={() => setActiveTab("nfts")}
-            >
-              NFTs
-            </button>
-            <button
-              className={activeTab === "markets" ? "active-tab" : ""}
-              onClick={() => setActiveTab("markets")}
-            >
-              Markets
-            </button>
-            <button
-              className={activeTab === "news" ? "active-tab" : ""}
-              onClick={() => setActiveTab("news")}
-            >
-              News
-            </button>
-          </nav>
 
-          <div className="content">{renderContent()}</div>
+          {/* Right Column */}
+          <div className="right-column">
+            <nav className="nav">
+              <button className={activeTab === "about" ? "active-tab" : ""} onClick={() => setActiveTab("about")}>
+                About
+              </button>
+              <button className={activeTab === "chart" ? "active-tab" : ""} onClick={() => setActiveTab("chart")}>
+                Chart
+              </button>
+              {cmcId === 1 && (
+                  <button className={activeTab === "bitcoin" ? "active-tab" : ""} onClick={() => setActiveTab("bitcoin")}>
+                    Bitcoin Details
+                  </button>
+              )}
+              {cmcId === 1027 && (
+                  <>
+                    <button className={activeTab === "tokenBalance" ? "active-tab" : ""}
+                            onClick={() => setActiveTab("tokenBalance")}>
+                      Token Balance
+                    </button>
+                    <button className={activeTab === "erc20Transfers" ? "active-tab" : ""}
+                            onClick={() => setActiveTab("erc20Transfers")}>
+                      ERC-20 Transfers
+                    </button>
+                    <button className={activeTab === "erc721Transfers" ? "active-tab" : ""}
+                            onClick={() => setActiveTab("erc721Transfers")}>
+                      ERC-721 Transfers
+                    </button>
+                    <button className={activeTab === "minedBlocks" ? "active-tab" : ""}
+                            onClick={() => setActiveTab("minedBlocks")}>
+                      Mined Blocks by Address
+                    </button>
+                  </>
+              )}
+              {cmcId === 5426 && (
+                  <>
+                    <button className={activeTab === "blockProduction" ? "active-tab" : ""}
+                            onClick={() => setActiveTab("blockProduction")}>
+                      Block Production
+                    </button>
+                    <button className={activeTab === "blockCommitment" ? "active-tab" : ""}
+                            onClick={() => setActiveTab("blockCommitment")}>
+                      Block Commitment
+                    </button>
+                    <button className={activeTab === "minimumBalanceForExemption" ? "active-tab" : ""}
+                            onClick={() => setActiveTab("minimumBalanceForExemption")}>
+                      Exemption
+                    </button>
+                    <button className={activeTab === "clusterNodes" ? "active-tab" : ""}
+                            onClick={() => setActiveTab("clusterNodes")}>
+                      Cluster Nodes
+                    </button>
+                    <button className={activeTab === "tokenAccountsByOwner" ? "active-tab" : ""}
+                            onClick={() => setActiveTab("tokenAccountsByOwner")}>
+                      Token Accounts By Owner
+                    </button>
+                    <button className={activeTab === "tokenAccountBalance" ? "active-tab" : ""}
+                            onClick={() => setActiveTab("tokenAccountBalance")}>
+                      Token Account Balance
+                    </button>
+                    <button className={activeTab === "tokenSupply" ? "active-tab" : ""}
+                            onClick={() => setActiveTab("tokenSupply")}>
+                      Token Supply
+                    </button>
+                    <button className={activeTab === "signatureStatuses" ? "active-tab" : ""}
+                            onClick={() => setActiveTab("signatureStatuses")}>
+                      Signature Statuses
+                    </button>
+                    <button className={activeTab === "signaturesForAddress" ? "active-tab" : ""}
+                            onClick={() => setActiveTab("signaturesForAddress")}>
+                      Signatures For Address
+                    </button>
+                  </>
+              )}
+            </nav>
+
+            <div className="content">{renderContent()}</div>
+          </div>
         </div>
       </div>
-    </div>
   );
 };
 

@@ -1,201 +1,148 @@
-import React, { useState, useEffect } from "react";
+import React, {useEffect, useState} from "react";
 import "./nftStatistics.css";
-import Header from "../../../header";
 import { useNavigate } from "react-router-dom";
-import {
-  createMarketCapChart,
-  createSalesVolumeChart,
-  createTotalSalesChart,
-} from "./script";
+import axios from "axios";
+import Header from "../../../header";
 
 function NftStatistics() {
-  const [nftPerPage, setNftPerPage] = useState(20);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [blockchainToShow, setBlockchainToShow] = useState("All");
-
-  const totalPages = 822778; // Example total pages
-
+  const [searchOption, setSearchOption] = useState("Contract");
+  const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
 
-  const nfts = [
-    {
-      name: "Based Zaza",
-      chain: "ETH",
-      volume_24h: "708.81 ETH",
-      market_cap: "2,500 ETH",
-      floor_price: "0.00006 ETH",
-      avg_price_24h: "0.5 ETH",
-      sales_24h: "956",
-      assets: "5000",
-      owners: "798",
-      owners_percent: "15.96%",
-    },
-    {
-      name: "Skies",
-      chain: "MATIC",
-      volume_24h: "3,908,037.44 MATIC",
-      market_cap: "17,606,737.11 MATIC",
-      floor_price: "40,624.25 MAT",
-      avg_price_24h: "41,137.24 MATIC",
-      sales_24h: "95",
-      assets: "5000",
-
-      owners: "31",
-      owners_percent: "2.41%",
-    },
-    {
-      name: "Vegetables",
-      chain: "ETH",
-      volume_24h: "519 ETH",
-      market_cap: "768 ETH",
-      floor_price: "3 ETH",
-      avg_price_24h: "3 ETH",
-      sales_24h: "173",
-      assets: "5000",
-
-      owners: "51",
-      owners_percent: "19.92%",
-    },
-    // Continue formatting the remaining data similarly...
-  ];
-
-  function goToPreviousPage() {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+  const handleSearch = async () => {
+    if (!searchValue) {
+      alert("Please enter a search value.");
+      return;
     }
-  }
 
-  function goToNextPage() {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
+    try {
+      navigate(`/tokens/nftStatistics/${searchValue}`, { state: { searchOption: searchOption, value: searchValue} });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      alert("No data found for the specified search.");
     }
-  }
-
-  const handleNFT = (name) => {
-    navigate(`/tokens/nftStatistics/${name}`);
   };
 
-  useEffect(() => {
-    const marketCapCtx = document
-      .getElementById("marketCapChart")
-      .getContext("2d");
-    const salesVolumeCtx = document
-      .getElementById("salesVolumeChart")
-      .getContext("2d");
-    const totalSalesCtx = document
-      .getElementById("totalSalesChart")
-      .getContext("2d");
+  const [tokens, setTokens] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
-    createMarketCapChart(marketCapCtx);
-    createSalesVolumeChart(salesVolumeCtx);
-    createTotalSalesChart(totalSalesCtx);
+  useEffect(() => {
+    const fetchTokens = async () => {
+      try {
+        const response = await axios.get(
+            "http://localhost:8080/cryptocurrency/tokens?startIndex=1&lastIndex=56"
+        );
+        setTokens(response.data);
+      } catch (error) {
+        console.error("Error fetching tokens:", error);
+      }
+    };
+    fetchTokens();
   }, []);
 
+  // Pagination calculations
+  const tokensPerPage = 10;
+  const totalPages = 6;
+
+  // Get current page's tokens
+  const indexOfLastToken = currentPage * tokensPerPage;
+  const indexOfFirstToken = indexOfLastToken - tokensPerPage;
+  const currentTokens =
+      currentPage < totalPages
+          ? tokens.slice(indexOfFirstToken, indexOfLastToken)
+          : tokens.slice(indexOfFirstToken);
+
+  // Pagination handlers
+  const goToPreviousPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
+  const goToNextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+
+  // Handle row click to navigate
+  const handleRowClick = (name, cmcId) => {
+    navigate(`/resources/ranking/${name}`, { state: { cmcId } });
+  };
+
   return (
-    <div>
-      <Header />
-      <div className="big-info-container">
-        <div className="small-info-container">
-          <div className="info-box">
-            <canvas id="marketCapChart" width="400" height="200"></canvas>
-          </div>
-          <div className="info-box">
-            <canvas id="salesVolumeChart" width="400" height="200"></canvas>
-          </div>
-          <div className="info-box">
-            <canvas id="totalSalesChart" width="400" height="200"></canvas>
-          </div>
-        </div>
-
-        <div className="blockchain-selector">
-          <label>Choose Blockchain:</label>
-          <select
-            value={blockchainToShow}
-            onChange={(e) => setBlockchainToShow(e.target.value)}
-          >
-            <option value="All">All</option>
-            <option value="Solana">Solana</option>
-            <option value="Ethereum">Ethereum</option>
-            <option value="Bitcoin">Bitcoin</option>
-          </select>
-        </div>
-
-        <div className="list-of-nfts-header">
-          <div id="amount-of-nfts">Total amount of nfts: {100000}</div>
-          <div id="amount-per-page-div">
-            Blocks per page:
+      <div>
+        <Header/>
+        <div className="nft-statistics">
+          <h3>NFT Statistics Search</h3>
+          <div className="search-bar">
             <select
-              value={nftPerPage}
-              onChange={(e) => setNftPerPage(Number(e.target.value))}
+                value={searchOption}
+                onChange={(e) => setSearchOption(e.target.value)}
+                className="search-option"
             >
-              <option value={20}>20</option>
-              <option value={40}>40</option>
-              <option value={60}>60</option>
+              <option value="Contract">Contract</option>
+              <option value="Identifier">Identifier</option>
+              <option value="Name">Name</option>
+              <option value="Collection">Collection</option>
             </select>
-          </div>
-          <div id="button-first-div">
-            <button id="button-first">First</button>
-          </div>
-          <div className="pagination">
-            <button
-              className="pagination-button"
-              disabled={currentPage === 1}
-              onClick={goToPreviousPage}
-            >
-              &lt;
+
+            <input
+                type="text"
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                placeholder={`Enter ${searchOption} value`}
+                className="search-input"
+            />
+
+            <button onClick={handleSearch} className="search-button">
+              Search
             </button>
-            <span className="pagination-info">
-              Page {currentPage} of {totalPages}
-            </span>
-            <button
-              className="pagination-button"
-              disabled={currentPage === totalPages}
-              onClick={goToNextPage}
-            >
-              &gt;
-            </button>
-          </div>
-          <div id="button-last-div">
-            <button id="button-last">Last</button>
           </div>
         </div>
-
-        <div className="table">
-          <div className="table-header">
-            <div id="table-nft-nft-number">#</div>
-            <div id="table-nft-name">Name</div>
-            <div id="table-nft-chain">Chain</div>
-            <div id="table-nft-volume">Volume(24h)</div>
-            <div id="table-nft-estimated-market-cap">Est. Market Cap</div>
-            <div id="table-nft-floor-price">Floor price</div>
-            <div id="table-nft-avg-price">Avg. Price(24h)</div>
-            <div id="table-nft-sales">Sales(24h)</div>
-            <div id="table-nft-assets">Assets</div>
-            <div id="table-nft-owners">Owners</div>
-            <div id="table-nft-owners-percent">Owners(%)</div>
-          </div>
-          <div className="table-body">
-            {nfts.map((nft, index) => (
-              <div key={index} className="table-row">
-                <div id="table-nft-nft-number">{index}</div>
-                <div id="table-nft-name" onClick={() => handleNFT(nft.name)}>
-                  <span>{nft.name}</span>
-                </div>
-                <div id="table-nft-chain">{nft.chain}</div>
-                <div id="table-nft-volume">{nft.volume_24h}</div>
-                <div id="table-nft-estimated-market-cap">{nft.market_cap}</div>
-                <div id="table-nft-floor-price">{nft.floor_price}</div>
-                <div id="table-nft-avg-price">{nft.avg_price_24h}</div>
-                <div id="table-nft-sales">{nft.sales_24h}</div>
-                <div id="table-nft-assets">{nft.assets}</div>
-                <div id="table-nft-owners">{nft.owners}</div>
-                <div id="table-nft-owners-percent">{nft.owners_percent}</div>
-              </div>
+        <div className="token-table-container">
+          <h2>Blockchain Tokens</h2>
+          <table className="token-table">
+            <thead>
+            <tr>
+              <th>CMC ID</th>
+              <th>Name</th>
+              <th>Symbol</th>
+              <th>Price</th>
+              <th>Market Cap</th>
+              <th>24h Volume</th>
+              <th>1h Change (%)</th>
+              <th>24h Change (%)</th>
+              <th>7d Change (%)</th>
+            </tr>
+            </thead>
+            <tbody>
+            {currentTokens.map((token) => (
+                <tr key={token.id}>
+                  <td>
+                <span
+                    className="clickable"
+                    onClick={() => handleRowClick(token.cryptocurrencyDto.name, token.cmcId)}
+                >
+                  {token.cmcId}
+                </span>
+                  </td>
+                  <td>{token.cryptocurrencyDto.name}</td>
+                  <td>{token.cryptocurrencyDto.symbol}</td>
+                  <td>{token.cryptocurrencyDto.price.toFixed(2)}</td>
+                  <td>{token.cryptocurrencyDto.marketCap.toLocaleString()}</td>
+                  <td>{token.cryptocurrencyDto.volume24h.toLocaleString()}</td>
+                  <td>{token.cryptocurrencyDto.percentChange1h.toFixed(2)}</td>
+                  <td>{token.cryptocurrencyDto.percentChange24h.toFixed(2)}</td>
+                  <td>{token.cryptocurrencyDto.percentChange7d.toFixed(2)}</td>
+                </tr>
             ))}
+            </tbody>
+          </table>
+
+          <div className="pagination-controls">
+            <button onClick={goToPreviousPage} disabled={currentPage === 1}>
+              Previous
+            </button>
+            <span>Page {currentPage} of {totalPages}</span>
+            <button onClick={goToNextPage} disabled={currentPage === totalPages}>
+              Next
+            </button>
           </div>
         </div>
       </div>
-    </div>
+
   );
 }
 
