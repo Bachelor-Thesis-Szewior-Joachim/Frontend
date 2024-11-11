@@ -41,7 +41,6 @@ function Login() {
       console.error("Login failed:", error);
     }
 
-    // Confirm if the token was stored
     console.log("Stored Token:", localStorage.getItem("token"));
   }
 
@@ -81,7 +80,12 @@ function Login() {
           >
             SignUp
           </button>
-          <button id="login" type="submit" className="submit-button">
+          <button
+              id="login"
+              type="button"
+              className="submit-button"
+              onClick={() => handleLogin(username, password)}
+          >
             Login
           </button>
         </form>
