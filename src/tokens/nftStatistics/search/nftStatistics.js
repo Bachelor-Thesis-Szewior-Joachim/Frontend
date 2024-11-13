@@ -3,6 +3,7 @@ import "./nftStatistics.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Header from "../../../header";
+import {getToken} from "../../../security";
 
 function NftStatistics() {
   const [searchOption, setSearchOption] = useState("Contract");
@@ -30,7 +31,11 @@ function NftStatistics() {
     const fetchTokens = async () => {
       try {
         const response = await axios.get(
-            "http://localhost:8080/cryptocurrency/tokens?startIndex=1&lastIndex=56"
+            "http://localhost:8080/cryptocurrency/tokens?startIndex=1&lastIndex=56", {
+  headers: {
+    'Authorization': `Bearer ${getToken()}`
+  }
+}
         );
         setTokens(response.data);
       } catch (error) {

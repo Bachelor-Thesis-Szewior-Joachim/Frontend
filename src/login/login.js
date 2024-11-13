@@ -25,9 +25,9 @@ function Login() {
 
       console.log("Full Response:", response);
 
-      if (response && response.data) {
-        const token = response.data;
-        localStorage.setItem('token', token);
+      if (response && response.data && response.data.accessToken) {
+        const token = response.data.accessToken;
+        localStorage.setItem('token', token); // Store only the token
         console.log("Login successful, token:", token);
         window.location.href = '/';
       }
@@ -43,6 +43,7 @@ function Login() {
 
     console.log("Stored Token:", localStorage.getItem("token"));
   }
+
 
 
   const handleSignUp = () => {

@@ -3,6 +3,7 @@ import "./collection.css";
 import Header from "../../../header";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import {getToken} from "../../../security";
 
 function Collection() {
   const [tokensPerPage, setTokensPerPage] = useState(20);
@@ -19,7 +20,11 @@ function Collection() {
   useEffect(() => {
     const fetchCollections = async (blockchain, setCollections) => {
       try {
-        const response = await axios.get(`http://localhost:8080/collections/${blockchain}`);
+        const response = await axios.get(`http://localhost:8080/collections/${blockchain}`,{
+          headers: {
+            'Authorization': `Bearer ${getToken()}`
+          }
+        });
         setCollections(response.data);
       } catch (error) {
         console.error(`Failed to fetch collections for ${blockchain}`, error);
