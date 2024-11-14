@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Chart } from "chart.js";
+import axios from "axios";
+import { getToken } from "../../security"; // Import the getToken function
 
 const MarketCapChart = () => {
   const chartRef = useRef(null);
@@ -14,9 +16,13 @@ const MarketCapChart = () => {
   // Helper function to fetch data for a cryptocurrency by cmcId
   const fetchMarketCapData = async (cmcId) => {
     try {
-      const response = await fetch(`http://localhost:8080/cryptocurrency/historicalData/${cmcId}`);
-      const data = await response.json();
-      return data;
+      const token = getToken(); // Get the token from localStorage
+      const headers = {
+        'Authorization': `Bearer ${token}`
+      };
+
+      const response = await axios.get(`http://localhost:8080/cryptocurrency/historicalData/${cmcId}`, { headers });
+      return response.data;
     } catch (error) {
       console.error("Error fetching market cap data:", error);
       return [];
@@ -25,7 +31,6 @@ const MarketCapChart = () => {
 
   // Helper function to filter data based on selected timeframe
   const filterDataByTimeframe = (data) => {
-    const now = new Date();
     let filteredData;
     switch (timeframe) {
       case "1d":

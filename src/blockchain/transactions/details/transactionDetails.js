@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
-import {useParams, useNavigate, useLocation} from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import SolanaTransaction from "./SolanaTransaction";
 import EthereumTransaction from "./EthereumTransaction";
 import BitcoinTransaction from "./BitcoinTransaction";
 import Header from "../../../header";
+import axios from "axios";
+import { getToken } from "../../../security"; // Import the getToken function
 
 function TransactionDetails() {
   const location = useLocation();
   const { address, blockchainType } = location.state || {};
   const [transaction, setTransaction] = useState(null);
   const navigate = useNavigate();
-  console.log("Blockchain type: ",blockchainType);
+
   useEffect(() => {
     let url;
     switch (blockchainType.toLowerCase()) {
@@ -28,17 +30,28 @@ function TransactionDetails() {
         return;
     }
 
-    fetch(url)
-        .then((response) => response.json())
-        .then((data) => setTransaction(data))
-        .catch((error) => console.error("Error fetching transaction data:", error));
+    const fetchTransactionData = async () => {
+      try {
+        const token = getToken(); // Get the token from localStorage
+        const headers = {
+          'Authorization': `Bearer ${token}`
+        };
+
+        const response = await axios.get(url, { headers });
+        setTransaction(response.data);
+      } catch (error) {
+        console.error("Error fetching transaction data:", error);
+      }
+    };
+
+    fetchTransactionData();
   }, [blockchainType, address, navigate]);
 
   if (!transaction) return <p>Loading transaction data...</p>;
-  console.log(transaction);
+
   return (
       <div>
-        <Header></Header>
+        <Header />
         <h2>Transaction Details for {blockchainType.charAt(0).toUpperCase() + blockchainType.slice(1)}</h2>
         {blockchainType.toLowerCase() === "solana" && <SolanaTransaction transaction={transaction} />}
         {blockchainType.toLowerCase() === "ethereum" && <EthereumTransaction transaction={transaction} />}

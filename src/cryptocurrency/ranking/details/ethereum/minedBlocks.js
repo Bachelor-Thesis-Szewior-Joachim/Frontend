@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { getToken } from '../../../../security'; // Import the getToken function
 
 const EthereumMinedBlocks = () => {
     const [address, setAddress] = useState('');
     const [blocks, setBlocks] = useState([]);
 
-    const fetchBlocks = () => {
-        fetch(`http://localhost:8080/ethereum/block/minedBlocks/${address}`)
-            .then(response => response.json())
-            .then(data => setBlocks(data))
-            .catch(error => console.error('Error fetching mined blocks:', error));
+    const fetchBlocks = async () => {
+        const token = getToken(); // Get the token from localStorage
+        const headers = { 'Authorization': `Bearer ${token}` };
+
+        try {
+            const response = await axios.get(`http://localhost:8080/ethereum/block/minedBlocks/${address}`, { headers });
+            setBlocks(response.data);
+        } catch (error) {
+            console.error('Error fetching mined blocks:', error);
+        }
     };
 
     return (

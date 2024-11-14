@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Chart } from "chart.js";
 import "./style.css";
+import axios from "axios";
+import { getToken } from "../../security"; // Import the getToken function
 
 const CryptoFearGreedIndexChart = () => {
   const chartRef = useRef(null);
@@ -11,9 +13,13 @@ const CryptoFearGreedIndexChart = () => {
   // Fetch data from API
   const fetchFearGreedData = async () => {
     try {
-      const response = await fetch("http://localhost:8080/global-data/latest");
-      const data = await response.json();
-      setFearGreedData(data);
+      const token = getToken(); // Get the token from localStorage
+      const headers = {
+        'Authorization': `Bearer ${token}`
+      };
+
+      const response = await axios.get("http://localhost:8080/global-data/latest", { headers });
+      setFearGreedData(response.data);
     } catch (error) {
       console.error("Error fetching Fear & Greed data:", error);
     }

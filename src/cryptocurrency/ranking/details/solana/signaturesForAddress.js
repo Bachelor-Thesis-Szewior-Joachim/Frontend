@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { getToken } from '../../../../security'; // Import the getToken function
 
 const SignaturesForAddressComponent = () => {
     const [value, setValue] = useState('');
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    const fetchSignaturesForAddress = () => {
+    const fetchSignaturesForAddress = async () => {
         setLoading(true);
-        fetch(`http://localhost:8080/solana/transaction/signaturesForAddress/${value}`)
-            .then(response => response.json())
-            .then(data => {
-                setData(data);
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error("Error fetching signatures for address:", error);
-                setLoading(false);
-            });
+        const token = getToken(); // Get the token from localStorage
+        const headers = { 'Authorization': `Bearer ${token}` };
+
+        try {
+            const response = await axios.get(`http://localhost:8080/solana/transaction/signaturesForAddress/${value}`, { headers });
+            setData(response.data);
+        } catch (error) {
+            console.error("Error fetching signatures for address:", error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Header from "../../header";
 import "./gainersAndLosers.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { getToken } from "../../security"; // Import the getToken function
 
 const GainersAndLosers = () => {
   const [coins, setCoins] = useState([]);
@@ -18,12 +20,18 @@ const GainersAndLosers = () => {
     try {
       const startIndex = (page - 1) * coinsPerPage + 1;
       const lastIndex = page * coinsPerPage;
-      const response = await fetch(
-          `http://localhost:8080/cryptocurrency/ranking?startIndex=${startIndex}&lastIndex=${lastIndex}`
+      const token = getToken(); // Get the token from localStorage
+      const headers = {
+        'Authorization': `Bearer ${token}`
+      };
+
+      const response = await axios.get(
+          `http://localhost:8080/cryptocurrency/ranking?startIndex=${startIndex}&lastIndex=${lastIndex}`,
+          { headers }
       );
-      const data = await response.json();
+
       // Filter out records with volume < 50000
-      const filteredData = data.filter((coin) => coin.volume24h >= 50000);
+      const filteredData = response.data.filter((coin) => coin.volume24h >= 50000);
       setCoins(filteredData);
       setTotalPages(Math.ceil(100 / coinsPerPage)); // Assuming 100 total records
     } catch (error) {

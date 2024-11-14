@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {useNavigate, useLocation} from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
+import { getToken } from "../../../security"; // Import the getToken function
 import "./collectionDetails.css";
 import Header from "../../../header";
 
@@ -15,11 +17,13 @@ function CollectionDetails() {
 
   useEffect(() => {
     const fetchCollectionDetails = async () => {
+      const token = getToken(); // Get the token from localStorage
+      const headers = { 'Authorization': `Bearer ${token}` };
+
       try {
-        const response = await fetch(`http://localhost:8080/collections/collection/${slug}`);
-        const data = await response.json();
-        console.log("Collection details:", data);
-        setCollection(data);
+        const response = await axios.get(`http://localhost:8080/collections/collection/${slug}`, { headers });
+        console.log("Collection details:", response.data);
+        setCollection(response.data);
       } catch (error) {
         console.error("Error fetching collection details:", error);
       }
@@ -113,9 +117,6 @@ function CollectionDetails() {
               />
             </div>
           </div>
-
-          {/* Additional UI for transaction list and pagination if required */}
-          {/* This section could be populated similarly with data if provided from the collection details API */}
         </div>
       </div>
   );

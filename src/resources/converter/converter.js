@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { getToken } from "../../security";
 import "./converter.css";
 import Header from "../../header";
 
@@ -29,15 +31,22 @@ function Converter() {
   useEffect(() => {
     const fetchConversion = async () => {
       setLoading(true);
+      const token = getToken(); // Get the token from localStorage
+      const headers = { 'Authorization': `Bearer ${token}` };
+
       try {
         const baseCurrencyId = cryptoCurrenciesMap[fromCurrency].cmcId;
 
-        const response = await fetch(
-            `${API_URL}?baseCurrency=${baseCurrencyId}&targetCurrency=${toCurrency}&amount=${amount}`
-        );
-        const data = await response.text();
+        const response = await axios.get(API_URL, {
+          headers,
+          params: {
+            baseCurrency: baseCurrencyId,
+            targetCurrency: toCurrency,
+            amount: amount,
+          },
+        });
 
-        setConversionResult(data);
+        setConversionResult(response.data);
       } catch (error) {
         console.error("Error fetching conversion:", error);
         setConversionResult("Error");

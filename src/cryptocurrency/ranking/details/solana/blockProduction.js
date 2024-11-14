@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { getToken } from '../../../../security'; // Import the getToken function
 
 const BlockProductionComponent = () => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("http://localhost:8080/solana/block/blockProduction")
-            .then(response => response.json())
-            .then(data => {
-                setData(data);
-                setLoading(false);
-            })
-            .catch(error => {
+        const fetchBlockProductionData = async () => {
+            const token = getToken(); // Get the token from localStorage
+            const headers = { 'Authorization': `Bearer ${token}` };
+
+            try {
+                const response = await axios.get("http://localhost:8080/solana/block/blockProduction", { headers });
+                setData(response.data);
+            } catch (error) {
                 console.error("Error fetching block production data:", error);
+            } finally {
                 setLoading(false);
-            });
+            }
+        };
+
+        fetchBlockProductionData();
     }, []);
 
     if (loading) return <p>Loading...</p>;

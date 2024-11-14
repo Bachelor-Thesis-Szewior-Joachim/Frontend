@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../../header";
+import axios from "axios";
+import { getToken } from "../../../security"; // Import the getToken function
 import "./specificDate.css";
 
 const SpecificDate = () => {
@@ -13,14 +15,26 @@ const SpecificDate = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/cryptocurrency/getSpecificDayHistoricalData/${selectedDate}`);
-        const data = await response.json();
+        const token = getToken(); // Get the token from localStorage
+        const headers = {
+          'Authorization': `Bearer ${token}`
+        };
+
+        // Fetch historical data based on the specific date
+        const response = await axios.get(
+            `http://localhost:8080/cryptocurrency/getSpecificDayHistoricalData/${selectedDate}`,
+            { headers }
+        );
+        const data = response.data;
 
         // Update data with name and symbol from additional API call for each cryptocurrency
         const updatedData = await Promise.all(
             data.map(async (coin) => {
-              const coinDetailResponse = await fetch(`http://localhost:8080/cryptocurrency/${coin.cmcId}`);
-              const coinDetailData = await coinDetailResponse.json();
+              const coinDetailResponse = await axios.get(
+                  `http://localhost:8080/cryptocurrency/${coin.cmcId}`,
+                  { headers }
+              );
+              const coinDetailData = coinDetailResponse.data;
               return {
                 ...coin,
                 name: coinDetailData.name,

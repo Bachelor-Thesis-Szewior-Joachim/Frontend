@@ -5,6 +5,8 @@ import SolanaDetails from "./SolanaDetails";
 import EthereumDetails from "./EthereumDetails";
 import BitcoinDetails from "./BitcoinDetails";
 import "./accountDetails.css";
+import axios from "axios";
+import {getToken} from "../../../security";
 
 function AccountDetails() {
   const location = useLocation();
@@ -27,17 +29,22 @@ function AccountDetails() {
 
       try {
         let response = "";
-        let transactionResponse = "";
-        if (smallLetter === 'ethereum') {
-          response = await fetch(`http://localhost:8080/${smallLetter}/account/data/${searchTerm}`);
-        } else if(smallLetter === 'bitcoin') {
-          response = await fetch(`http://localhost:8080/${smallLetter}/account/data/${searchTerm}`);
-        } else if(smallLetter === 'solana') {
-          response = await fetch(`http://localhost:8080/${smallLetter}/account/${searchTerm}`);
-          transactionResponse = await fetch(`http://localhost:8080/${smallLetter}/transaction/signaturesForAddress/${searchTerm}`);
-          const transactionData = await transactionResponse.json();
-          setTransactions(transactionData);
+        let transactionResponse = ""
+        const token = getToken();
+        const headers = {
+          'Authorization': `Bearer ${token}`
         }
+
+        if (smallLetter === 'ethereum') {
+          response = await axios.get(`http://localhost:8080/${smallLetter}/account/data/${searchTerm}`, { headers });
+        } else if (smallLetter === 'bitcoin') {
+          response = await axios.get(`http://localhost:8080/${smallLetter}/account/data/${searchTerm}`, { headers });
+        } else if (smallLetter === 'solana') {
+          response = await axios.get(`http://localhost:8080/${smallLetter}/account/${searchTerm}`, { headers });
+          transactionResponse = await axios.get(`http://localhost:8080/${smallLetter}/transaction/signaturesForAddress/${searchTerm}`, { headers });
+          setTransactions(transactionResponse.data);
+        }
+
         if (!response.ok) {
           throw new Error("Failed to retrieve account data");
         }

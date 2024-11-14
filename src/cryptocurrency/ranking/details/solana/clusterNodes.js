@@ -1,20 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { getToken } from '../../../../security'; // Import the getToken function
 
 const ClusterNodesComponent = () => {
     const [nodes, setNodes] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("http://localhost:8080/solana/node/getClusterNodes")
-            .then(response => response.json())
-            .then(data => {
-                setNodes(data);
-                setLoading(false);
-            })
-            .catch(error => {
+        const fetchClusterNodesData = async () => {
+            const token = getToken(); // Get the token from localStorage
+            const headers = { 'Authorization': `Bearer ${token}` };
+
+            try {
+                const response = await axios.get("http://localhost:8080/solana/node/getClusterNodes", { headers });
+                setNodes(response.data);
+            } catch (error) {
                 console.error("Error fetching cluster nodes data:", error);
+            } finally {
                 setLoading(false);
-            });
+            }
+        };
+
+        fetchClusterNodesData();
     }, []);
 
     if (loading) return <p>Loading...</p>;

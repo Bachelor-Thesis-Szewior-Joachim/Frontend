@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { getToken } from "../../security"; // Import the getToken function
 import "./news.css";
 import Header from "../../header";
 
@@ -9,15 +11,14 @@ function News() {
 
     useEffect(() => {
         const fetchNews = async () => {
+            const token = getToken(); // Get the token from localStorage
+            const headers = { 'Authorization': `Bearer ${token}` };
+
             try {
-                const response = await fetch("http://localhost:8080/news");
-                if (!response.ok) {
-                    throw new Error("Failed to fetch news");
-                }
-                const data = await response.json();
-                setNews(data);
+                const response = await axios.get("http://localhost:8080/news", { headers });
+                setNews(response.data);
             } catch (error) {
-                setError(error.message);
+                setError("Failed to fetch news");
             } finally {
                 setLoading(false);
             }

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../../header.js";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { getToken } from "../../../security";
 import "./ranking.css";
 
 function Ranking() {
@@ -15,13 +17,15 @@ function Ranking() {
   const fetchCryptocurrencies = async (page, limit) => {
     const startIndex = (page - 1) * limit + 1;
     const lastIndex = page * limit;
+    const token = getToken(); // Get the token from localStorage
+    const headers = { 'Authorization': `Bearer ${token}` };
 
     try {
-      const response = await fetch(
-          `http://localhost:8080/cryptocurrency/ranking?startIndex=${startIndex}&lastIndex=${lastIndex}`
-      );
-      const data = await response.json();
-      setCoins(data); // Set the fetched coins to display
+      const response = await axios.get(`http://localhost:8080/cryptocurrency/ranking`, {
+        headers,
+        params: { startIndex, lastIndex },
+      });
+      setCoins(response.data); // Set the fetched coins to display
     } catch (error) {
       console.error("Error fetching cryptocurrencies:", error);
     }
@@ -34,7 +38,7 @@ function Ranking() {
 
   const handleCryptocurrencyName = (cmcId) => {
     console.log("cmcId: ", cmcId);
-    navigate(`/resources/ranking/${cmcId}`, {state: { cmcId: cmcId }});
+    navigate(`/resources/ranking/${cmcId}`, { state: { cmcId: cmcId } });
   };
 
   const goToPreviousPage = () => {

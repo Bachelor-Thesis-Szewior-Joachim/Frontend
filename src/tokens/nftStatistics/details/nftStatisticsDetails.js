@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import axios from "axios";
+import { getToken } from "../../../security"; // Import the getToken function
 import "./nftStatisticsDetails.css";
 import Header from "../../../header";
 
@@ -21,28 +23,26 @@ const NFTStatisticsDetails = () => {
         const endpoint = endpointMap[searchOption];
         if (!endpoint) return;
 
-        let isMounted = true;
+        const fetchData = async () => {
+            const token = getToken(); // Get the token from localStorage
+            const headers = { 'Authorization': `Bearer ${token}` };
 
-
-        fetch(`http://localhost:8080/nft-statistics/${endpoint}`)
-            .then(response => response.json())
-            .then(data => {
-                if (isMounted) {
-                    if (searchOption === "Identifier") {
-                        setNftData([data])
-                    } else {
-                        setNftData(data);
-                    }
+            try {
+                const response = await axios.get(`http://localhost:8080/nft-statistics/${endpoint}`, { headers });
+                if (searchOption === "Identifier") {
+                    setNftData([response.data]); // Wrap data in an array for consistent rendering
+                } else {
+                    setNftData(response.data);
                 }
-            })
-            .catch(error => console.error("Error fetching NFT data:", error));
-
-        return () => {
-            isMounted = false; // Cleanup
+            } catch (error) {
+                console.error("Error fetching NFT data:", error);
+            }
         };
+
+        fetchData();
     }, [searchOption, value]);
 
-    console.log("NFT Data: ",nftData);
+    console.log("NFT Data: ", nftData);
 
     if (!nftData.length) {
         return <p>Loading or no data available...</p>;
@@ -50,7 +50,7 @@ const NFTStatisticsDetails = () => {
 
     return (
         <div>
-            <Header/>
+            <Header />
             <div className="nft-statistics-container">
                 {nftData.map((nft) => (
                     <div key={nft.id} className="nft-item">
@@ -77,7 +77,6 @@ const NFTStatisticsDetails = () => {
                 ))}
             </div>
         </div>
-
     );
 };
 

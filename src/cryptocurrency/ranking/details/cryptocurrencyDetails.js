@@ -19,6 +19,8 @@ import TokenAccountBalanceComponent from "./solana/tokenAccountBalance";
 import TokenSupplyComponent from "./solana/tokenSupply";
 import TransactionSignatureComponent from "./solana/signatureStatuses";
 import SignaturesForAddressComponent from "./solana/signaturesForAddress";
+import axios from "axios";
+import { getToken } from "../../../security"; // Import the getToken function
 
 const CryptocurrencyDetails = () => {
   const [activeTab, setActiveTab] = useState("overview"); // State to track the active tab
@@ -29,43 +31,42 @@ const CryptocurrencyDetails = () => {
   const [firstAvailableBlock, setFirstAvailableBlock] = useState(null);
   const [minimumLedgerSlot, setMinimumLedgerSlot] = useState(null);
 
-
   const location = useLocation();
   const cmcId = location.state?.cmcId;
 
   useEffect(() => {
-    fetch(`http://localhost:8080/cryptocurrency/${cmcId}`)
-        .then(response => response.json())
-        .then(data => setCryptoData(data))
-        .catch(error => console.error("Error fetching data:", error));
+    const token = getToken(); // Get the token from localStorage
+    const headers = { 'Authorization': `Bearer ${token}` };
 
-    if (cmcId === 1) {
-      fetch("http://localhost:8080/bitcoin/stats")
-          .then(response => response.json())
-          .then(data => setBitcoinData(data))
-          .catch(error => console.error("Error fetching Bitcoin data:", error));
-    }
-    if (cmcId === 5426) {
-      fetch("http://localhost:8080/solana/network/currentEpoch")
-          .then(response => response.json())
-          .then(data => setCurrentEpoch(data))
-          .catch(error => console.error("Error fetching current epoch data:", error));
+    const fetchData = async () => {
+      try {
+        const cryptoResponse = await axios.get(`http://localhost:8080/cryptocurrency/${cmcId}`, { headers });
+        setCryptoData(cryptoResponse.data);
 
-      fetch("http://localhost:8080/solana/network/genesisHash")
-          .then(response => response.json())
-          .then(data => setGenesisHash(data))
-          .catch(error => console.error("Error fetching genesis hash data:", error));
+        if (cmcId === 1) {
+          const bitcoinResponse = await axios.get("http://localhost:8080/bitcoin/stats", { headers });
+          setBitcoinData(bitcoinResponse.data);
+        }
 
-      fetch("http://localhost:8080/solana/network/firstAvailableBlock")
-          .then(response => response.json())
-          .then(data => setFirstAvailableBlock(data))
-          .catch(error => console.error("Error fetching first available block data:", error));
+        if (cmcId === 5426) {
+          const epochResponse = await axios.get("http://localhost:8080/solana/network/currentEpoch", { headers });
+          setCurrentEpoch(epochResponse.data);
 
-      fetch("http://localhost:8080/solana/slot/minimum")
-          .then(response => response.json())
-          .then(data => setMinimumLedgerSlot(data))
-          .catch(error => console.error("Error fetching minimum ledger slot data:", error));
-    }
+          const genesisHashResponse = await axios.get("http://localhost:8080/solana/network/genesisHash", { headers });
+          setGenesisHash(genesisHashResponse.data);
+
+          const firstBlockResponse = await axios.get("http://localhost:8080/solana/network/firstAvailableBlock", { headers });
+          setFirstAvailableBlock(firstBlockResponse.data);
+
+          const minimumSlotResponse = await axios.get("http://localhost:8080/solana/slot/minimum", { headers });
+          setMinimumLedgerSlot(minimumSlotResponse.data);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
   }, [cmcId]);
 
   const renderContent = () => {

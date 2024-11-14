@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { getToken } from '../../../../security'; // Import the getToken function
 
 const TokenAccountByOwnerComponent = () => {
     const [value1, setValue1] = useState('');
@@ -7,18 +9,25 @@ const TokenAccountByOwnerComponent = () => {
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const fetchTokenAccount = () => {
+    const fetchTokenAccount = async () => {
         setLoading(true);
-        fetch(`http://localhost:8080/solana/token/tokenAccountByOwner/${value1}?option=${option}&pubkey=${value2}`)
-            .then(response => response.json())
-            .then(data => {
-                setData(data);
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error("Error fetching token account data:", error);
-                setLoading(false);
+        const token = getToken(); // Get the token from localStorage
+        const headers = { 'Authorization': `Bearer ${token}` };
+
+        try {
+            const response = await axios.get(`http://localhost:8080/solana/token/tokenAccountByOwner/${value1}`, {
+                headers,
+                params: {
+                    option,
+                    pubkey: value2,
+                },
             });
+            setData(response.data);
+        } catch (error) {
+            console.error("Error fetching token account data:", error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (

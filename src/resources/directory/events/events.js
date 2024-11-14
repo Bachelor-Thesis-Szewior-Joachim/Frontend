@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { useParams } from "react-router-dom";
 import Header from "../../../header";
 import "./events.css";
-import data from "./data"; // Your exchange data
+import data from "./data";
 
 const BlockchainEvents = () => {
   const { type } = useParams();

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../../header.js";
 import "./categories.css";
+import axios from "axios";
+import { getToken } from "../../../security"; // Import the getToken function
 
 const Categories = () => {
   const [allCategories, setAllCategories] = useState([]); // Holds all categories data from API
@@ -15,9 +17,13 @@ const Categories = () => {
     // Fetch all categories from the API once
     const fetchCategories = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/categories`);
-        const data = await response.json();
-        setAllCategories(data); // Store the full list of categories
+        const token = getToken(); // Get the token from localStorage
+        const headers = {
+          'Authorization': `Bearer ${token}`
+        };
+
+        const response = await axios.get(`http://localhost:8080/categories`, { headers });
+        setAllCategories(response.data); // Store the full list of categories
       } catch (error) {
         console.error("Error fetching categories:", error);
       }
@@ -92,7 +98,7 @@ const Categories = () => {
                       {category.categoryId.slice(0, 4) + "..."}
                     </div>
                     <div id="table-categories-name">
-                    {category.name}
+                      {category.name}
                     </div>
                     <div id="table-categories-title">{category.title}</div>
                     <div id="table-categories-description">{category.description}</div>

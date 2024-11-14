@@ -1,22 +1,28 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { getToken } from '../../../../security'; // Import the getToken function
 
 const TransactionSignatureComponent = () => {
     const [value, setValue] = useState('');
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const fetchTransactionSignature = () => {
+    const fetchTransactionSignature = async () => {
         setLoading(true);
-        fetch(`http://localhost:8080/solana/transaction/signatures?signatures=${value}`)
-            .then(response => response.json())
-            .then(data => {
-                setData(data);
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error("Error fetching transaction signature data:", error);
-                setLoading(false);
+        const token = getToken(); // Get the token from localStorage
+        const headers = { 'Authorization': `Bearer ${token}` };
+
+        try {
+            const response = await axios.get(`http://localhost:8080/solana/transaction/signatures`, {
+                params: { signatures: value },
+                headers,
             });
+            setData(response.data);
+        } catch (error) {
+            console.error("Error fetching transaction signature data:", error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (

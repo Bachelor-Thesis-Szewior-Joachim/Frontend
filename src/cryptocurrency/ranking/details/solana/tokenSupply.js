@@ -1,22 +1,25 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { getToken } from '../../../../security'; // Import the getToken function
 
 const TokenSupplyComponent = () => {
     const [value, setValue] = useState('');
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const fetchTokenSupply = () => {
+    const fetchTokenSupply = async () => {
         setLoading(true);
-        fetch(`http://localhost:8080/solana/token/tokenSupply/${value}`)
-            .then(response => response.json())
-            .then(data => {
-                setData(data);
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error("Error fetching token supply data:", error);
-                setLoading(false);
-            });
+        const token = getToken(); // Get the token from localStorage
+        const headers = { 'Authorization': `Bearer ${token}` };
+
+        try {
+            const response = await axios.get(`http://localhost:8080/solana/token/tokenSupply/${value}`, { headers });
+            setData(response.data);
+        } catch (error) {
+            console.error("Error fetching token supply data:", error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (

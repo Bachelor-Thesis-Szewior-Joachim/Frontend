@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { getToken } from '../../../../security'; // Import the getToken function
 
 const EthereumErc721Transfers = () => {
     const [address, setAddress] = useState('');
     const [erc721Transfers, setErc721Transfers] = useState([]);
 
-    const fetchErc721Transfers = () => {
-        fetch(`http://localhost:8080/ethereum/account/erc721transfers/${address}`)
-            .then(response => response.json())
-            .then(data => setErc721Transfers(data))
-            .catch(error => console.error('Error fetching ERC721 transfers:', error));
+    const fetchErc721Transfers = async () => {
+        const token = getToken(); // Get the token from localStorage
+        const headers = { 'Authorization': `Bearer ${token}` };
+
+        try {
+            const response = await axios.get(`http://localhost:8080/ethereum/account/erc721transfers/${address}`, { headers });
+            setErc721Transfers(response.data);
+        } catch (error) {
+            console.error('Error fetching ERC721 transfers:', error);
+        }
     };
 
     return (

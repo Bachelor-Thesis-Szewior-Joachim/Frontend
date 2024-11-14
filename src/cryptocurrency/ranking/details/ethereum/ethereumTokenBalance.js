@@ -1,15 +1,22 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { getToken } from '../../../../security'; // Import the getToken function
 
 const EthereumTokenBalance = () => {
     const [value1, setValue1] = useState('');
     const [value2, setValue2] = useState('');
     const [balance, setBalance] = useState(null);
 
-    const fetchBalance = () => {
-        fetch(`http://localhost:8080/ethereum/account/tokenBalance/${value1}/${value2}`)
-            .then(response => response.json())
-            .then(data => setBalance(data))
-            .catch(error => console.error('Error fetching token balance:', error));
+    const fetchBalance = async () => {
+        const token = getToken(); // Get the token from localStorage
+        const headers = { 'Authorization': `Bearer ${token}` };
+
+        try {
+            const response = await axios.get(`http://localhost:8080/ethereum/account/tokenBalance/${value1}/${value2}`, { headers });
+            setBalance(response.data);
+        } catch (error) {
+            console.error('Error fetching token balance:', error);
+        }
     };
 
     return (

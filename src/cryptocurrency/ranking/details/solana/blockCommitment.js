@@ -1,24 +1,26 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { getToken } from '../../../../security'; // Import the getToken function
 
 const CommitmentComponent = () => {
     const [value, setValue] = useState('');
     const [data, setData] = useState(null);
     const [loading, setLoading] = useState(false);
 
-    const fetchCommitmentData = () => {
+    const fetchCommitmentData = async () => {
         setLoading(true);
-        fetch(`http://localhost:8080/solana/block/commitment/${value}`)
-            .then(response => response.json())
-            .then(data => {
-                setData(data);
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error("Error fetching commitment data:", error);
-                setLoading(false);
-            });
-    };
+        const token = getToken(); // Get the token from localStorage
+        const headers = { 'Authorization': `Bearer ${token}` };
 
+        try {
+            const response = await axios.get(`http://localhost:8080/solana/block/commitment/${value}`, { headers });
+            setData(response.data);
+        } catch (error) {
+            console.error("Error fetching commitment data:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <div>

@@ -1,14 +1,21 @@
 import React, { useState } from 'react';
+import axios from 'axios';
+import { getToken } from '../../../../security';
 
 const EthereumErc20Transfers = () => {
     const [address, setAddress] = useState('');
     const [erc20Transfers, setErc20Transfers] = useState([]);
 
-    const fetchErc20Transfers = () => {
-        fetch(`http://localhost:8080/ethereum/account/erc20transfers/${address}`)
-            .then(response => response.json())
-            .then(data => setErc20Transfers(data))
-            .catch(error => console.error('Error fetching ERC20 transfers:', error));
+    const fetchErc20Transfers = async () => {
+        const token = getToken(); // Get the token from localStorage
+        const headers = { 'Authorization': `Bearer ${token}` };
+
+        try {
+            const response = await axios.get(`http://localhost:8080/ethereum/account/erc20transfers/${address}`, { headers });
+            setErc20Transfers(response.data);
+        } catch (error) {
+            console.error('Error fetching ERC20 transfers:', error);
+        }
     };
 
     return (

@@ -4,6 +4,8 @@ import Header from "../../../header";
 import SolanaBlockDetails from "./SolanaBlockDetails";
 import EthereumBlockDetails from "./EthereumBlockDetails";
 import BitcoinBlockDetails from "./BitcoinBlockDetails";
+import axios from "axios";
+import { getToken } from "../../../security"; // Import the getToken function
 
 function BlockDetails() {
   const location = useLocation();
@@ -29,15 +31,21 @@ function BlockDetails() {
         return;
     }
 
-    fetch(url)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          return response.json();
-        })
-        .then(data => setBlockData(data))
-        .catch(error => console.error("Error fetching block data:", error));
+    const fetchBlockData = async () => {
+      try {
+        const token = getToken(); // Get the token from localStorage
+        const headers = {
+          'Authorization': `Bearer ${token}`
+        };
+
+        const response = await axios.get(url, { headers });
+        setBlockData(response.data);
+      } catch (error) {
+        console.error("Error fetching block data:", error);
+      }
+    };
+
+    fetchBlockData();
   }, [address, blockchainType]);
 
   if (!blockData) return <p>Loading block data...</p>;
