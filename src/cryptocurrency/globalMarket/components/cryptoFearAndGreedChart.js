@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Chart } from "chart.js";
 import "./style.css";
 import axios from "axios";
-import { getToken } from "../../security"; // Import the getToken function
+import { getToken } from "../../../security"; // Import the getToken function
 
 const CryptoFearGreedIndexChart = () => {
   const chartRef = useRef(null);

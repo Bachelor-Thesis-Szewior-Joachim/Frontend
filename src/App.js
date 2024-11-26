@@ -8,7 +8,6 @@ import Transactions from "./blockchain/transactions/search/transactions";
 import Login from "./login/login";
 import SignUp from "./signup/signup";
 import News from "./resources/news/news";
-import Stats from "./resources/stats/stats";
 import Collection from "./tokens/collections/search/collection";
 import AccountDetails from "./blockchain/accounts/details/accountDetails";
 import TransactionDetails from "./blockchain/transactions/details/transactionDetails";
@@ -51,7 +50,6 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/resources/news" element={<News />} />
-        <Route path="/resources/stats" element={<Stats />} />
         <Route path="/resources/converter" element={<Converter />} />
         <Route path="/resources/directory" element={<Directory />} />
         <Route path="/tokens/collection" element={<Collection />} />

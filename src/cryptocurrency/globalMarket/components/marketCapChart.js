@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Chart } from "chart.js";
 import axios from "axios";
-import { getToken } from "../../security"; // Import the getToken function
+import { getToken } from "../../../security";
 
 const MarketCapChart = () => {
   const chartRef = useRef(null);
