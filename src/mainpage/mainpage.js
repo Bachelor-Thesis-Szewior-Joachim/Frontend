@@ -11,11 +11,9 @@ function Mainpage() {
           <div className="left-section">
             <section className="welcome-section">
               <p>
-                Welcome to <span className="brand-name">[Your Brand Name]</span>
+                Welcome to <span className="brand-name">WonBlock</span>
                 , your gateway to seamless blockchain transactions and real-time
-                insights across Ethereum, Solana, and our custom blockchain.
-                Connect your wallet, explore the blockchain, and make secure
-                transactions all in one place.
+                insights across Ethereum, Solana, and Bitcoin.
               </p>
             </section>
           </div>

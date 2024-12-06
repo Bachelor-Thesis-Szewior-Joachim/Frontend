@@ -168,3 +168,30 @@
   background-color: #2c2f36; /* Dropdown background */
   color: #ffffff; /* Option text color */
 }
+
+.search-button {
+  background-color: #5b8cfe; /* Jasny fioletowy */
+  color: #ffffff; /* Biały tekst */
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtelny cień */
+  margin-left: 10px; /* Mały odstęp od inputa */
+}
+
+.search-button:hover {
+  background-color: #3a3f47; /* Ciemniejszy fiolet */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Większy cień na hover */
+}
+
+.search-button:active {
+  transform: scale(0.95); /* Lekki efekt wciśnięcia */
+}
+
+.search-button:disabled {
+  background-color: #888; /* Szary na disabled */
+  cursor: not-allowed;
+}

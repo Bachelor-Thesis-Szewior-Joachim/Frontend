@@ -32,6 +32,8 @@ import Learning from "./resources/directory/learning/learning";
 import SmartContracts from "./resources/directory/smartContracts/smartContracts";
 import Mining from "./resources/directory/mining/mining";
 import Others from "./resources/directory/others/others";
+import SimulateTransaction from "./resources/simulateTransaction/simulateTransaction";
+import PredictPrices from "./resources/predictPrices/predictPrices";
 
 const App = () => {
   return (
@@ -112,6 +114,14 @@ const App = () => {
         <Route
           path="/resources/directory/others/:type"
           element={<Others />}
+        ></Route>
+        <Route
+            path="/resources/simulateTransaction"
+            element={<SimulateTransaction />}
+        ></Route>
+        <Route
+            path="/resources/predictPrices"
+            element={<PredictPrices />}
         ></Route>
       </Routes>
     </Router>

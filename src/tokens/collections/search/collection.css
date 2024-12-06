@@ -90,3 +90,12 @@
   text-decoration: underline;
   cursor: pointer;
 }
+.collection-image {
+  width: 25%; /* Scale to 25% of the original size */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Ensure the image fits well */
+  display: block; /* Remove inline spacing */
+  margin: 0 auto; /* Center the image in its container if needed */
+}
+
+

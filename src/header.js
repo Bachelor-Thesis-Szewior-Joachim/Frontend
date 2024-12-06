@@ -22,7 +22,7 @@ function Header() {
   return (
       <header className="Mainpage-header">
         <div className="logo" onClick={() => navigate("/")}>
-          LOGO
+          WonBlock
         </div>
         <div>
           <nav>
@@ -95,8 +95,8 @@ function Header() {
                     <li id="list-elem" onClick={() => navigate("/resources/news")}>
                       News
                     </li>
-                    <li id="list-elem" onClick={() => navigate("/simulateTransaction")}>Simulate Transaction</li>
-                    <li id="list-elem" onClick={() => navigate("/predictPrices")}>Predict Prices</li>
+                    <li id="list-elem" onClick={() => navigate("/resources/simulateTransaction")}>Simulate Transaction</li>
+                    <li id="list-elem" onClick={() => navigate("/resources/predictPrices")}>Predict Prices</li>
                   </ul>
                 </li>
               </div>

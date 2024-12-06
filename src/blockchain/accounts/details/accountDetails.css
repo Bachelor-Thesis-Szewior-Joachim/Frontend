@@ -64,3 +64,41 @@ th {
 tbody tr:last-child td {
   border-bottom: none;
 }
+.bitcoinAccountTable {
+  width: 60%;
+  margin: 20px auto; /* Center table */
+  border-collapse: collapse; /* Remove gaps between table cells */
+  text-align: center;
+  background-color: #2c2f36; /* Dark background */
+  color: #ffffff; /* White text */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+.bitcoinAccountTable th,
+.bitcoinAccountTable td {
+  padding: 10px;
+  border: 1px solid #444; /* Border between cells */
+}
+
+.bitcoinAccountTable th {
+  background-color: #3a3f47; /* Darker background for headers */
+  font-weight: bold;
+}
+
+.bitcoinAccountTable tr:nth-child(even) {
+  background-color: #444; /* Alternating row colors */
+}
+
+.bitcoinAccountTable tr:hover {
+  background-color: #5b8cfe; /* Highlight on hover */
+}
+
+h2, h3 {
+  /*color: #5b8cfe; !* Light purple headers *!*/
+  text-align: center;
+}
+
+p {
+  color: #ffffff;
+  text-align: center;
+}

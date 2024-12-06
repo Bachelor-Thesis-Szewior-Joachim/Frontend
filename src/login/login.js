@@ -14,11 +14,13 @@ function Login() {
     try {
       const response = await axios.post(
           'http://localhost:8080/client/login',
-          {},
+          {
+            username: username,
+            password: password
+          },
           {
             headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Basic ' + btoa(`${username}:${password}`)
+              'Content-Type': 'application/json'
             }
           }
       );
@@ -43,6 +45,7 @@ function Login() {
 
     console.log("Stored Token:", localStorage.getItem("token"));
   }
+
 
 
 
