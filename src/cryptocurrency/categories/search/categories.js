@@ -77,42 +77,39 @@ const Categories = () => {
             </div>
           </div>
 
-          <div className="table">
-            <div className="table-header">
+          <div className="category-table">
+            <div className="category-table-header">
               <div id="table-categories-category-id">Category ID</div>
               <div id="table-categories-name">Name</div>
               <div id="table-categories-title">Title</div>
               <div id="table-categories-description">Description</div>
-              <div id="table-categories-number-of-tokens">Number of Tokens</div>
               <div id="table-categories-avg-price-change">Avg. Price Change</div>
               <div id="table-categories-market-cap">Market Cap</div>
               <div id="table-categories-market-cap-change">Market Cap Change</div>
               <div id="table-categories-volume">Volume</div>
               <div id="table-categories-volume-change">Volume Change</div>
             </div>
-
-            <div className="table-body">
+            <div className="category-table-body">
               {currentCategories.map((category, index) => (
-                  <div key={index} className="table-row">
-                    <div id="table-categories-category-id">
-                      {category.categoryId.slice(0, 4) + "..."}
-                    </div>
-                    <div id="table-categories-name">
-                      {category.name}
-                    </div>
-                    <div id="table-categories-title">{category.title}</div>
-                    <div id="table-categories-description">{category.description}</div>
-                    <div id="table-categories-number-of-tokens">{category.numberOfTokens}</div>
+                  <div key={index} className="category-table-row">
+                    <div id="table-categories-category-id">{category.categoryId.slice(0, 4) + "..."}</div>
+                    <div id="table-categories-name">{category.name.slice(0, 10) + "..."}</div>
+                    <div id="table-categories-title">{category.title.slice(0, 6) + "..."}</div>
+                    <div id="table-categories-description">{category.description.slice(0, 4) + "..."}</div>
                     <div id="table-categories-avg-price-change">
-                      {category.avgPriceChange}%
+                      {category.avgPriceChange ? `${parseFloat(category.avgPriceChange).toFixed(2)}%` : "N/A"}
                     </div>
-                    <div id="table-categories-market-cap">{category.marketCap}</div>
+                    <div id="table-categories-market-cap">
+                      {category.marketCap ? `${parseFloat(category.marketCap).toFixed(2).slice(0, 8) + "..."}` : "N/A"}
+                    </div>
                     <div id="table-categories-market-cap-change">
-                      {category.marketCapChange}%
+                      {category.marketCapChange ? `${parseFloat(category.marketCapChange).toFixed(2)}%` : "N/A"}
                     </div>
-                    <div id="table-categories-volume">{category.volume}</div>
+                    <div id="table-categories-volume">
+                      {category.volume ? `${parseFloat(category.volume).toFixed(2).slice(0, 6) + "..."}` : "N/A"}
+                    </div>
                     <div id="table-categories-volume-change">
-                      {category.volumeChange}%
+                      {category.volumeChange ? `${parseFloat(category.volumeChange).toFixed(2).slice(0, 6) + "..."}%` : "N/A"}
                     </div>
                   </div>
               ))}

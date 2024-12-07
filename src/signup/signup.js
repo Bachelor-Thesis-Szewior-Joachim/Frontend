@@ -17,7 +17,7 @@ function SignUp() {
         username,
         password
       });
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       console.error("Sign-up failed:", error);
     }
