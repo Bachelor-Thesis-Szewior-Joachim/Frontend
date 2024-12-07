@@ -7,7 +7,7 @@ import { getToken } from "../../security"; // Import the getToken function
 
 const GainersAndLosers = () => {
   const [coins, setCoins] = useState([]);
-  const [coinsPerPage, setCoinsPerPage] = useState(10);
+  const [coinsPerPage, setCoinsPerPage] = useState(20);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [sortColumn, setSortColumn] = useState(null);
@@ -22,7 +22,7 @@ const GainersAndLosers = () => {
       const lastIndex = page * coinsPerPage;
       const token = getToken(); // Get the token from localStorage
       const headers = {
-        'Authorization': `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       };
 
       const response = await axios.get(
@@ -91,7 +91,7 @@ const GainersAndLosers = () => {
           This is the list of crypto coins and tokens that gained or lost the most in 24 hours with volume &gt; 50,000 USD
         </h4>
 
-        <div className="gainers-and-losers-container">
+        <div className="gainersAndLosers-container">
           <div className="list-of-blocks-header">
             <div id="amount-of-blocks">Total amount of coins: {100000}</div>
             <div id="amount-per-page-div">
@@ -106,7 +106,12 @@ const GainersAndLosers = () => {
               </select>
             </div>
             <div id="button-first-div">
-              <button id="button-first" onClick={() => {setCurrentPage(1)}}>First</button>
+              <button
+                  id="button-first"
+                  onClick={() => setCurrentPage(1)}
+              >
+                First
+              </button>
             </div>
             <div className="pagination">
               <button
@@ -128,11 +133,16 @@ const GainersAndLosers = () => {
               </button>
             </div>
             <div id="button-last-div">
-              <button id="button-last" onClick={() => {setCurrentPage(10)}}>Last</button>
+              <button
+                  id="button-last"
+                  onClick={() => setCurrentPage(totalPages)}
+              >
+                Last
+              </button>
             </div>
           </div>
-          <div className="table">
-            <div className="table-header">
+          <div className="gainersAndLosers-table">
+            <div className="gainersAndLosers-table-header">
               <div onClick={() => sortCoins("cmcRank")}>#</div>
               <div onClick={() => sortCoins("name")}>Name</div>
               <div onClick={() => sortCoins("symbol")}>Symbol</div>
@@ -141,13 +151,15 @@ const GainersAndLosers = () => {
               <div onClick={() => sortCoins("percentChange24h")}>24h %</div>
               <div onClick={() => sortCoins("percentChange7d")}>7d %</div>
               <div onClick={() => sortCoins("volume24h")}>Volume (24h)</div>
-              <div onClick={() => sortCoins("circulatingSupply")}>Circulating Supply</div>
+              <div onClick={() => sortCoins("circulatingSupply")}>
+                Circulating Supply
+              </div>
               <div onClick={() => sortCoins("marketCap")}>Market Cap</div>
             </div>
 
-            <div className="table-body">
+            <div className="gainersAndLosers-table-body">
               {sortedCoins.map((coin) => (
-                  <div key={coin.id} className="table-row">
+                  <div key={coin.id} className="gainersAndLosers-table-row">
                     <div>{coin.cmcRank}</div>
                     <div>{coin.name}</div>
                     <div>{coin.symbol}</div>
@@ -156,7 +168,9 @@ const GainersAndLosers = () => {
                     <div>{`${coin.percentChange24h.toFixed(2)}%`}</div>
                     <div>{`${coin.percentChange7d.toFixed(2)}%`}</div>
                     <div>{`$${parseFloat(coin.volume24h).toLocaleString()}`}</div>
-                    <div>{`${parseFloat(coin.circulatingSupply).toLocaleString()} ${coin.symbol}`}</div>
+                    <div>{`${parseFloat(coin.circulatingSupply).toLocaleString()} ${
+                        coin.symbol
+                    }`}</div>
                     <div>{`$${parseFloat(coin.marketCap).toLocaleString()}`}</div>
                   </div>
               ))}

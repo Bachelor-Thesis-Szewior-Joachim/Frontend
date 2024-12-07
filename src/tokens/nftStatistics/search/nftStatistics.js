@@ -112,7 +112,7 @@ function NftStatistics() {
               <th>7d Change (%)</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody style={{textAlign: "center"}}>
             {currentTokens.map((token) => (
                 <tr key={token.id}>
                   <td>
@@ -123,14 +123,14 @@ function NftStatistics() {
                   {token.cmcId}
                 </span>
                   </td>
-                  <td>{token.cryptocurrencyDto.name}</td>
-                  <td>{token.cryptocurrencyDto.symbol}</td>
-                  <td>{token.cryptocurrencyDto.price.toFixed(2)}</td>
-                  <td>{token.cryptocurrencyDto.marketCap.toLocaleString()}</td>
-                  <td>{token.cryptocurrencyDto.volume24h.toLocaleString()}</td>
-                  <td>{token.cryptocurrencyDto.percentChange1h.toFixed(2)}</td>
-                  <td>{token.cryptocurrencyDto.percentChange24h.toFixed(2)}</td>
-                  <td>{token.cryptocurrencyDto.percentChange7d.toFixed(2)}</td>
+                  <td style={{textAlign: "center"}}>{token.cryptocurrencyDto.name}</td>
+                  <td style={{textAlign: "center"}}>{token.cryptocurrencyDto.symbol}</td>
+                  <td style={{textAlign: "center"}}>{token.cryptocurrencyDto.price.toFixed(2)}</td>
+                  <td style={{textAlign: "center"}}>{token.cryptocurrencyDto.marketCap.toLocaleString()}</td>
+                  <td style={{textAlign: "center"}}>{token.cryptocurrencyDto.volume24h.toLocaleString()}</td>
+                  <td style={{textAlign: "center"}}>{token.cryptocurrencyDto.percentChange1h.toFixed(2)}</td>
+                  <td style={{textAlign: "center"}}>{token.cryptocurrencyDto.percentChange24h.toFixed(2)}</td>
+                  <td style={{textAlign: "center"}}>{token.cryptocurrencyDto.percentChange7d.toFixed(2)}</td>
                 </tr>
             ))}
             </tbody>

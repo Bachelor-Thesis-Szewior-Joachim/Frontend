@@ -93,12 +93,50 @@ tbody tr:last-child td {
   background-color: #5b8cfe; /* Highlight on hover */
 }
 
-h2, h3 {
-  /*color: #5b8cfe; !* Light purple headers *!*/
+h1,h2, h3 {
   text-align: center;
 }
 
 p {
   color: #ffffff;
   text-align: center;
+}
+
+/* Table styles for Ethereum Account Details */
+#ethereumAccountDetailsTable {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background-color: #2e0249; /* Light purple background */
+  color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+#ethereumAccountDetailsTable th,
+#ethereumAccountDetailsTable td {
+  border: 1px solid #9a6db0; /* Light purple border */
+  padding: 10px;
+  text-align: left;
+}
+
+#ethereumAccountDetailsTable th {
+  background-color: #6a0dad; /* Deep purple for header */
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+}
+
+#ethereumAccountDetailsTable td {
+  background-color: #3b0d55; /* Slightly lighter purple for rows */
+}
+
+#ethereumAccountDetailsTable tr:nth-child(even) td {
+  background-color: #4c1373; /* Alternating row color */
+}
+
+#ethereumAccountDetailsTable tr:hover td {
+  background-color: #6a0dad; /* Highlight row on hover */
+  cursor: pointer;
 }

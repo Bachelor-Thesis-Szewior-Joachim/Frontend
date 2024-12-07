@@ -1,37 +1,43 @@
 import React from 'react';
+import "./transactionDetails.css"
 
 function SolanaTransaction({ transaction }) {
-    return (
-        <div>
-            <h3>Solana Transaction Details</h3>
-            <p><strong>Block Time:</strong> {transaction.blockTime}</p>
-            <p><strong>Slot:</strong> {transaction.slot}</p>
-            <p><strong>Signatures:</strong> {transaction.signatures.join(", ")}</p>
-            <p><strong>Recent Block Hash:</strong> {transaction.message.recentBlockHash}</p>
+        return (
+            <div className="solanaTransactionDetails-container">
+                    <div className="solanaTransactionDetails-group">
+                            <p className="solanaTransactionDetails-item"><strong>Block Time:</strong> {transaction.blockTime}</p>
+                            <p className="solanaTransactionDetails-item"><strong>Slot:</strong> {transaction.slot}</p>
+                            <p className="solanaTransactionDetails-item"><strong>Signatures:</strong> {transaction.signatures.join(", ")}</p>
+                            <p className="solanaTransactionDetails-item"><strong>Recent Block Hash:</strong> {transaction.message.recentBlockHash}</p>
+                    </div>
 
-            <h4>Account Keys</h4>
-            <ul>
-                {transaction.message.accountKeys.map((key, index) => (
-                    <li key={index}>{key}</li>
-                ))}
-            </ul>
+                    <h3 className="solanaTransactionDetails-subtitle">Account Keys</h3>
+                    <ul className="solanaTransactionDetails-list">
+                            {transaction.message.accountKeys.map((key, index) => (
+                                <li key={index} className="solanaTransactionDetails-listItem">{key}</li>
+                            ))}
+                    </ul>
 
-            <h4>Header</h4>
-            <p><strong>Number of Required Signatures:</strong> {transaction.message.header.numRequiredSignatures}</p>
-            <p><strong>Number of Readonly Signed Accounts:</strong> {transaction.message.header.numReadonlySignedAccounts}</p>
-            <p><strong>Number of Readonly Unsigned Accounts:</strong> {transaction.message.header.numReadonlyUnsignedAccounts}</p>
+                    <h3 className="solanaTransactionDetails-subtitle">Header</h3>
+                    <div className="solanaTransactionDetails-group">
+                            <p className="solanaTransactionDetails-item"><strong>Number of Required Signatures:</strong> {transaction.message.header.numRequiredSignatures}</p>
+                            <p className="solanaTransactionDetails-item"><strong>Number of Readonly Signed Accounts:</strong> {transaction.message.header.numReadonlySignedAccounts}</p>
+                            <p className="solanaTransactionDetails-item"><strong>Number of Readonly Unsigned Accounts:</strong> {transaction.message.header.numReadonlyUnsignedAccounts}</p>
+                    </div>
 
-            <h4>Instructions</h4>
-            {transaction.message.instructions.map((instruction, index) => (
-                <div key={index} style={{ marginBottom: '10px' }}>
-                    <p><strong>Program ID Index:</strong> {instruction.programIdIndex}</p>
-                    <p><strong>Accounts:</strong> {instruction.accounts.join(", ") || "None"}</p>
-                    <p><strong>Data:</strong> {instruction.data}</p>
-                    <p><strong>Stack Height:</strong> {instruction.stackHeight !== null ? instruction.stackHeight : "N/A"}</p>
-                </div>
-            ))}
-        </div>
-    );
+                    <h3 className="solanaTransactionDetails-subtitle">Instructions</h3>
+                    <div className="solanaTransactionDetails-instructions">
+                            {transaction.message.instructions.map((instruction, index) => (
+                                <div key={index} className="solanaTransactionDetails-instruction">
+                                        <p><strong>Program ID Index:</strong> {instruction.programIdIndex}</p>
+                                        <p><strong>Accounts:</strong> {instruction.accounts.join(", ") || "None"}</p>
+                                        <p><strong>Data:</strong> {instruction.data}</p>
+                                        <p><strong>Stack Height:</strong> {instruction.stackHeight !== null ? instruction.stackHeight : "N/A"}</p>
+                                </div>
+                            ))}
+                    </div>
+            </div>
+        );
 }
 
 export default SolanaTransaction;

@@ -13,6 +13,7 @@ function BitcoinDetails({ data, onNavigateToTransaction, onNavigateToAccount }) 
             <p><strong>Number of Transactions:</strong> {data.n_tx}</p>
             <p><strong>Unconfirmed Transactions:</strong> {data.unconfirmed_n_tx}</p>
             <p><strong>Final Number of Transactions:</strong> {data.final_n_tx}</p>
+
             {data.transactions ? (
                 <div>
                     <h3>Transactions:</h3>

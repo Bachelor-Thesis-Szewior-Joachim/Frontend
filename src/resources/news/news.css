@@ -1,0 +1,63 @@
+body {
+    font-family: "Arial", sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    background-color: #1a0033;
+}
+
+.news-container {
+    max-width: 1200px; /* Set a maximum width for better readability */
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.news-container h2 {
+    font-size: 32px;
+    color: #e6e6ff; /* Softer white for heading */
+    margin-bottom: 30px;
+    text-transform: uppercase; /* Capitalize the heading */
+    border-bottom: 2px solid #75288a; /* Add a border for style */
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+.news-article {
+    background: linear-gradient(135deg, #2a003f, #1f0033); /* Add a gradient background */
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5); /* Add subtle shadow */
+}
+
+.news-title a {
+    color: #5b8cfe; /* Use a blue color for links */
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.news-title a:hover {
+    color: #e6e6ff; /* Change color on hover */
+}
+
+.news-author {
+    font-size: 18px;
+    color: #b3b3cc; /* Light gray for author name */
+    margin: 10px 0;
+    font-style: italic; /* Italicize the author name */
+}
+
+.news-description {
+    font-size: 20px;
+    color: #e0e0e0;
+    margin-bottom: 15px;
+}
+
+.news-source {
+    font-size: 16px;
+    color: #a0a0a0;
+    margin-top: 10px;
+}

@@ -34,7 +34,7 @@ function Blocks() {
           <input
               type="text"
               className="search-bar"
-              placeholder="Search wallet address"
+              placeholder="Search block address"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
               onKeyPress={(e) => {

@@ -28,29 +28,36 @@ function AccountDetails() {
       }
 
       try {
-        let response = "";
-        let transactionResponse = ""
         const token = getToken();
         const headers = {
-          'Authorization': `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
+        };
+
+        let responseData = null;
+        let transactionData = null;
+
+        if (smallLetter === "ethereum" || smallLetter === "bitcoin") {
+          const response = await axios.get(
+              `http://localhost:8080/${smallLetter}/account/data/${searchTerm}`,
+              { headers }
+          );
+          responseData = response.data;
+        } else if (smallLetter === "solana") {
+          const accountResponse = await axios.get(
+              `http://localhost:8080/${smallLetter}/account/${searchTerm}`,
+              { headers }
+          );
+          const transactionResponse = await axios.get(
+              `http://localhost:8080/${smallLetter}/transaction/signaturesForAddress/${searchTerm}`,
+              { headers }
+          );
+          responseData = accountResponse.data;
+          transactionData = transactionResponse.data;
         }
 
-        if (smallLetter === 'ethereum') {
-          response = await axios.get(`http://localhost:8080/${smallLetter}/account/data/${searchTerm}`, { headers });
-        } else if (smallLetter === 'bitcoin') {
-          response = await axios.get(`http://localhost:8080/${smallLetter}/account/data/${searchTerm}`, { headers });
-        } else if (smallLetter === 'solana') {
-          response = await axios.get(`http://localhost:8080/${smallLetter}/account/${searchTerm}`, { headers });
-          transactionResponse = await axios.get(`http://localhost:8080/${smallLetter}/transaction/signaturesForAddress/${searchTerm}`, { headers });
-          setTransactions(transactionResponse.data);
-        }
-
-        if (!response.ok) {
-          throw new Error("Failed to retrieve account data");
-        }
-        const data = await response.json();
-        console.log(`Ethereum response: `, data);
-        setAccountData(data);
+        // Set data
+        setAccountData(responseData);
+        if (transactionData) setTransactions(transactionData);
       } catch (error) {
         console.error("Error fetching account data:", error);
         setError("Error fetching account data");
@@ -60,7 +67,8 @@ function AccountDetails() {
     };
 
     fetchData();
-  }, [searchTerm, blockchainType]);
+  }, [searchTerm, blockchainType, smallLetter]);
+
 
   if (loading) {
     return <div>Loading...</div>;
@@ -107,7 +115,6 @@ function AccountDetails() {
       <div>
         <Header />
         <div className="account-details-container">
-          <h1>Account Details</h1>
           {DetailsComponent}
         </div>
       </div>

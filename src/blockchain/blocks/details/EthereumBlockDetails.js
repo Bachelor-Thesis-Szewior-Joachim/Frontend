@@ -1,57 +1,146 @@
-import React from "react";
+import React, { useState } from "react";
 
 function EthereumBlockDetails({ data }) {
+    const [currentTransactionPage, setCurrentTransactionPage] = useState(0); // Track transaction page
+    const [currentWithdrawalPage, setCurrentWithdrawalPage] = useState(0); // Track withdrawal page
+    const itemsPerPage = 5; // Items per page
 
-    console.log(data)
+    const transactions = data.transactions || [];
+    const withdrawals = data.withdrawals || [];
+    const totalTransactionPages = Math.ceil(transactions.length / itemsPerPage);
+    const totalWithdrawalPages = Math.ceil(withdrawals.length / itemsPerPage);
+
+    // Calculate the current set of transactions and withdrawals
+    const currentTransactions = transactions.slice(
+        currentTransactionPage * itemsPerPage,
+        (currentTransactionPage + 1) * itemsPerPage
+    );
+
+    const currentWithdrawals = withdrawals.slice(
+        currentWithdrawalPage * itemsPerPage,
+        (currentWithdrawalPage + 1) * itemsPerPage
+    );
+
+    const goToPreviousTransactionPage = () => {
+        if (currentTransactionPage > 0) {
+            setCurrentTransactionPage(currentTransactionPage - 1);
+        }
+    };
+
+    const goToNextTransactionPage = () => {
+        if (currentTransactionPage < totalTransactionPages - 1) {
+            setCurrentTransactionPage(currentTransactionPage + 1);
+        }
+    };
+
+    const goToPreviousWithdrawalPage = () => {
+        if (currentWithdrawalPage > 0) {
+            setCurrentWithdrawalPage(currentWithdrawalPage - 1);
+        }
+    };
+
+    const goToNextWithdrawalPage = () => {
+        if (currentWithdrawalPage < totalWithdrawalPages - 1) {
+            setCurrentWithdrawalPage(currentWithdrawalPage + 1);
+        }
+    };
 
     return (
-        <div>
+        <div className="center-container">
             <h2>Ethereum Block Details</h2>
-            <p><strong>Block Number:</strong> {data.blockNumber}</p>
-            <p><strong>Block Hash:</strong> {data.blockHash}</p>
-            <p><strong>Timestamp:</strong> {new Date(data.timeStamp * 1000).toLocaleString()}</p>
-            <p><strong>Hash:</strong> {data.hash}</p>
-            <p><strong>Nonce:</strong> {data.nonce}</p>
+            <p><strong>Block Number:</strong> {parseInt(data.number, 16)}</p>
+            <p><strong>Block Hash:</strong> {data.hash}</p>
+            <p><strong>Timestamp:</strong> {new Date(parseInt(data.timestamp, 16) * 1000).toLocaleString()}</p>
+            <p><strong>Parent Hash:</strong> {data.parentHash}</p>
+            <p><strong>State Root:</strong> {data.stateRoot}</p>
+            <p><strong>Transactions Root:</strong> {data.transactionsRoot}</p>
+            <p><strong>Gas Used:</strong> {parseInt(data.gasUsed, 16)}</p>
+            <p><strong>Gas Limit:</strong> {parseInt(data.gasLimit, 16)}</p>
 
             <h3>Transactions</h3>
-            {data.transactions ? (
-                <ul>
-                    {data.transactions.map((tx, index) => (
-                        <li key={index}>
-                            <p><strong>Transaction Hash:</strong> {tx.hash}</p>
-                            <p><strong>Block Number:</strong> {tx.blockNumber}</p>
-                            <p><strong>Block Hash:</strong> {tx.blockHash}</p>
-                            <p><strong>Timestamp:</strong> {new Date(tx.timeStamp * 1000).toLocaleString()}</p>
-                            <p><strong>Nonce:</strong> {tx.nonce}</p>
-                            <p><strong>Transaction Index:</strong> {tx.transactionIndex}</p>
-                            <p><strong>From:</strong> {tx.from}</p>
-                            <p><strong>To:</strong> {tx.to || "N/A"}</p>
-                            <p><strong>Value:</strong> {tx.value}</p>
-                            <p><strong>Gas:</strong> {tx.gas}</p>
-                            <p><strong>Gas Price:</strong> {tx.gasPrice}</p>
-                            <p><strong>Input:</strong> {tx.input || "None"}</p>
-                            <p><strong>Method ID:</strong> {tx.methodId || "N/A"}</p>
-                            <p><strong>Function Name:</strong> {tx.functionName || "N/A"}</p>
-                            <p><strong>Contract Address:</strong> {tx.contractAddress || "N/A"}</p>
-                            <p><strong>Cumulative Gas Used:</strong> {tx.cumulativeGasUsed}</p>
-                            <p><strong>Transaction Receipt Status:</strong> {tx.txReceiptStatus === "1" ? "Success" : "Failed"}</p>
-                            <p><strong>Gas Used:</strong> {tx.gasUsed}</p>
-                            <p><strong>Confirmations:</strong> {tx.confirmations}</p>
-                            <p><strong>Is Error:</strong> {tx.isError === "1" ? "Yes" : "No"}</p>
-                            <p><strong>Token Name:</strong> {tx.tokenName || "N/A"}</p>
-                            <p><strong>Token Symbol:</strong> {tx.tokenSymbol || "N/A"}</p>
-                            <p><strong>Token Decimal:</strong> {tx.tokenDecimal || "N/A"}</p>
-                            <p><strong>Token ID:</strong> {tx.tokenId || "N/A"}</p>
-                            <p><strong>Trace ID:</strong> {tx.traceId || "N/A"}</p>
-                            <p><strong>Type:</strong> {tx.type || "N/A"}</p>
-                            <p><strong>Error Code:</strong> {tx.errorCode || "N/A"}</p>
-                            <hr />
-                        </li>
+            <div>
+                {currentTransactions.length > 0 ? (
+                <table id="ethereumTransactionsTable">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Transaction Hash</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {currentTransactions.map((tx, index) => (
+                        <tr key={index}>
+                            <td>{currentTransactionPage * itemsPerPage + index + 1}</td>
+                            <td>{tx}</td>
+                        </tr>
                     ))}
-                </ul>
+                    </tbody>
+                </table>
             ) : (
                 <p>No transactions available.</p>
             )}
+            </div>
+            <div className="pagination">
+                <button
+                    onClick={goToPreviousTransactionPage}
+                    disabled={currentTransactionPage === 0}
+                >
+                    Previous Transactions
+                </button>
+                <span>
+                    Page {currentTransactionPage + 1} of {totalTransactionPages}
+                </span>
+                <button
+                    onClick={goToNextTransactionPage}
+                    disabled={currentTransactionPage === totalTransactionPages - 1}
+                >
+                    Next Transactions
+                </button>
+            </div>
+
+            <h3>Withdrawals</h3>
+            {currentWithdrawals.length > 0 ? (
+                <table id="ethereumWithdrawalsTable">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Validator Index</th>
+                        <th>Address</th>
+                        <th>Amount</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {currentWithdrawals.map((wd, index) => (
+                        <tr key={index}>
+                            <td>{currentWithdrawalPage * itemsPerPage + index + 1}</td>
+                            <td>{parseInt(wd.validatorIndex, 16)}</td>
+                            <td>{wd.address}</td>
+                            <td>{parseInt(wd.amount, 16)}</td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            ) : (
+                <p>No withdrawals available.</p>
+            )}
+
+            <div className="pagination">
+                <button
+                    onClick={goToPreviousWithdrawalPage}
+                    disabled={currentWithdrawalPage === 0}
+                >
+                    Previous Withdrawals
+                </button>
+                <span>
+                    Page {currentWithdrawalPage + 1} of {totalWithdrawalPages}
+                </span>
+                <button
+                    onClick={goToNextWithdrawalPage}
+                    disabled={currentWithdrawalPage === totalWithdrawalPages - 1}
+                >
+                    Next Withdrawals
+                </button>
+            </div>
         </div>
     );
 }

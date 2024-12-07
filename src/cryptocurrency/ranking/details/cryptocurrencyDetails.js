@@ -3,7 +3,8 @@ import { useLocation } from "react-router-dom";
 import Header from "../../../header.js";
 import AboutComponent from "./about/aboutComponent.js";
 import ChartComponent from "./chart/chartComponent.js";
-import btcImage from "./btcImage.png";
+import btcImage from "./images/btcImage.png";
+import tetherImage from './images/tether-usdt-logo.png';
 import EthereumTokenBalance from "./ethereum/ethereumTokenBalance";
 import EthereumErc20Transfers from "./ethereum/ethereumErc20Transfers";
 import EthereumErc721Transfers from "./ethereum/ethereumErc721Transfers";
@@ -120,7 +121,11 @@ const CryptocurrencyDetails = () => {
           {/* Left Column */}
           <div className="left-column">
             <div className="profile">
-              <img src={btcImage} alt="Profile" />
+              <img
+                  src={cmcId === 1 ? btcImage : cmcId === 825 ? tetherImage : btcImage}
+                  alt={cmcId === 1 ? "Bitcoin" : cmcId === 825 ? "Tether" : "Default"}
+              />
+
               <h2>{cryptoData.name}</h2>
               <span className="badge">{cryptoData.category}</span>
               <span className="badge">{cryptoData.platformDto?.name}</span>

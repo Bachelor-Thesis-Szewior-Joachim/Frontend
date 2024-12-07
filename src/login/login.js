@@ -28,9 +28,16 @@ function Login() {
       console.log("Full Response:", response);
 
       if (response && response.data && response.data.accessToken) {
+        console.log('Response: ', response)
         const token = response.data.accessToken;
-        localStorage.setItem('token', token); // Store only the token
+        const publicKey = response.data.publicKey;
+        const privateKey = response.data.privateKey;
+        localStorage.setItem('token', token);
+        localStorage.setItem('publicKey', publicKey);
+        localStorage.setItem('privateKey', privateKey);
         console.log("Login successful, token:", token);
+        console.log("Login successful, token:", publicKey);
+        console.log("Login successful, token:", privateKey);
         window.location.href = '/';
       }
     } catch (error) {

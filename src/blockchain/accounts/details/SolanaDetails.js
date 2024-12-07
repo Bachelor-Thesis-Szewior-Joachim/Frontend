@@ -17,7 +17,6 @@ function SolanaDetails({ data, transactions, onNavigateToAccount }) {
             <p><strong>Executable:</strong> {data.executable ? "Yes" : "No"}</p>
             <p><strong>Rent Epoch:</strong> {data.rentEpoch}</p>
             <p><strong>Space:</strong> {data.space}</p>
-            <button onClick={() => onNavigateToAccount(data.owner)}>Go to Owner Account</button>
 
             <h3>Transactions</h3>
             {transactions.map((transaction) => (

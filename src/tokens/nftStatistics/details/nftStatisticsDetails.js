@@ -25,10 +25,13 @@ const NFTStatisticsDetails = () => {
 
         const fetchData = async () => {
             const token = getToken(); // Get the token from localStorage
-            const headers = { 'Authorization': `Bearer ${token}` };
+            const headers = { Authorization: `Bearer ${token}` };
 
             try {
-                const response = await axios.get(`http://localhost:8080/nft-statistics/${endpoint}`, { headers });
+                const response = await axios.get(
+                    `http://localhost:8080/nft-statistics/${endpoint}`,
+                    { headers }
+                );
                 if (searchOption === "Identifier") {
                     setNftData([response.data]); // Wrap data in an array for consistent rendering
                 } else {
@@ -42,8 +45,6 @@ const NFTStatisticsDetails = () => {
         fetchData();
     }, [searchOption, value]);
 
-    console.log("NFT Data: ", nftData);
-
     if (!nftData.length) {
         return <p>Loading or no data available...</p>;
     }
@@ -51,28 +52,43 @@ const NFTStatisticsDetails = () => {
     return (
         <div>
             <Header />
-            <div className="nft-statistics-container">
+            <div className="nftStatistics-container">
                 {nftData.map((nft) => (
-                    <div key={nft.id} className="nft-item">
+                    <div key={nft.id} className="nftStatistics-item">
                         <h3>{nft.name || "Unnamed NFT"}</h3>
                         <p><strong>Contract:</strong> {nft.contract}</p>
                         <p><strong>Identifier:</strong> {nft.identifier}</p>
-                        {nft.description && <p><strong>Description:</strong> {nft.description}</p>}
-                        <div className="nft-image-container">
-                            {nft.imageUrl && (
+                        {nft.description && (
+                            <p>
+                                <strong>Description:</strong> {nft.description}
+                            </p>
+                        )}
+                        <div className="nftStatistics-image-container">
+                            {nft.imageUrl ? (
                                 <video
                                     src={nft.imageUrl}
                                     controls
-                                    width="250"
                                     alt={nft.name}
-                                    className="nft-image"
+                                    className="nftStatistics-image"
                                 />
+                            ) : (
+                                <p>No video available</p>
                             )}
                         </div>
-                        <a href={nft.openseaUrl} target="_blank" rel="noopener noreferrer">
+                        <a
+                            href={nft.openseaUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="nftStatistics-opensea-link"
+                        >
                             View on OpenSea
                         </a>
-                        <p><small>Last updated: {new Date(nft.updatedAt).toLocaleString()}</small></p>
+                        <p className="nftStatistics-last-updated">
+                            Last updated:{" "}
+                            {nft.updatedAt
+                                ? new Date(nft.updatedAt).toLocaleString()
+                                : "Unknown"}
+                        </p>
                     </div>
                 ))}
             </div>

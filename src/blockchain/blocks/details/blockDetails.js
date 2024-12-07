@@ -6,7 +6,7 @@ import EthereumBlockDetails from "./EthereumBlockDetails";
 import BitcoinBlockDetails from "./BitcoinBlockDetails";
 import axios from "axios";
 import { getToken } from "../../../security"; // Import the getToken function
-
+import "./blockDetails.css"
 function BlockDetails() {
   const location = useLocation();
   const { address, blockchainType } = location.state || {};

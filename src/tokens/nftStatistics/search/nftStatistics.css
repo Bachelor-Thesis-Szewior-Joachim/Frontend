@@ -345,3 +345,6 @@
   font-weight: bold; /* Highlight the current page information */
   color: #ffffff; /* White text */
 }
+.td {
+  text-align: center;
+}

@@ -1,9 +1,92 @@
-h1,
-h4 {
-  padding-left: 10%;
+/* Center the container and make it wider */
+.gainersAndLosers-container {
+  margin: 0 auto;
+  max-width: 1400px; /* Increased width for better spacing */
+  padding: 20px;
+  text-align: center; /* Center align the text within the container */
 }
 
-.gainers-and-losers-container {
-  padding-left: 10%;
-  padding-right: 10%;
+/* Adjust heading alignment */
+.gainersAndLosers-container h1,
+.gainersAndLosers-container h4 {
+  text-align: center; /* Center align headings */
+}
+
+/* Table styling */
+.gainersAndLosers-table {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.gainersAndLosers-table-header,
+.gainersAndLosers-table-row {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr); /* Evenly spaced columns */
+  text-align: center; /* Center align text in all columns */
+  padding: 10px 0; /* Add spacing between rows */
+}
+
+.gainersAndLosers-table-header div {
+  font-weight: bold;
+  background-color: #3f0242; /* Header background color */
+  color: #ffffff; /* Text color */
+  padding: 15px 10px;
+}
+
+.gainersAndLosers-table-row div {
+  background-color: #240036; /* Row background color */
+  color: #ddd; /* Text color */
+  padding: 10px 5px; /* Increased padding for spacing */
+}
+
+/* Remove hover effect and borders */
+.gainersAndLosers-table-header div,
+.gainersAndLosers-table-row div {
+  border: none; /* No borders */
+  box-shadow: none; /* No shading */
+}
+
+/* Pagination styling */
+.gainersAndLosers-pagination {
+  display: flex;
+  justify-content: center; /* Center the pagination controls */
+  align-items: center;
+  margin-top: 20px;
+}
+
+.gainersAndLosers-pagination-button {
+  background-color: #3f0242;
+  color: #ffffff;
+  padding: 10px;
+  margin: 0 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  border: none; /* Remove borders */
+}
+
+.gainersAndLosers-pagination-button:hover {
+  background-color: #75288a;
+}
+
+.gainersAndLosers-pagination-info {
+  margin: 0 10px;
+  color: #ffffff;
+}
+
+/* First and Last buttons */
+#gainersAndLosers-button-first,
+#gainersAndLosers-button-last {
+  background-color: #3f0242;
+  color: #ffffff;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  border: none; /* Remove borders */
+}
+
+#gainersAndLosers-button-first:hover,
+#gainersAndLosers-button-last:hover {
+  background-color: #75288a;
 }

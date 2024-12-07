@@ -58,3 +58,173 @@
 .value {
   width: 150%;
 }
+
+/* Center the entire block within the viewport */
+.center-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh; /* Adjust for centering within the viewport */
+  text-align: center;
+}
+
+/* Table styles */
+#solanaTransactionsBlockDetailsTable {
+  width: 80%;
+  margin: 20px auto; /* Ensure the table stays horizontally centered */
+  border-collapse: collapse;
+  background-color: #2e0249; /* Light purple background */
+  color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+#solanaTransactionsBlockDetailsTable th,
+#solanaTransactionsBlockDetailsTable td {
+  border: 1px solid #9a6db0; /* Light purple border */
+  padding: 10px;
+  text-align: center;
+}
+
+#solanaTransactionsBlockDetailsTable th {
+  background-color: #6a0dad; /* Deep purple for header */
+  color: #fff;
+  font-weight: bold;
+}
+
+#solanaTransactionsBlockDetailsTable td {
+  background-color: #3b0d55; /* Slightly lighter purple for rows */
+}
+
+#solanaTransactionsBlockDetailsTable tr:nth-child(even) td {
+  background-color: #4c1373; /* Alternating row color */
+}
+
+#solanaTransactionsBlockDetailsTable tr:hover td {
+  background-color: #6a0dad; /* Highlight row on hover */
+  cursor: pointer;
+}
+
+/* Pagination styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.pagination button {
+  background-color: #6a0dad; /* Deep purple */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: #9a6db0;
+}
+
+.pagination button:disabled {
+  background-color: #444;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  color: #d3acd9;
+  font-size: 16px;
+}
+
+/* Center the entire block within the viewport */
+.center-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh; /* Adjust for centering within the viewport */
+  text-align: center;
+}
+
+#ethereumTransactionsTable,
+#ethereumWithdrawalsTable {
+  width: 80%;
+  margin: 20px auto; /* Ensure the table stays horizontally centered */
+  border-collapse: collapse;
+  background-color: #2e0249; /* Light purple background */
+  color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+#ethereumTransactionsTable th,
+#ethereumWithdrawalsTable th,
+#ethereumTransactionsTable td,
+#ethereumWithdrawalsTable td {
+  border: 1px solid #9a6db0; /* Light purple border */
+  padding: 10px;
+  text-align: center;
+}
+
+#ethereumTransactionsTable th,
+#ethereumWithdrawalsTable th {
+  background-color: #6a0dad; /* Deep purple for header */
+  color: #fff;
+  font-weight: bold;
+}
+
+#ethereumTransactionsTable td,
+#ethereumWithdrawalsTable td {
+  background-color: #3b0d55; /* Slightly lighter purple for rows */
+}
+
+#ethereumTransactionsTable tr:nth-child(even) td,
+#ethereumWithdrawalsTable tr:nth-child(even) td {
+  background-color: #4c1373; /* Alternating row color */
+}
+
+#ethereumTransactionsTable tr:hover td,
+#ethereumWithdrawalsTable tr:hover td {
+  background-color: #6a0dad; /* Highlight row on hover */
+  cursor: pointer;
+}
+
+/* Pagination styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.pagination button {
+  background-color: #6a0dad; /* Deep purple */
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: #9a6db0;
+}
+
+.pagination button:disabled {
+  background-color: #444;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  color: #d3acd9;
+  font-size: 16px;
+}
